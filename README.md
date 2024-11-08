@@ -33,9 +33,22 @@ She logs into SpendSmart and looks at her spending on the dashboard. She decides
 
 ### Anthony's Story
 
-Anthony wants to compare his spending this month with his spending last month.
+As a student, I want the app to give me relevant suggestions, so I can learn how to better reduce my spendings. [Anthony’s story]
 
-When Anthony views his statistics for spending for the past three months, he chooses to compare the current month with the previous month, and the app displays overlayed bar and line plots to help him make an educated decision on his spending habits.
+Use Cases:
+1. Sign up 
+   1. Enter a username and password into respective fields 
+   2. Click sign up button
+2. Log in
+   1. Enter username and password into respective fields 
+   2. Click login button
+3. Open the AI assistant window
+   1. Click the button named “AI Suggestions”
+4. Select a predetermined question
+   1. Click a button with a specific question
+5. Receive feedback from the AI
+6. Regenerate feedback 
+   1. Press regenerate button
 
 ### Ysajelle’s story
 
@@ -48,5 +61,6 @@ Ysajelle just signed up for Netflix membership, she opened SpendSmart, created a
 Annie has two jobs that she would like to track in SpendSmart.
 
 One of the jobs is a full-time job; the other one is a part-time contract job. She would like to separate the incomes from the two sources to verify that both of them are worth her time. Annie logs in to the SmartSpend account and sets one income type as a full-time (fixed) income with the source marked as her first job. The fixed income has a paycheck twice a month with a fixed amount, which does not need to be updated later on. The other payouts are categorized as part-time (variable) income, where the amount paid each time depends on the month and needs to be inputted every time.
+
 
 ## Entities
