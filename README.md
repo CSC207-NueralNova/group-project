@@ -62,4 +62,5 @@ Annie has two jobs that she would like to track in SpendSmart.
 
 One of the jobs is a full-time job; the other one is a part-time contract job. She would like to separate the incomes from the two sources to verify that both of them are worth her time. Annie logs in to the SmartSpend account and sets one income type as a full-time (fixed) income with the source marked as her first job. The fixed income has a paycheck twice a month with a fixed amount, which does not need to be updated later on. The other payouts are categorized as part-time (variable) income, where the amount paid each time depends on the month and needs to be inputted every time.
 
+
 ## Entities
