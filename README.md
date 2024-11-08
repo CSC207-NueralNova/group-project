@@ -45,8 +45,14 @@ Ysajelle just signed up for Netflix membership, she opened SpendSmart, created a
 
 ### Annie's Story
 
-Annie has two jobs that she would like to track in SpendSmart.
+As a person with both a full-time and a part-time jobs, I want to be able to track the incomes separately such that I would have a better understanding if the part-time job is worth my time.
 
-One of the jobs is a full-time job; the other one is a part-time contract job. She would like to separate the incomes from the two sources to verify that both of them are worth her time. Annie logs in to the SmartSpend account and sets one income type as a full-time (fixed) income with the source marked as her first job. The fixed income has a paycheck twice a month with a fixed amount, which does not need to be updated later on. The other payouts are categorized as part-time (variable) income, where the amount paid each time depends on the month and needs to be inputted every time.
+Use cases:
+1. Signin
+2. Login
+3. Inputting the income data 
+   1. Provide whether a source of income is periodic or not
+4. Visualize the income data
+   1. See a type of income alongside the amount
 
 ## Entities
