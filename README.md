@@ -49,10 +49,22 @@ As a person with both a full-time and a part-time jobs, I want to be able to tra
 
 Use cases:
 1. Signin
+   1. Input the username and password into the appropriate fields
+   2. Press the "Sing In" button
 2. Login
-3. Inputting the income data 
-   1. Provide whether a source of income is periodic or not
-4. Visualize the income data
-   1. See a type of income alongside the amount
+   1. Input the username and password into the appropriate fields
+   2. Press the "Log In" button
+3. Adding the income data with the income type
+   1. Click the "Add data" button
+   2. Choose the "Add Income" button
+   3. Input the fields:
+      1. Type of income (dropdown "Single time" or "Monthly")
+      2. Date
+      3. Amount
+   4. Press the Submit button
+4. Visualize the income data with the income type
+   1. Click the "View Data" button
+   2. Select the desired month
+   3. View the records of income with amount and type listed
 
 ## Entities
