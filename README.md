@@ -33,7 +33,7 @@ She logs into SpendSmart and looks at her spending on the dashboard. She decides
 
 ### Anthony's Story
 
-As a student, I want the app to give me relevant suggestions, so I can learn how to better reduce my spendings. [Anthony’s story]
+As someone with limited financial resources, I want to monitor my total expenses for a month, so that I can avoid overspending.
 
 Use Cases:
 1. Sign up 
@@ -42,13 +42,12 @@ Use Cases:
 2. Log in
    1. Enter username and password into respective fields 
    2. Click login button
-3. Open the AI assistant window
-   1. Click the button named “AI Suggestions”
-4. Select a predetermined question
-   1. Click a button with a specific question
-5. Receive feedback from the AI
-6. Regenerate feedback 
-   1. Press regenerate button
+3. Viewing expenses
+   1. Click "View Data" button
+4. Visualize expenses
+   1. Select the desired month
+   2. Click "Visualize" button
+5. View the total amount of money spent for the month
 
 ### Ysajelle’s story
 
