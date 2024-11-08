@@ -33,9 +33,22 @@ She logs into SpendSmart and looks at her spending on the dashboard. She decides
 
 ### Anthony's Story
 
-Anthony wants to compare his spending this month with his spending last month.
+As a student, I want the app to give me relevant suggestions, so I can learn how to better reduce my spendings. [Anthony’s story]
 
-When Anthony views his statistics for spending for the past three months, he chooses to compare the current month with the previous month, and the app displays overlayed bar and line plots to help him make an educated decision on his spending habits.
+Use Cases:
+1. Sign up 
+   1. Enter a username and password into respective fields 
+   2. Click sign up button
+2. Log in
+   1. Enter username and password into respective fields 
+   2. Click login button
+3. Open the AI assistant window
+   1. Click the button named “AI Suggestions”
+4. Select a predetermined question
+   1. Click a button with a specific question
+5. Receive feedback from the AI
+6. Regenerate feedback 
+   1. Press regenerate button
 
 ### Ysajelle’s story
 
