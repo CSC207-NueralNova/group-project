@@ -23,7 +23,19 @@ As a returning user, he is not greeted with the tutorial for new users. He then 
 
 ### James' Story
 
-James is prompted with a series of questions prior to the signup process. James then chooses either an email password combination, or to login using google authentication. If successful, he is directed to the dashboard page, where he will then be faced with an AI generated tutorial of all the features. He can then add his income input and spending output and generate statistics about his monthly spending.
+As a student, James wants to learn more about financial products and how to build positive spending and investment habits.
+
+Use Cases:
+1. Sign up
+   1. Enter a username an password into the signup page
+   2. Click the signup button
+2. Log in 
+   1. Enter username and password into the login page
+   2. Click the login button
+3. Talking with AI financial advisor
+   1. Click the start conversation with AI advisor button
+   2. Select a message from the given prompts
+
 
 ### Jia Yi's Story
 
