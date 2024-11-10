@@ -19,7 +19,18 @@
 
 As a young adult, I want to keep track of my budgeting so that I can have a better understanding of my finances.
 
-As a returning user, he is not greeted with the tutorial for new users. He then updated his monthly income with the latest information, and the dashboard visualization dynamically reflects this change. Junior then logs out of the account, returning them to the login page.
+Use Cases:
+1. Log in
+   1. Enter username & password into respective fields.
+   2. Click "login" button
+2. Input data
+   1. Click "Input" button
+3. Input income/expense
+   1. Click "Income" button
+4. Input income
+   1. Select type of income from dropdown
+   2. Input date as MMYY format
+   3. Click "Submit" buttom
 
 ### James' Story
 
@@ -29,6 +40,7 @@ James is prompted with a series of questions prior to the signup process. James 
 
 As a student, Clair wants to check how much she’s spent that month so she can plan for the next month.
 
+Use Cases:
 1. Log in
    1. Enter username & password into respective fields.
    2. Click "login" button
