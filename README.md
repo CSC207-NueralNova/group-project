@@ -33,9 +33,21 @@ She logs into SpendSmart and looks at her spending on the dashboard. She decides
 
 ### Anthony's Story
 
-Anthony wants to compare his spending this month with his spending last month.
+As someone with limited financial resources, I want to monitor my total expenses for a month, so that I can avoid overspending.
 
-When Anthony views his statistics for spending for the past three months, he chooses to compare the current month with the previous month, and the app displays overlayed bar and line plots to help him make an educated decision on his spending habits.
+Use Cases:
+1. Sign up 
+   1. Enter a username and password into respective fields 
+   2. Click sign up button
+2. Log in
+   1. Enter username and password into respective fields 
+   2. Click login button
+3. Viewing expenses
+   1. Click "View Data" button
+4. Visualize expenses
+   1. Select the desired month
+   2. Click "Visualize" button
+5. View the total amount of money spent for the month
 
 ### Ysajelle’s story
 
@@ -66,5 +78,6 @@ Use cases:
    1. Click the "View Data" button
    2. Select the desired month
    3. View the records of income with amount and type listed
+
 
 ## Entities
