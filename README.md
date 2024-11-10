@@ -51,9 +51,20 @@ Use Cases:
 
 ### Ysajelle’s story
 
-As a user, Ysajelle wants to organize her expenses by category so that she can have a summary of how much she spent on each category.
+As a Netflix user, I would like to track my monthly subscription and save it in a category, so that I don't need to add it every month.
 
-Ysajelle just signed up for Netflix membership, she opened SpendSmart, created a new category labeled “recreation expense”, added the cost of Netflix membership fee under that category. Then, whenever she spends anything on recreation, she adds it to the “recreation expense” category. When she checked her account after a few months, she found that she spent a lot on recreation in December 2024 by looking at December’s summary of expenses by categories.
+Use Cases:
+1. Sign in
+2. Login
+3. Open the "Input" window
+4. Input expense
+   1. Choose the occurrence of the expense from a dropdown, whether it is a monthly expenses or one-time expense.
+   2. Enter the month (format: "MMYY") when that expense occurs or starts.
+   3. Enter the amount.
+   4. Choose a category for the expense from a dropdown.
+5. Submit Expense
+   1. Click "Submit button"
+   2. An "expense added" message will pop up beside the "Submit" button.
 
 ### Annie's Story
 
