@@ -29,7 +29,18 @@ James is prompted with a series of questions prior to the signup process. James 
 
 As a student, Clair wants to check how much she’s spent that month so she can plan for the next month.
 
-She logs into SpendSmart and looks at her spending on the dashboard. She decides that she’s been spending too much on eating out so she asks the AI assistant to create a budgeting plan that lowers her expenses on food.
+1. Log in
+   1. Enter username & password into respective fields.
+   2. Click "login" button
+2. Viewing Expenses
+   1. Click "View Data" button
+   2. Select the current month
+   3. Look at the records
+3. Ask AI
+   1. Click "back" button to return to main view
+   2. Click "AI suggestions" button
+   3. Click on a question
+   4. Look at the suggestion
 
 ### Anthony's Story
 
