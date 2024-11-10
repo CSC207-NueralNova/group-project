@@ -2,6 +2,8 @@ package app;
 
 import javax.swing.JFrame;
 
+// TODO: adjust after everything else is done.
+
 /**
  * The Main class of our application.
  */
