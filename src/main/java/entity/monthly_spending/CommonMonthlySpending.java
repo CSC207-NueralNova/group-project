@@ -1,8 +1,5 @@
 package entity.monthly_spending;
 
-import entity.user.CommonUser;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -29,7 +26,7 @@ public class CommonMonthlySpending implements MonthlySpending{
     }
 
     @Override
-    public ArrayList<Item> getSpending() {
+    public ArrayList<Item> getRecurrentSpending() {
         return recurrentItems;
     }
 
