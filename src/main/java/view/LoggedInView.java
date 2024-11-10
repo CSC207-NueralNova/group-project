@@ -18,6 +18,8 @@ import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
 
+// TODO: change into the set up process screen.
+
 /**
  * The View for when the user is logged into the program.
  */

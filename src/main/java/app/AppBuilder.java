@@ -38,6 +38,8 @@ import view.LoginView;
 import view.SignupView;
 import view.ViewManager;
 
+// TODO: adjust after everything else is done.
+
 /**
  * The AppBuilder class is responsible for putting together the pieces of
  * our CA architecture; piece by piece.
