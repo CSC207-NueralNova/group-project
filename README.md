@@ -30,7 +30,7 @@ Use Cases:
 4. Input income
    1. Select type of income from dropdown
    2. Input date as MMYY format
-   3. Click "Submit" buttom
+   3. Click "Submit" button
 
 ### James' Story
 
