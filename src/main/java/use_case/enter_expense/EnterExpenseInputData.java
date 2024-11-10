@@ -6,18 +6,18 @@ package use_case.enter_expense;
 public class EnterExpenseInputData {
 
     private final String date;
-    private final double amount;
+    private final double value;
 
-    public EnterExpenseInputData(String date, double amount) {
+    public EnterExpenseInputData(String date, double value) {
         this.date = date;
-        this.amount = amount;
+        this.value = value;
     }
 
     String getDate() {
         return date;
     }
 
-    double getAmount() {
-        return amount;
+    double getValue() {
+        return value;
     }
 }

@@ -6,12 +6,12 @@ package use_case.enter_expense;
 public class EnterExpenseOutputData {
 
     private final String date;
-    private final double amount;
+    private final double value;
     private final boolean useCaseFailed;
 
-    public EnterExpenseOutputData(String date, double amount, boolean useCaseFailed) {
+    public EnterExpenseOutputData(String date, double value, boolean useCaseFailed) {
         this.date = date;
-        this.amount = amount;
+        this.value = value;
         this.useCaseFailed = useCaseFailed;
     }
 
@@ -19,8 +19,8 @@ public class EnterExpenseOutputData {
         return date;
     }
 
-    public double getAmount() {
-        return amount;
+    public double getValue() {
+        return value;
     }
 
     public boolean isUseCaseFailed() {
