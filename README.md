@@ -90,12 +90,18 @@ As a Netflix user, I would like to track my monthly subscription and save it in 
 
 Use Cases:
 1. Sign in
+   1. Enter username and password into respective fields
+   2. Click the "Sign Up" button
 2. Login
-3. Open the "Input" window
+   1. Enter username and password into respective fields
+   2. Click the "Log In" button
+3. Go to input expense window
+   1. Click the "Input" button
+   2. Click the "Expense" button
 4. Input expense
-   1. Choose the occurrence of the expense from a dropdown, whether it is a monthly expenses or one-time expense.
-   2. Enter the month (format: "MMYY") when that expense occurs or starts.
-   3. Enter the amount.
+   1. Select occurrence of expense from dropdown ("Single time" or "Monthly")
+   2. Input the date(format: "MMYY") the expense occurred or started.
+   3. Input the amount.
    4. Choose a category for the expense from a dropdown.
 5. Submit Expense
    1. Click "Submit button"
