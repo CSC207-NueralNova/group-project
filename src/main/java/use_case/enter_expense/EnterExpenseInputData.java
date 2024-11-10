@@ -20,5 +20,4 @@ public class EnterExpenseInputData {
     double getAmount() {
         return amount;
     }
-
 }

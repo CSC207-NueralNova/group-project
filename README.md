@@ -33,20 +33,62 @@ She logs into SpendSmart and looks at her spending on the dashboard. She decides
 
 ### Anthony's Story
 
-Anthony wants to compare his spending this month with his spending last month.
+As someone with limited financial resources, I want to monitor my total expenses for a month, so that I can avoid overspending.
 
-When Anthony views his statistics for spending for the past three months, he chooses to compare the current month with the previous month, and the app displays overlayed bar and line plots to help him make an educated decision on his spending habits.
+Use Cases:
+1. Sign up 
+   1. Enter a username and password into respective fields 
+   2. Click sign up button
+2. Log in
+   1. Enter username and password into respective fields 
+   2. Click login button
+3. Viewing expenses
+   1. Click "View Data" button
+4. Visualize expenses
+   1. Select the desired month
+   2. Click "Visualize" button
+5. View the total amount of money spent for the month
 
 ### Ysajelle’s story
 
-As a user, Ysajelle wants to organize her expenses by category so that she can have a summary of how much she spent on each category.
+As a Netflix user, I would like to track my monthly subscription and save it in a category, so that I don't need to add it every month.
 
-Ysajelle just signed up for Netflix membership, she opened SpendSmart, created a new category labeled “recreation expense”, added the cost of Netflix membership fee under that category. Then, whenever she spends anything on recreation, she adds it to the “recreation expense” category. When she checked her account after a few months, she found that she spent a lot on recreation in December 2024 by looking at December’s summary of expenses by categories.
+Use Cases:
+1. Sign in
+2. Login
+3. Open the "Input" window
+4. Input expense
+   1. Choose the occurrence of the expense from a dropdown, whether it is a monthly expenses or one-time expense.
+   2. Enter the month (format: "MMYY") when that expense occurs or starts.
+   3. Enter the amount.
+   4. Choose a category for the expense from a dropdown.
+5. Submit Expense
+   1. Click "Submit button"
+   2. An "expense added" message will pop up beside the "Submit" button.
 
 ### Annie's Story
 
-Annie has two jobs that she would like to track in SpendSmart.
+As a person with both a full-time and a part-time jobs, I want to be able to track the incomes separately such that I would have a better understanding if the part-time job is worth my time.
 
-One of the jobs is a full-time job; the other one is a part-time contract job. She would like to separate the incomes from the two sources to verify that both of them are worth her time. Annie logs in to the SmartSpend account and sets one income type as a full-time (fixed) income with the source marked as her first job. The fixed income has a paycheck twice a month with a fixed amount, which does not need to be updated later on. The other payouts are categorized as part-time (variable) income, where the amount paid each time depends on the month and needs to be inputted every time.
+Use cases:
+1. Signin
+   1. Input the username and password into the appropriate fields
+   2. Press the "Sing In" button
+2. Login
+   1. Input the username and password into the appropriate fields
+   2. Press the "Log In" button
+3. Adding the income data with the income type
+   1. Click the "Add data" button
+   2. Choose the "Add Income" button
+   3. Input the fields:
+      1. Type of income (dropdown "Single time" or "Monthly")
+      2. Date
+      3. Amount
+   4. Press the Submit button
+4. Visualize the income data with the income type
+   1. Click the "View Data" button
+   2. Select the desired month
+   3. View the records of income with amount and type listed
+
 
 ## Entities

@@ -26,5 +26,4 @@ public class EnterExpenseOutputData {
     public boolean isUseCaseFailed() {
         return useCaseFailed;
     }
-
 }

@@ -10,5 +10,4 @@ public interface EnterExpenseInputBoundary {
      * @param enterExpenseInputData the input data for this use case
      */
     void execute(EnterExpenseInputData enterExpenseInputData);
-
 }
