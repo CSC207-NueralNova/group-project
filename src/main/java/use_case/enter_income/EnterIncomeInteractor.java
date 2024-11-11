@@ -25,6 +25,8 @@ public class EnterIncomeInteractor implements EnterIncomeInputBoundary{
             enterIncomePresenter.prepareFailView(
                     date + " does not follow the format, please enter the month and year in the format MMYY."
             );
+        } else if (!userDataAccessObject.validType(type)) {
+            enterIncomePresenter.prepareFailView(type + " is not a valid type, please enter a valid type.");
         } else if (!userDataAccessObject.validIncomeValue(value)) {
             enterIncomePresenter.prepareFailView(
                     value + " is not a valid value for an income, please enter a positive value with up to two decimal points."
