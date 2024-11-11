@@ -1,6 +1,5 @@
 package entity.user;
 
-import entity.monthly_spending.CommonMonthlySpending;
 import entity.monthly_spending.CommonMonthlySpendingFactory;
 import entity.monthly_spending.MonthlySpending;
 import entity.monthly_spending.MonthlySpendingFactory;
@@ -16,6 +15,7 @@ public class CommonUser implements User {
     private final String name;
     private final String password;
     private final List<MonthlySpending> listOfMonthlySpendings = new ArrayList<>();
+    private final MonthlySpendingFactory monthlySpendingFactory = new CommonMonthlySpendingFactory();
 
     public CommonUser(String name, String password) {
         this.name = name;
@@ -44,8 +44,7 @@ public class CommonUser implements User {
 
     @Override
     public void addMonthlySpending(String date) {
-        final MonthlySpendingFactory monthlySpendingFactory = new CommonMonthlySpendingFactory();
-        final MonthlySpending newMonthlySpending = monthlySpendingFactory.create(date);
+        final MonthlySpending newMonthlySpending = this.monthlySpendingFactory.create(date);
 
         this.listOfMonthlySpendings.add(newMonthlySpending);
     }
