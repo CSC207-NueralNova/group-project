@@ -2,8 +2,6 @@ package entity.user;
 
 import entity.monthly_spending.MonthlySpending;
 
-import java.util.ArrayList;
-
 /**
  * The representation of a user in our program.
  */
