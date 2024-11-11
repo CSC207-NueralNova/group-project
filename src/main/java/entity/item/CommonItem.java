@@ -6,11 +6,11 @@ package entity.item;
 public class CommonItem implements Item {
 
     private final String name;
-    private final double amount;
+    private final double value;
 
-    public CommonItem(String name, double amount) {
+    public CommonItem(String name, double value) {
         this.name = name;
-        this.amount = amount;
+        this.value = value;
     }
 
     @Override
@@ -19,7 +19,7 @@ public class CommonItem implements Item {
     }
 
     @Override
-    public double getAmount() {
-        return this.amount;
+    public double getValue() {
+        return this.value;
     }
 }
