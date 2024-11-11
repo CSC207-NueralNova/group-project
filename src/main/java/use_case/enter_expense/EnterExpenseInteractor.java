@@ -1,6 +1,8 @@
 package use_case.enter_expense;
 
+import entity.item.CommonItemFactory;
 import entity.item.Item;
+import entity.item.ItemFactory;
 
 /**
  * The Enter Expense interactor.
@@ -8,6 +10,7 @@ import entity.item.Item;
 public class EnterExpenseInteractor implements EnterExpenseInputBoundary {
     private final EnterExpenseUserDataAccessInterface userDataAccessObject;
     private final EnterExpenseOutputBoundary enterExpensePresenter;
+    private final ItemFactory itemFactory = new CommonItemFactory();
 
     public EnterExpenseInteractor(EnterExpenseUserDataAccessInterface userDataAccessObject,
                                   EnterExpenseOutputBoundary enterExpensePresenter) {
@@ -17,8 +20,8 @@ public class EnterExpenseInteractor implements EnterExpenseInputBoundary {
 
     @Override
     public void execute(EnterExpenseInputData enterExpenseInputData) {
-        final String date = enterExpenseInputData.getDate();
-        final double value = enterExpenseInputData.getValue();
+        String date = enterExpenseInputData.getDate();
+        double value = enterExpenseInputData.getValue();
 
         if (!userDataAccessObject.validExpenseDate(date)) {
             enterExpensePresenter.prepareFailView(
@@ -30,10 +33,10 @@ public class EnterExpenseInteractor implements EnterExpenseInputBoundary {
             );
         }
         else {
-            final Item item = ... // TODO: create Item w/ the date & value
+            Item item = this.itemFactory.create(enterExpenseInputData.getName(), enterExpenseInputData.getValue());
             userDataAccessObject.save(item);
 
-            final EnterExpenseOutputData enterExpenseOutputData = new EnterExpenseOutputData(
+            EnterExpenseOutputData enterExpenseOutputData = new EnterExpenseOutputData(
                     date, value, false);
             enterExpensePresenter.prepareSuccessView(enterExpenseOutputData);
         }

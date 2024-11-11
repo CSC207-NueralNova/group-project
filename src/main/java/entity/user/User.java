@@ -1,5 +1,7 @@
 package entity.user;
 
+import entity.monthly_spending.MonthlySpending;
+
 /**
  * The representation of a user in our program.
  */
@@ -17,4 +19,15 @@ public interface User {
      */
     String getPassword();
 
+    /**
+     * Returns the specified monthly spending of the user.
+     * @return the specified monthly spending of the user.
+     */
+    MonthlySpending getMonthlySpending(String date);
+
+    /**
+     * Adds a new MonthlySpending to the user.
+     */
+    void addMonthlySpending(String date);
 }
+
