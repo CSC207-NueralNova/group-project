@@ -6,6 +6,7 @@ import entity.monthly_spending.MonthlySpending;
 import entity.monthly_spending.MonthlySpendingFactory;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple implementation of the User interface.
@@ -14,7 +15,7 @@ public class CommonUser implements User {
 
     private final String name;
     private final String password;
-    private final ArrayList<MonthlySpending> monthlySpending = new ArrayList<>();
+    private final List<MonthlySpending> listOfMonthlySpendings = new ArrayList<>();
 
     public CommonUser(String name, String password) {
         this.name = name;
@@ -33,13 +34,12 @@ public class CommonUser implements User {
 
     @Override
     public MonthlySpending getMonthlySpending(String date) {
-        for (MonthlySpending storedMonthlySpending : monthlySpending) {
+        for (MonthlySpending storedMonthlySpending : this.listOfMonthlySpendings) {
             if (storedMonthlySpending.getDate().equals(date)) {
                 return storedMonthlySpending;
             }
         }
-        return null;
-        // TODO: figure out what to do to deal with getting a month that doesn't exist for the user
+        throw new IllegalArgumentException("Monthly spending not found for the given date.");
     }
 
     @Override
@@ -47,6 +47,6 @@ public class CommonUser implements User {
         final MonthlySpendingFactory monthlySpendingFactory = new CommonMonthlySpendingFactory();
         final MonthlySpending newMonthlySpending = monthlySpendingFactory.create(date);
 
-        this.monthlySpending.add(newMonthlySpending);
+        this.listOfMonthlySpendings.add(newMonthlySpending);
     }
 }
