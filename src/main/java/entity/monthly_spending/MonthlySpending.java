@@ -1,5 +1,7 @@
 package entity.monthly_spending;
 
+import entity.item.Item;
+import java.util.List;
 
 /**
  *  The representation of a user's spending in a single month.
@@ -16,18 +18,12 @@ public interface MonthlySpending {
      * Returns the list of spendings.
      * @return the list of spendings.
      */
-    ArrayList<Item> getSpending();
-
-    /**
-     * Returns the list of recurrent spendings.
-     * @return the list of recurrent spendings.
-     */
-    ArrayList<Item> getRecurrentSpending();
+    List<Item> getSpending();
 
     /**
      * Adds an item to the list of spending.
      */
-    void addItem();
+    void addItem(Item item);
 
 
 }
