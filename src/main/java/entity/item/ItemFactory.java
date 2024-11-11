@@ -5,10 +5,10 @@ package entity.item;
  */
 public interface ItemFactory {
     /**
-     * Creates a new Item instance with specified name and the amount.
+     * Creates a new Item instance with specified name and the value.
      * @param name The name of the Item.
-     * @param amount The amount of the transaction
+     * @param value The value of the transaction
      * @return A new instance of Item with the specified parameters.
      */
-    Item create(String name, double amount);
+    Item create(String name, double value);
 }

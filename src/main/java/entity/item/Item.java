@@ -3,7 +3,7 @@ package entity.item;
 /**
  * Representation of a single transaction.
  * It can be either a piece of income or a piece of expense, but the behavior is the same.
- * Stores item name and the amount of money of the transaction.
+ * Stores item name and the value of the transaction.
  */
 public interface Item {
     /**
@@ -13,8 +13,8 @@ public interface Item {
     String getName();
 
     /**
-     * Returns the amount of money in the transaction.
-     * @return the amount of money in the transaction.
+     * Returns the value in the transaction.
+     * @return the value in the transaction.
      */
-    double getAmount();
+    double getValue();
 }
