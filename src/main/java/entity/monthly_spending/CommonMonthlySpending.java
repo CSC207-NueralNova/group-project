@@ -14,6 +14,7 @@ public class CommonMonthlySpending implements MonthlySpending{
 
     private final String date;
     private final List<Item> items = new ArrayList<>();
+    private final ItemFactory itemFactory = new CommonItemFactory();
 
     public CommonMonthlySpending(String date) {
         this.date = date;
@@ -31,7 +32,6 @@ public class CommonMonthlySpending implements MonthlySpending{
 
     @Override
     public void addItem(String name, double value) {
-        final ItemFactory itemFactory = new CommonItemFactory();
-        this.items.add(itemFactory.create(name, value));
+        this.items.add(this.itemFactory.create(name, value));
     }
 }
