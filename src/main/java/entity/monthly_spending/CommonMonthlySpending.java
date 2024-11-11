@@ -3,7 +3,9 @@ package entity.monthly_spending;
 import java.util.ArrayList;
 import java.util.List;
 
+import entity.item.CommonItemFactory;
 import entity.item.Item;
+import entity.item.ItemFactory;
 
 /**
  * A bare-bones implementation of the MonthlySpending interface.
@@ -28,7 +30,8 @@ public class CommonMonthlySpending implements MonthlySpending{
     }
 
     @Override
-    public void addItem(Item item) {
-        this.items.add(item);
+    public void addItem(String name, double value) {
+        final ItemFactory itemFactory = new CommonItemFactory();
+        this.items.add(itemFactory.create(name, value));
     }
 }
