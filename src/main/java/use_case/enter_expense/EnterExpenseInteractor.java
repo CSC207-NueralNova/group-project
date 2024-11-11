@@ -1,6 +1,8 @@
 package use_case.enter_expense;
 
+import entity.item.CommonItemFactory;
 import entity.item.Item;
+import entity.item.ItemFactory;
 
 /**
  * The Enter Expense interactor.
@@ -30,7 +32,8 @@ public class EnterExpenseInteractor implements EnterExpenseInputBoundary {
             );
         }
         else {
-            final Item item = ... // TODO: create Item w/ the date & value
+            final ItemFactory itemFactory = new CommonItemFactory();
+            final Item item = itemFactory.create(enterExpenseInputData.getName(), enterExpenseInputData.getValue());
             userDataAccessObject.save(item);
 
             final EnterExpenseOutputData enterExpenseOutputData = new EnterExpenseOutputData(
