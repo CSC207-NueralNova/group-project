@@ -6,7 +6,7 @@ package entity.item;
 public class CommonItemFactory implements ItemFactory {
 
     @Override
-    public Item create(String name, String date, double amount) {
-        return new CommonItem(name, date, amount);
+    public Item create(String name, double amount) {
+        return new CommonItem(name, amount);
     }
 }

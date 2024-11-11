@@ -13,12 +13,6 @@ public interface Item {
     String getName();
 
     /**
-     * Returns the date of the transaction in the format "MMYY".
-     * @return the date of the transaction in the format "MMYY".
-     */
-    String getDate();
-
-    /**
      * Returns the amount of money in the transaction.
      * @return the amount of money in the transaction.
      */

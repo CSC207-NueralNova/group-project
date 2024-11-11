@@ -6,23 +6,16 @@ package entity.item;
 public class CommonItem implements Item {
 
     private final String name;
-    private final String date;
     private final double amount;
 
-    public CommonItem(String name, String date, double amount) {
+    public CommonItem(String name, double amount) {
         this.name = name;
-        this.date = date;
         this.amount = amount;
     }
 
     @Override
     public String getName() {
         return this.name;
-    }
-
-    @Override
-    public String getDate() {
-        return this.date;
     }
 
     @Override
