@@ -24,11 +24,11 @@ public class EnterExpenseInteractor implements EnterExpenseInputBoundary {
         String name = enterExpenseInputData.getName();
         double value = enterExpenseInputData.getValue();
 
-        if (!this.validExpenseDate(date)) {
+        if (!validExpenseDate(date)) {
             enterExpensePresenter.prepareFailView(
                     date + " does not follow the format, please enter the month and year in the format MMYY.");
         }
-        else if (!this.validExpenseValue(value)) {
+        else if (!validExpenseValue(value)) {
             enterExpensePresenter.prepareFailView(
                     value + " is not a valid value for an expense, please enter a positive value with up to two decimal points."
             );
@@ -53,7 +53,7 @@ public class EnterExpenseInteractor implements EnterExpenseInputBoundary {
             enterExpensePresenter.prepareSuccessView(enterExpenseOutputData);
         }
 
-    private boolean validExpenseDate(String date) {
+    static boolean validExpenseDate(String date) {
         if (date.length() != 4) {
             return false;
         }
@@ -69,11 +69,12 @@ public class EnterExpenseInteractor implements EnterExpenseInputBoundary {
         return true;
     }
 
-    private boolean validExpenseValue(double value) {
+    static boolean validExpenseValue(double value) {
         if (value <= 0) {
             return false;
         }
-//        TODO implement checks for length after decimal point.
-        return true;
+        // Ensures there are no more than 2 decimal places.
+        String[] splitter = Double.toString(value).split("\\.");
+        return splitter[1].length() <= 2;
     }
 }
