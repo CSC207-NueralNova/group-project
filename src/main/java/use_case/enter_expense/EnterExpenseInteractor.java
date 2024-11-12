@@ -48,11 +48,15 @@ public class EnterExpenseInteractor implements EnterExpenseInputBoundary {
 
         }
 
-            EnterExpenseOutputData enterExpenseOutputData = new EnterExpenseOutputData(
-                    date, value, false);
+            EnterExpenseOutputData enterExpenseOutputData = new EnterExpenseOutputData(false);
             enterExpensePresenter.prepareSuccessView(enterExpenseOutputData);
         }
 
+    /**
+     * Validates the format of the expense date. Has to be in format "MMYY".
+      * @param date The date to validate.
+     * @return Whether the date is a valid date.
+     */
     static boolean validExpenseDate(String date) {
         if (date.length() != 4) {
             return false;
@@ -69,6 +73,12 @@ public class EnterExpenseInteractor implements EnterExpenseInputBoundary {
         return true;
     }
 
+    /**
+     * Returns whether the expense value is valid.
+     * Should be over 0 and have no more than two digits after the decimal.
+     * @param value The value to check validity of.
+     * @return Whether the value is valid.
+     */
     static boolean validExpenseValue(double value) {
         if (value <= 0) {
             return false;
