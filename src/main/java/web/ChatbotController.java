@@ -19,12 +19,9 @@ public class ChatbotController {
 
     // Endpoint to handle chat messages
     @PostMapping("/chat")
-    public AskAIOutputData handleChatRequest(@RequestParam("username") String username,
-                                             @RequestParam("message") String message) {
-        // Prepare input data
-        AskAIInputData inputData = new AskAIInputData(username, message);
-
+    public AskAIOutputData handleChatRequest(@RequestBody AskAIInputData inputData) {
         // Return the chatbot response as JSON
         return askAIInteractor.execute(inputData);
     }
 }
+
