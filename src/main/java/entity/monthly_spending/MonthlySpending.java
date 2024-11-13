@@ -1,6 +1,7 @@
 package entity.monthly_spending;
 
-import entity.item.Item;
+import entity.item_spending.ItemSpending;
+
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public interface MonthlySpending {
      * Returns the list of spendings.
      * @return the list of spendings.
      */
-    List<Item> getSpending();
+    List<ItemSpending> getSpending();
 
     /**
      * Adds an item to the list of spending.
