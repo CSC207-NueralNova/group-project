@@ -31,7 +31,7 @@ public class CommonMonthlySpending implements MonthlySpending{
     }
 
     @Override
-    public void addItem(String name, double value) {
+    public void addItem(double value) {
         this.items.add(this.itemFactory.create(value));
     }
 }

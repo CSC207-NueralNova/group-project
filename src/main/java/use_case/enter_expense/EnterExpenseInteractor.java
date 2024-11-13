@@ -21,7 +21,6 @@ public class EnterExpenseInteractor implements EnterExpenseInputBoundary {
     @Override
     public void execute(EnterExpenseInputData enterExpenseInputData) {
         String date = enterExpenseInputData.getDate();
-        String name = enterExpenseInputData.getName();
         double value = enterExpenseInputData.getValue();
 
         if (!validExpenseDate(date)) {
@@ -43,7 +42,7 @@ public class EnterExpenseInteractor implements EnterExpenseInputBoundary {
                 monthlySpending = this.monthlySpendingFactory.create(date);
             }
 
-            monthlySpending.addItem(name, value);
+            monthlySpending.addItem(value);
             this.userDataAccessObject.writeMonthlySpending(username, monthlySpending);
 
         }
