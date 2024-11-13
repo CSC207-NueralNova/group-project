@@ -1,40 +1,36 @@
 package use_case.ask_ai;
 
 import entity.user.User;
+import org.springframework.stereotype.Service;
 
-/**
- * The Ask AI Interactor.
- */
-
+@Service
 public class AskAIInteractor implements AskAIInputBoundary {
     private final AskAIUserDataAccessInterface userDataAccessObject;
-//    private final AskAIOutputBoundary aiOutputBoundary;
+    private final AskAIOutputBoundary aiOutputBoundary;
 
     public AskAIInteractor(AskAIUserDataAccessInterface userDataAccessObject,
                            AskAIOutputBoundary aiOutputBoundary) {
         this.userDataAccessObject = userDataAccessObject;
-//        this.aiOutputBoundary = aiOutputBoundary;
+        this.aiOutputBoundary = aiOutputBoundary;
     }
 
-    public void execute(AskAIInputData inputData) {
-        // Query the current user from the data access object based on username
+    @Override
+    public AskAIOutputData execute(AskAIInputData inputData) {
         User user = userDataAccessObject.findUserByUsername(inputData.getUsername());
-//
-//        if (user == null) {
-//            aiOutputBoundary.presentError("User not found");
-//            return;
-//        }
 
-        // Generate financial advice for the user
+        if (user == null) {
+            AskAIOutputData outputData = new AskAIOutputData(inputData.getUsername(), "User not found");
+            aiOutputBoundary.presentAIResponse(outputData);
+            return outputData;
+        }
+
         String advice = generateFinancialAdvice(user);
-
-        // Prepare the output data to be presented by the output boundary
-//        AskAIOutputData outputData = new AskAIOutputData(user.getName(), advice);
-//        aiOutputBoundary.presentAIResponse(outputData);
+        AskAIOutputData outputData = new AskAIOutputData(user.getName(), advice);
+        aiOutputBoundary.presentAIResponse(outputData);
+        return outputData;
     }
 
     private String generateFinancialAdvice(User user) {
-        // Placeholder for AI advice generation logic
         return "Here’s your personalized financial advice, based on your spending data.";
     }
 }

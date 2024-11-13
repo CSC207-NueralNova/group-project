@@ -1,7 +1,9 @@
 package use_case.ask_ai;
 
 import entity.user.User;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface AskAIUserDataAccessInterface {
 
     /**
