@@ -50,21 +50,21 @@ Use Cases:
 
 ### Jia Yi's Story
 
-As a student, Clair wants to check how much she’s spent that month so she can plan for the next month.
+As a student in midterm season, Clair wants to track how much she spent on food deliveries so she can see whether she's spent too much.
 
 Use Cases:
 1. Log in
    1. Enter username & password into respective fields.
    2. Click "login" button
-2. Viewing Expenses
+2. Entering Expenses
+   1. Select occurrence of expense from dropdown ("Single time" or "Monthly")
+   2. Input the date (format: "MMYY") the expense occurred or started.
+   3. Input the amount.
+   4. Choose a category for the expense from a dropdown.
+4. Viewing Expenses
    1. Click "View Data" button
    2. Select the current month
    3. Look at the records
-3. Ask AI
-   1. Click "back" button to return to main view
-   2. Click "AI suggestions" button
-   3. Click on a question
-   4. Look at the suggestion
 
 ### Anthony's Story
 
@@ -77,8 +77,8 @@ Use Cases:
 2. Log in
    1. Enter username and password into respective fields 
    2. Click login button
-3. Viewing expenses
-   1. Click "View Data" button
+3. ing expenses
+   1. Click " Data" button
 4. Visualize expenses
    1. Select the desired month
    2. Click "Visualize" button
