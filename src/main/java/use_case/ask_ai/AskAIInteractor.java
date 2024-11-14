@@ -51,17 +51,21 @@ public class AskAIInteractor implements AskAIInputBoundary {
 
     @Override
     public AskAIOutputData execute(AskAIInputData inputData) {
-        // Skip querying the user and just return a mock response for now
-        String mockResponse = "Here’s your personalized financial advice, based on your spending data.";
+        // Capture the user's message
+        String userMessage = inputData.getMessage();
 
-        // Create a mock output data (you can even use the username from inputData to personalize it)
-        AskAIOutputData outputData = new AskAIOutputData(inputData.getUsername(), mockResponse);
+        // Construct a personalized response based on the user's message
+        String responseText = "Response to \"" + userMessage + "\": Here’s your personalized financial advice.";
 
-        // Send the mock output data to the output boundary
+        // Create the output data, including the username and response
+        AskAIOutputData outputData = new AskAIOutputData("AI Bot", responseText);
+
+        // Send the output data to the output boundary
         aiOutputBoundary.presentAIResponse(outputData);
 
         // Return the output data for the HTTP response
         return outputData;
     }
+
 }
 

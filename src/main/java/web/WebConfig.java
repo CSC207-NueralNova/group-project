@@ -14,7 +14,7 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**") // Adjust the path as needed for your API endpoints
-                        .allowedOrigins("http://localhost:5173") // Allow SvelteKit dev server
+                        .allowedOrigins("http://localhost:5174") // Allow SvelteKit dev server
                         .allowedMethods("GET", "POST", "PUT", "DELETE"); // Allowed methods
             }
         };
