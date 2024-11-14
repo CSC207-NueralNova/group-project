@@ -1,40 +1,71 @@
-package use_case.ask_ai;
-
-import entity.user.User;
-
-/**
- * The Ask AI Interactor.
- */
-
-public class AskAIInteractor implements AskAIInputBoundary {
-    private final AskAIUserDataAccessInterface userDataAccessObject;
+//package use_case.ask_ai;
+//
+//import entity.user.User;
+//import org.springframework.stereotype.Service;
+//
+//@Service
+//public class AskAIInteractor implements AskAIInputBoundary {
+//    private final AskAIUserDataAccessInterface userDataAccessObject;
 //    private final AskAIOutputBoundary aiOutputBoundary;
-
-    public AskAIInteractor(AskAIUserDataAccessInterface userDataAccessObject,
-                           AskAIOutputBoundary aiOutputBoundary) {
-        this.userDataAccessObject = userDataAccessObject;
+//
+//    public AskAIInteractor(AskAIUserDataAccessInterface userDataAccessObject,
+//                           AskAIOutputBoundary aiOutputBoundary) {
+//        this.userDataAccessObject = userDataAccessObject;
 //        this.aiOutputBoundary = aiOutputBoundary;
-    }
-
-    public void execute(AskAIInputData inputData) {
-        // Query the current user from the data access object based on username
-        User user = userDataAccessObject.findUserByUsername(inputData.getUsername());
+//    }
+//
+//    @Override
+//    public AskAIOutputData execute(AskAIInputData inputData) {
+//        User user = userDataAccessObject.findUserByUsername(inputData.getUsername());
 //
 //        if (user == null) {
-//            aiOutputBoundary.presentError("User not found");
-//            return;
+//            AskAIOutputData outputData = new AskAIOutputData(inputData.getUsername(), "User not found");
+//            aiOutputBoundary.presentAIResponse(outputData);
+//            return outputData;
 //        }
-
-        // Generate financial advice for the user
-        String advice = generateFinancialAdvice(user);
-
-        // Prepare the output data to be presented by the output boundary
+//
+//        String advice = generateFinancialAdvice(user);
 //        AskAIOutputData outputData = new AskAIOutputData(user.getName(), advice);
 //        aiOutputBoundary.presentAIResponse(outputData);
+//        return outputData;
+//    }
+//
+//    private String generateFinancialAdvice(User user) {
+//        return "Here’s your personalized financial advice, based on your spending data.";
+//    }
+//}
+
+package use_case.ask_ai;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class AskAIInteractor implements AskAIInputBoundary {
+
+    private final AskAIOutputBoundary aiOutputBoundary;
+
+    // Constructor with only the necessary dependency
+    public AskAIInteractor(AskAIOutputBoundary aiOutputBoundary) {
+        this.aiOutputBoundary = aiOutputBoundary;
     }
 
-    private String generateFinancialAdvice(User user) {
-        // Placeholder for AI advice generation logic
-        return "Here’s your personalized financial advice, based on your spending data.";
+    @Override
+    public AskAIOutputData execute(AskAIInputData inputData) {
+        // Capture the user's message
+        String userMessage = inputData.getMessage();
+
+        // Construct a personalized response based on the user's message
+        String responseText = "Response to \"" + userMessage + "\": Here’s your personalized financial advice.";
+
+        // Create the output data, including the username and response
+        AskAIOutputData outputData = new AskAIOutputData("AI Bot", responseText);
+
+        // Send the output data to the output boundary
+        aiOutputBoundary.presentAIResponse(outputData);
+
+        // Return the output data for the HTTP response
+        return outputData;
     }
+
 }
+
