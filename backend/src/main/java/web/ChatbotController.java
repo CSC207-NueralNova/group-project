@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 @RequestMapping("/api/chatbot")
+@CrossOrigin(origins = "http://localhost:5173")  // Allow CORS requests from the frontend
 public class ChatbotController {
 
     private final AskAIInteractor askAIInteractor;
@@ -24,4 +25,3 @@ public class ChatbotController {
         return askAIInteractor.execute(inputData);
     }
 }
-

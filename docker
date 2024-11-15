@@ -1,0 +1,17 @@
+# Use an official OpenJDK runtime as a parent image
+FROM eclipse-temurin:17-jdk-alpine
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the project's build files into the container
+COPY . .
+
+# Build the application
+RUN ./mvnw clean package -DskipTests
+
+# Expose the port the app runs on
+EXPOSE 8080
+
+# Run the application
+ENTRYPOINT ["java", "-jar", "target/your-app-name.jar"]
