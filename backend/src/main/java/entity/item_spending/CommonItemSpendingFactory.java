@@ -5,8 +5,14 @@ package entity.item_spending;
  */
 public class CommonItemSpendingFactory implements ItemSpendingFactory {
 
+
     @Override
     public ItemSpending create(double value) {
         return new CommonItemSpending(value);
+    }
+
+    @Override
+    public ItemSpending create(double value, String category) {
+        return new CommonItemSpending(value, category);
     }
 }
