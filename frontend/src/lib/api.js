@@ -1,7 +1,10 @@
+import * as process from '../../.svelte-kit/ambient.js';
+
 export async function chatbotRequest(username, message) {
 	console.log("Sending request to backend:", { username, message }); // Debugging log
+
 	try {
-		const response = await fetch(`http://localhost:8080/api/chatbot/chat`, {
+		const response = await fetch(`${process.env.APP_API_URL}/api/chatbot/chat`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
