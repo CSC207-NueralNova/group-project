@@ -1,6 +1,6 @@
 package use_case.enter_expense;
 
-import entity.item.Item;
+import entity.monthly_spending.MonthlySpending;
 
 /**
  * DAO for the Enter Expense Use Case.
@@ -8,22 +8,32 @@ import entity.item.Item;
 public interface EnterExpenseUserDataAccessInterface {
 
     /**
-     * Check if the expense is a valid value.
-     * @param expenseValue the value to check
-     * @return true if the expense is a non-negative value with at most 2 decimal places.
+     * Returns the username of the curren user of the application.
+     * @return the username of the current user; null indicates that no one is logged into the application.
      */
-    boolean validExpenseValue(double expenseValue);
+    String getCurrentUsername();
 
     /**
-     * Check if the date is a valid value.
-     * @param expenseDate the value to check
-     * @return true if the expense is a non-negative value with at most 2 decimal places.
+     * Checks if the MonthlySpending associated with the given user and date exists.
+     * @param username The username to returns the spending from.
+     * @param date The date of the monthly spending in the "MMYY" format.
+     * @return true if the spending exists, false otherwise.
      */
-    boolean validExpenseDate(String expenseDate);
+    boolean existsMonthlySpendingByUsernameAndDate(String username, String date);
 
     /**
-     * Saves the expense.
-     * @param item the expense to save
+     *
+     * Returns the MonthlySpending for a given user and a given date in format "MMYY"
+     * @param username The username to returns the spending from.
+     * @param date The date of the monthly spending in the "MMYY" format.
+     * @return The monthlySpending associated with the given data.
      */
-    void save(Item item);
+    MonthlySpending getMonthlySpendingByUsernameAndDate(String username, String date);
+
+    /**
+     * Writes the monthly spending to the user record.
+     * Will overwrite.
+     * @param monthlySpending The MonthlySpending to rewrite the records with.
+     */
+    void writeMonthlySpending(String username, MonthlySpending monthlySpending);
 }
