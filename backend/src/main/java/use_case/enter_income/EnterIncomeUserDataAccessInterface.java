@@ -1,34 +1,38 @@
 package use_case.enter_income;
 
 import entity.item.Item;
+import entity.monthly_income.MonthlyIncome;
 
 // TODO: make.
 
 public interface EnterIncomeUserDataAccessInterface {
     /**
-     * Check if the type is a valid value
-     * @param type the value to check
-     * @return true if the type is valid
+     * Returns the username of the current user of the application.
+     * @return the username of the current user; null indicates that no one is logged into the application.
      */
-    boolean validType(String type);
+    String getCurrentUsername();
 
     /**
-     * Check if the income is a valid value
-     * @param incomeValue the value to check
-     * @return true if the income is a non-negative value with at most 2 decimal places.
+     * Checks if the MonthlyIncome associated with the given user and date exists.
+     * @param username The username to return the income from.
+     * @param date The date of the monthly income in the "MMYY" format.
+     * @return true if the income exists, false otherwise.
      */
-    boolean validIncomeValue(double incomeValue);
+    boolean existsMonthlyIncomeByUsernameAndDate(String username, String date);
 
     /**
-     * Check if the date is a valid value.
-     * @param incomeDate the value to check
-     * @return true if the expense is a non-negative value with at most 2 decimal places.
+     *
+     * Returns the MonthlyIncome for a given user and a given date in format "MMYY"
+     * @param username The username to returns the income from.
+     * @param date The date of the monthly income in the "MMYY" format.
+     * @return The monthlyIncome associated with the given data.
      */
-    boolean validIncomeDate(String incomeDate);
+    MonthlyIncome getMonthlyIncomeByUsernameAndDate(String username, String date);
 
     /**
-     * Saves the income.
-     * @param item the income to save
+     * Writes the monthly income to the user record.
+     * Will overwrite.
+     * @param monthlyIncome The MonthlyIncome to rewrite the records with.
      */
-    void save(Item item);
+    void writeMonthlyIncome(String username, MonthlyIncome monthlyIncome);
 }

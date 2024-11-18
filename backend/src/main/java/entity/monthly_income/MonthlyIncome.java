@@ -1,13 +1,13 @@
-package entity.monthly_spending;
+package entity.monthly_income;
 
-import entity.item_spending.ItemSpending;
+import entity.item_income.ItemIncome;
 
 import java.util.List;
 
 /**
- *  The representation of a user's spending in a single month.
+ * The representation of a user's income in a single month.
  */
-public interface MonthlySpending {
+public interface MonthlyIncome {
 
     /**
      * Returns the month and year in the format MMYY.
@@ -16,16 +16,15 @@ public interface MonthlySpending {
     String getDate();
 
     /**
-     * Returns the list of spendings.
-     * @return the list of spendings.
+     * Returns the list of incomes.
+     * @return the list of incomes.
      */
-    List<ItemSpending> getSpending();
+    List<ItemIncome> getIncome();
 
     /**
-     * Adds an item to the list of spending.
+     * Adds an item to the list of spending
      * @param name the name of the item
      * @param value the value of the item
      */
     void addItem(String name, double value);
-
 }

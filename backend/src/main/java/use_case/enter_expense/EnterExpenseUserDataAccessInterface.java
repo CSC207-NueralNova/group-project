@@ -8,14 +8,14 @@ import entity.monthly_spending.MonthlySpending;
 public interface EnterExpenseUserDataAccessInterface {
 
     /**
-     * Returns the username of the curren user of the application.
+     * Returns the username of the current user of the application.
      * @return the username of the current user; null indicates that no one is logged into the application.
      */
     String getCurrentUsername();
 
     /**
      * Checks if the MonthlySpending associated with the given user and date exists.
-     * @param username The username to returns the spending from.
+     * @param username The username to return the spending from.
      * @param date The date of the monthly spending in the "MMYY" format.
      * @return true if the spending exists, false otherwise.
      */
