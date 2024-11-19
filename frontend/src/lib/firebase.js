@@ -1,13 +1,12 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
-const firebaseConfig = {
-	apiKey: "AIzaSyDSTl_pfsN7dW0CiS26OUwtfLQFUuj5nS0",
-	authDomain: "spendsmart-ce9a9.firebaseapp.com",
-	projectId: "spendsmart-ce9a9",
-	storageBucket: "spendsmart-ce9a9.firebasestorage.app",
-	messagingSenderId: "1088917026117",
-	appId: "1:1088917026117:web:b4a907cf0f31056b85fa2c",
+const firebaseConfig = {  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+	authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+	projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+	storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+	messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+	appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);

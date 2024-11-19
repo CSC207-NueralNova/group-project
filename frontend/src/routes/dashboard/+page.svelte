@@ -237,6 +237,7 @@
 			</nav>
 		</div>
 	</div>
+
 	<!-- Main column -->
 	<div class="flex flex-col lg:pl-64">
 		<!-- Search header -->
