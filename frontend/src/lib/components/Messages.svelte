@@ -259,11 +259,4 @@
 		</div>
 	</div>
 
-	<div class="ml-4 p-4 w-64 border border-gray-300 rounded-lg shadow-sm bg-white">
-		<div class="flex items-center mb-2">
-			<img src={avatars[selectedAdvisor]} alt="" class="w-10 h-10 mr-3 rounded-full" />
-			<h4 class="text-lg font-bold text-gray-900">{selectedAdvisor}</h4>
-		</div>
-		<p class="text-sm text-gray-600">{advisorDescriptions[selectedAdvisor]}</p>
-	</div>
 </div>
