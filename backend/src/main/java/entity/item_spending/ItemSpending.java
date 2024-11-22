@@ -11,4 +11,10 @@ public interface ItemSpending {
      * @return the value in the transaction.
      */
     double getValue();
+
+    /**
+     * Returns the category in the transaction.
+     * @return the category in the transaction.
+     */
+    String getCategory();
 }
