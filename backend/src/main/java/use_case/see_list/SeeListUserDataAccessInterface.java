@@ -1,6 +1,6 @@
 package use_case.see_list;
 
-// TODO: make.
+// TODO: add income functions.
 
 import entity.monthly_spending.MonthlySpending;
 
