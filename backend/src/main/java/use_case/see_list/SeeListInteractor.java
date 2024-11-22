@@ -1,17 +1,19 @@
 package use_case.see_list;
 
-// TODO: make.
-
-import entity.item_income.ItemIncome;
-import entity.item_spending.ItemSpending;
+import entity.monthly_spending.CommonMonthlySpendingFactory;
 import entity.monthly_spending.MonthlySpending;
+import entity.monthly_spending.MonthlySpendingFactory;
 
-import java.util.ArrayList;
-import java.util.List;
+import entity.monthly_income.CommonMonthlyIncomeFactory;
+import entity.monthly_income.MonthlyIncome;
+import entity.monthly_income.MonthlyIncomeFactory;
+
 
 public class SeeListInteractor implements SeeListInputBoundary {
     private final SeeListUserDataAccessInterface userDataAccessObject;
     private final SeeListOutputBoundary seeListPresenter;
+    private final MonthlySpendingFactory monthlySpendingFactory = new CommonMonthlySpendingFactory();
+    private final MonthlyIncomeFactory monthlyIncomeFactory = new CommonMonthlyIncomeFactory();
 
     public SeeListInteractor(SeeListUserDataAccessInterface userDataAccessInterface,
                              SeeListOutputBoundary seeListOutputBoundary) {
@@ -24,15 +26,23 @@ public class SeeListInteractor implements SeeListInputBoundary {
         String date = seeListInputData.getDate();
         String username = this.userDataAccessObject.getCurrentUsername();
 
-        List<ItemSpending> itemSpendingList = new ArrayList<>();
-        List<ItemIncome> itemIncomeList = new ArrayList<>();
+        MonthlySpending monthlySpending;
         if (this.userDataAccessObject.existsMonthlySpendingByUsernameAndDate(username, date)) {
-            MonthlySpending monthlySpending = this.userDataAccessObject.getMonthlySpendingByUsernameAndDate(username, date);
-            itemSpendingList = monthlySpending.getSpending();
-            // TODO: add in the monthly income when that gets implemented.
+            monthlySpending = this.userDataAccessObject.getMonthlySpendingByUsernameAndDate(username, date);
+        } else {
+            monthlySpending = this.monthlySpendingFactory.create(date);
         }
+
+        MonthlyIncome monthlyIncome;
+        if (this.userDataAccessObject.existsMonthlyIncomeByUsernameAndDate(username, date)) {
+            monthlyIncome = this.userDataAccessObject.getMonthlyIncomeByUsernameAndDate(username, date);
+        } else {
+            monthlyIncome = this.monthlyIncomeFactory.create(date);
+        }
+
         // if monthly data doesn't exist for that month, present empty lists
-        SeeListOutputData output = new SeeListOutputData(itemSpendingList, itemIncomeList);
+
+        SeeListOutputData output = new SeeListOutputData(monthlySpending.getSpending(), monthlyIncome.getIncome());
         seeListPresenter.prepareSuccessView(output);
     }
 }
