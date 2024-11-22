@@ -2,8 +2,9 @@ package use_case.enter_income;
 
 import entity.monthly_income.MonthlyIncome;
 
-// TODO: make.
-
+/**
+ * DAO for the Enter Income Use Case.
+ */
 public interface EnterIncomeUserDataAccessInterface {
     /**
      * Returns the username of the current user of the application.
