@@ -1,9 +1,5 @@
 package use_case.see_list;
 
-// TODO: make.
-
-import use_case.login.LoginOutputData;
-
 /**
  * The output boundary for the See List Use Case.
  */
