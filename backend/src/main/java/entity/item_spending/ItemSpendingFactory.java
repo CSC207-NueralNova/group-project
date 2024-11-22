@@ -14,6 +14,7 @@ public interface ItemSpendingFactory {
     /**
      * Creates a new Item instance with specified value.
      * @param value The value of the transaction
+     * @param category The category of the transaction
      * @return A new instance of Item with the specified parameters.
      */
     ItemSpending create(double value, String category);
