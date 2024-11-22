@@ -7,6 +7,10 @@ import entity.item_income.CommonItemIncomeFactory;
 import entity.item_income.ItemIncome;
 import entity.item_income.ItemIncomeFactory;
 
+
+/**
+ * A bare-bones implementation of the MonthlyIncome interface.
+ */
 public class CommonMonthlyIncome implements MonthlyIncome {
 
     private final String date;
@@ -27,7 +31,7 @@ public class CommonMonthlyIncome implements MonthlyIncome {
     }
 
     @Override
-    public void addItem(String name, double value) {
+    public void addItem(double value) {
         this.items.add(this.itemFactory.create(value));
     }
 }

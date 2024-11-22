@@ -22,7 +22,6 @@ public class EnterIncomeInteractor implements EnterIncomeInputBoundary {
     @Override
     public void execute(EnterIncomeInputData enterIncomeInputData) {
         String date = enterIncomeInputData.getDate();
-        String name = enterIncomeInputData.getName();
         double value = enterIncomeInputData.getValue();
 
         if (!validIncomeDate(date)) {
@@ -44,7 +43,7 @@ public class EnterIncomeInteractor implements EnterIncomeInputBoundary {
                 monthlyIncome = this.monthlyIncomeFactory.create(date);
             }
 
-            monthlyIncome.addItem(name, value);
+            monthlyIncome.addItem(value);
             this.userDataAccessObject.writeMonthlyIncome(username, monthlyIncome);
 
         }

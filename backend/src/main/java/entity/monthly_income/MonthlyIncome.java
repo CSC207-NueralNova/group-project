@@ -22,9 +22,8 @@ public interface MonthlyIncome {
     List<ItemIncome> getIncome();
 
     /**
-     * Adds an item to the list of spending
-     * @param name the name of the item
+     * Adds an item to the list of incomes
      * @param value the value of the item
      */
-    void addItem(String name, double value);
+    void addItem(double value);
 }
