@@ -15,9 +15,15 @@ public class CommonMonthlySpending implements MonthlySpending{
     private final String date;
     private final List<ItemSpending> items = new ArrayList<>();
     private final ItemSpendingFactory itemFactory = new CommonItemSpendingFactory();
+    private List<ItemSpending> recurrentItems = new ArrayList<>();
 
     public CommonMonthlySpending(String date) {
         this.date = date;
+    }
+
+    public CommonMonthlySpending(String date, List<ItemSpending> recurrentItems) {
+        this.date = date;
+        this.recurrentItems = recurrentItems;
     }
 
     @Override
@@ -33,5 +39,15 @@ public class CommonMonthlySpending implements MonthlySpending{
     @Override
     public void addItem(double value) {
         this.items.add(this.itemFactory.create(value));
+    }
+
+    @Override
+    public List<ItemSpending> getRecurrentSpending() {
+        return new ArrayList<>(this.recurrentItems);
+    }
+
+    @Override
+    public void addRecurrentSpending(ItemSpending item) {
+        this.recurrentItems.add(item);
     }
 }

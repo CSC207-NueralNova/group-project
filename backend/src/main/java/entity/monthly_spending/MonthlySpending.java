@@ -26,4 +26,15 @@ public interface MonthlySpending {
      */
     void addItem(double value);
 
+    /**
+     * Returns the list of recurrentSpending
+     * @return the list of recurrentSpending
+     */
+    List<ItemSpending> getRecurrentSpending();
+
+    /**
+     * Adds a recurrent item to the list of recurrentSpending
+     */
+    void addRecurrentSpending(ItemSpending item);
+
 }
