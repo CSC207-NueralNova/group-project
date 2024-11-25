@@ -4,18 +4,18 @@ package use_case.enter_income;
  * The Input Data for the EnterIncome Use Case
  */
 public class EnterIncomeInputData {
-    private final String category;
+    private final String type;
     private final String date;
     private final double value;
 
-    public EnterIncomeInputData(String category, String date, double value) {
-        this.category = category;
+    public EnterIncomeInputData(String type, String date, double value) {
+        this.type = type;
         this.date = date;
         this.value = value;
     }
 
-    public String getCategory() {
-        return category;
+    public String getType() {
+        return type;
     }
 
     public String getDate() {
