@@ -8,7 +8,10 @@ import entity.monthly_income.CommonMonthlyIncomeFactory;
 import entity.monthly_income.MonthlyIncome;
 import entity.monthly_income.MonthlyIncomeFactory;
 
-
+/**
+ * The See List Interactor.
+ */
+@Service
 public class SeeListInteractor implements SeeListInputBoundary {
     private final SeeListUserDataAccessInterface userDataAccessObject;
     private final SeeListOutputBoundary seeListPresenter;
