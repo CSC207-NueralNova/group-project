@@ -7,6 +7,7 @@ import entity.monthly_spending.MonthlySpendingFactory;
 import entity.monthly_income.CommonMonthlyIncomeFactory;
 import entity.monthly_income.MonthlyIncome;
 import entity.monthly_income.MonthlyIncomeFactory;
+import org.springframework.stereotype.Service;
 
 /**
  * The See List Interactor.
