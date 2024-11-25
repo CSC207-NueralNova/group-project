@@ -3,10 +3,12 @@ package use_case.enter_income;
 import entity.monthly_income.CommonMonthlyIncomeFactory;
 import entity.monthly_income.MonthlyIncome;
 import entity.monthly_income.MonthlyIncomeFactory;
+import org.springframework.stereotype.Service;
 
 /**
  * The Enter Income interactor
  */
+@Service
 public class EnterIncomeInteractor implements EnterIncomeInputBoundary {
     private final EnterIncomeUserDataAccessInterface userDataAccessObject;
     private final EnterIncomeOutputBoundary enterIncomePresenter;
@@ -20,7 +22,7 @@ public class EnterIncomeInteractor implements EnterIncomeInputBoundary {
     }
 
     @Override
-    public void execute(EnterIncomeInputData enterIncomeInputData) {
+    public EnterIncomeOutputData execute(EnterIncomeInputData enterIncomeInputData) {
         String date = enterIncomeInputData.getDate();
         double value = enterIncomeInputData.getValue();
 
@@ -46,10 +48,12 @@ public class EnterIncomeInteractor implements EnterIncomeInputBoundary {
             monthlyIncome.addItem(value);
             this.userDataAccessObject.writeMonthlyIncome(username, monthlyIncome);
 
-        }
 
-        EnterIncomeOutputData enterIncomeOutputData = new EnterIncomeOutputData(false);
-        enterIncomePresenter.prepareSuccessView(enterIncomeOutputData);
+            EnterIncomeOutputData enterIncomeOutputData = new EnterIncomeOutputData(false);
+            enterIncomePresenter.prepareSuccessView(enterIncomeOutputData);
+            return enterIncomeOutputData;
+        }
+        return new EnterIncomeOutputData(true);
     }
 
     /**
