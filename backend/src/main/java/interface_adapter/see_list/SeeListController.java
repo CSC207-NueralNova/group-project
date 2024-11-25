@@ -1,10 +1,7 @@
 package interface_adapter.see_list;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import use_case.see_list.SeeListInputBoundary;
 import use_case.see_list.SeeListInputData;
 import use_case.see_list.SeeListOutputData;
@@ -26,12 +23,12 @@ public class SeeListController {
 
     /**
      * Executes the See List Use Case.
-     * @param date the month and year of the items that the user wants to see, in the format MMYY.
+     * @param seeListInputData the input data for this request.
+     * Contains month and year of the items that the user wants to see, in the format MMYY.
      */
     // Endpoint to handle see list requests
     @PostMapping("/see")
-    public SeeListOutputData handleSeeListRequest(String date) {
-        final SeeListInputData seeListInputData = new SeeListInputData(date);
+    public SeeListOutputData handleSeeListRequest(@RequestBody SeeListInputData seeListInputData) {
         return this.seeListUseCaseInteractor.execute(seeListInputData);
     }
 
