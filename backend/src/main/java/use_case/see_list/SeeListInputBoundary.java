@@ -1,7 +1,5 @@
 package use_case.see_list;
 
-// TODO: make.
-
 /**
  * Input Boundary for actions which are related to seeing the current user's expense/income data.
  */
