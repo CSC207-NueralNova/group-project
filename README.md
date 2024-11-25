@@ -42,7 +42,8 @@ If you already have an account, log in with your username and password.
 
 
 ## License
-[comment]: <> (Creative commons?)
+[comment]: <> (Creative commons? Link to LICENSE)
+Refer to the Creative Commons license [here.](LICENSE)
 
 ## Feedback
 
