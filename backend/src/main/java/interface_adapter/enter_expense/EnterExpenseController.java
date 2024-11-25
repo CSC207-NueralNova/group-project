@@ -7,7 +7,7 @@ import use_case.enter_expense.EnterExpenseOutputData;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
-@RequestMapping("/api/enter_income")
+@RequestMapping("/api/enter_expense")
 @CrossOrigin(origins = "http://localhost:5173")  // Allow CORS requests from the frontend
 public class EnterExpenseController {
 
@@ -18,9 +18,9 @@ public class EnterExpenseController {
         this.enterExpenseInteractor = enterExpenseInteractor;
     }
 
-    // Endpoint to handle chat messages
+    // Endpoint to handle enter expense requests
     @PostMapping("/enter")
-    public EnterExpenseOutputData handleChatRequest(@RequestBody EnterExpenseInputData inputData) {
+    public EnterExpenseOutputData handleEnterExpenseRequest(@RequestBody EnterExpenseInputData inputData) {
         // Return the chatbot response as JSON
         return enterExpenseInteractor.execute(inputData);
     }
