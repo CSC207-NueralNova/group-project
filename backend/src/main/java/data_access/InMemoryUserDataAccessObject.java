@@ -5,6 +5,7 @@ import java.util.Map;
 
 import entity.monthly_spending.MonthlySpending;
 import entity.user.User;
+import org.springframework.stereotype.Repository;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.enter_expense.EnterExpenseUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
@@ -15,6 +16,7 @@ import use_case.signup.SignupUserDataAccessInterface;
  * In-memory implementation of the DAO for storing user data. This implementation does
  * NOT persist data between runs of the program.
  */
+@Repository
 public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface,
         LoginUserDataAccessInterface,
         ChangePasswordUserDataAccessInterface,
