@@ -17,8 +17,13 @@ SpendSmart allows you to sign up with a username and password, and log your spen
 You can view what you've logged as well as ask an AI assistant preset questions for help with budgeting.
 
 ## Table of Contents
-[comment]: <> (Link to the sections below somehow)
 
+### [Installation Instructions](#installation-instructions)
+### [Usage](#usage)
+### [License](#license)
+### [Feedback](#feedback)
+### [Contributions](#contributions)
+### [User Stories and Use Cases](#user-stories-and-use-cases)
 
 ## Installation Instructions
 
@@ -37,15 +42,15 @@ If you already have an account, log in with your username and password.
 
 
 ## License
+[comment]: <> (Creative commons?)
 
-
-## Feedback 
+## Feedback
 
 
 ## Contributions
 
 
-## User Stories/Cases
+## User Stories and Use Cases
 
 [comment]: <> (The first sentence should be what the user wants to do and the rest of the story should detail how they achieve that.)
 [comment]: <> (Format for the first sentence: "As a [type of user], I want [a feature] so that [a benefit]")
