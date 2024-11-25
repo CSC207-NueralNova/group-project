@@ -9,5 +9,5 @@ public interface EnterIncomeInputBoundary {
      * Executes the enter income use case.
      * @param enterIncomeInputData the input data
      */
-    void execute(EnterIncomeInputData enterIncomeInputData);
+    EnterIncomeOutputData execute(EnterIncomeInputData enterIncomeInputData);
 }

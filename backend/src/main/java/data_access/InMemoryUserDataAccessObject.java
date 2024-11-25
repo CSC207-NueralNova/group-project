@@ -3,12 +3,15 @@ package data_access;
 import java.util.HashMap;
 import java.util.Map;
 
+import entity.monthly_income.MonthlyIncome;
 import entity.monthly_spending.MonthlySpending;
 import entity.user.User;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.enter_expense.EnterExpenseUserDataAccessInterface;
+import use_case.enter_income.EnterIncomeUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
+import use_case.see_list.SeeListUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
 /**
@@ -19,10 +22,13 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         LoginUserDataAccessInterface,
         ChangePasswordUserDataAccessInterface,
         LogoutUserDataAccessInterface,
-        EnterExpenseUserDataAccessInterface {
+        EnterExpenseUserDataAccessInterface,
+        EnterIncomeUserDataAccessInterface,
+        SeeListUserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
     private final Map<String, Map<String, MonthlySpending>> monthlySpendings = new HashMap<>();
+    private final Map<String, Map<String, MonthlyIncome>> monthlyIncomes = new HashMap<>();
 
     private String currentUsername;
 
@@ -77,10 +83,33 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     @Override
     public void writeMonthlySpending(String username, MonthlySpending monthlySpending) {
         // Add an empty hashmap if there is no username
-        if (!monthlySpendings.containsKey(username)) {
-            this.monthlySpendings.put(username, new HashMap<>());
-        }
+        this.monthlySpendings.computeIfAbsent(username, k -> new HashMap<>());
         // Overwrite the existing record for the monthlySpending
         this.monthlySpendings.get(username).put(monthlySpending.getDate(), monthlySpending);
+    }
+
+    @Override
+    public boolean existsMonthlyIncomeByUsernameAndDate(String username, String date) {
+        if (monthlyIncomes.containsKey(username)) {
+            return monthlyIncomes.get(username).containsKey(date);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public MonthlyIncome getMonthlyIncomeByUsernameAndDate(String username, String date) {
+        if (monthlyIncomes.containsKey(username)) {
+            return monthlyIncomes.get(username).get(date);
+        }
+        return null;
+    }
+
+    @Override
+    public void writeMonthlyIncome(String username, MonthlyIncome monthlyIncome) {
+        // Add an empty hashmap if there is no username
+        this.monthlyIncomes.computeIfAbsent(username, k -> new HashMap<>());
+        // Overwrite the existing record for the monthlySpending
+        this.monthlyIncomes.get(username).put(monthlyIncome.getDate(), monthlyIncome);
     }
 }
