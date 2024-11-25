@@ -16,7 +16,7 @@ public class SeeListController {
 
     /**
      * Executes the See List Use Case.
-     * @param date the month and year of the items that the user wants to see.
+     * @param date the month and year of the items that the user wants to see, in the format MMYY.
      */
     public void execute(String date) {
         final SeeListInputData seeListInputData = new SeeListInputData(date);
