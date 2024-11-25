@@ -10,6 +10,41 @@
 4. Ysajelle Yi Ru Chua Lim (Ysajelle-Lim)
 5. Jia Yi Wu (Observer3510)
 
+## Description
+This project was made as the final project for CSC207 at the University of Toronto. 
+
+SpendSmart allows you to sign up with a username and password, and log your spendings. 
+You can view what you've logged as well as ask an AI assistant preset questions for help with budgeting.
+
+## Table of Contents
+[comment]: <> (Link to the sections below somehow)
+
+
+## Installation Instructions
+
+
+## Usage
+First, run the program.
+### Sign up
+If you've never used the program before, make a new account by choosing a username and password.
+### Log in
+If you already have an account, log in with your username and password.
+### Log an Expense
+
+### See List of Monthly Income & Expenses
+
+### Ask Questions to AI Assistant
+
+
+## License
+
+
+## Feedback 
+
+
+## Contributions
+
+
 ## User Stories/Cases
 
 [comment]: <> (The first sentence should be what the user wants to do and the rest of the story should detail how they achieve that.)
