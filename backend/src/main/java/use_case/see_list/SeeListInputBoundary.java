@@ -9,6 +9,6 @@ public interface SeeListInputBoundary {
      * Executes the see list use case.
      * @param seeListInputData the input data
      */
-    void execute(SeeListInputData seeListInputData);
+    SeeListOutputData execute(SeeListInputData seeListInputData);
 
 }

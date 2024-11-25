@@ -22,7 +22,7 @@ public class SeeListInteractor implements SeeListInputBoundary {
     }
 
     @Override
-    public void execute(SeeListInputData seeListInputData) {
+    public SeeListOutputData execute(SeeListInputData seeListInputData) {
         String date = seeListInputData.getDate();
         String username = this.userDataAccessObject.getCurrentUsername();
 
@@ -42,7 +42,6 @@ public class SeeListInteractor implements SeeListInputBoundary {
 
         // if monthly data doesn't exist for that month, present empty lists
 
-        SeeListOutputData output = new SeeListOutputData(monthlySpending.getSpending(), monthlyIncome.getIncome());
-        seeListPresenter.prepareSuccessView(output);
+        return new SeeListOutputData(monthlySpending.getSpending(), monthlyIncome.getIncome());
     }
 }
