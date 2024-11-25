@@ -21,7 +21,7 @@ public class SeeListController {
     }
 
     // Endpoint to handle chat messages
-    @PostMapping("/chat")
+    @PostMapping("/see")
 
     /**
      * Executes the See List Use Case.
