@@ -50,6 +50,15 @@ Refer to the Creative Commons license [here.](LICENSE)
 
 ## Contributions
 
+### How to contribute
+Contributors should make a new branch to push their changes and additions from.
+Push requests from the main branch will automatically be rejected. 
+
+### Reviewing contributions
+- Make sure each class and function has a javadoc explaining what it is, does, and what its parameters are.
+- Make sure naming conventions are consistent across classes.
+- Check that the code's logic makes sense
+- Check for redundant imports
 
 ## User Stories and Use Cases
 
