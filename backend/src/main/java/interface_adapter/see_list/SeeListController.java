@@ -24,13 +24,12 @@ public class SeeListController {
         this.seeListUseCaseInteractor = seeListUseCaseInteractor;
     }
 
-    // Endpoint to handle chat messages
-    @PostMapping("/see")
-
     /**
      * Executes the See List Use Case.
      * @param date the month and year of the items that the user wants to see, in the format MMYY.
      */
+    // Endpoint to handle see list requests
+    @PostMapping("/see")
     public SeeListOutputData handleSeeListRequest(String date) {
         final SeeListInputData seeListInputData = new SeeListInputData(date);
         return this.seeListUseCaseInteractor.execute(seeListInputData);
