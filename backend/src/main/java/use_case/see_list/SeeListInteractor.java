@@ -7,8 +7,12 @@ import entity.monthly_spending.MonthlySpendingFactory;
 import entity.monthly_income.CommonMonthlyIncomeFactory;
 import entity.monthly_income.MonthlyIncome;
 import entity.monthly_income.MonthlyIncomeFactory;
+import org.springframework.stereotype.Service;
 
-
+/**
+ * The See List Interactor.
+ */
+@Service
 public class SeeListInteractor implements SeeListInputBoundary {
     private final SeeListUserDataAccessInterface userDataAccessObject;
     private final SeeListOutputBoundary seeListPresenter;
@@ -22,7 +26,7 @@ public class SeeListInteractor implements SeeListInputBoundary {
     }
 
     @Override
-    public void execute(SeeListInputData seeListInputData) {
+    public SeeListOutputData execute(SeeListInputData seeListInputData) {
         String date = seeListInputData.getDate();
         String username = this.userDataAccessObject.getCurrentUsername();
 
@@ -42,7 +46,6 @@ public class SeeListInteractor implements SeeListInputBoundary {
 
         // if monthly data doesn't exist for that month, present empty lists
 
-        SeeListOutputData output = new SeeListOutputData(monthlySpending.getSpending(), monthlyIncome.getIncome());
-        seeListPresenter.prepareSuccessView(output);
+        return new SeeListOutputData(monthlySpending.getSpending(), monthlyIncome.getIncome());
     }
 }

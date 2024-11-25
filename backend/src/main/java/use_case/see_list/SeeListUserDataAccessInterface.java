@@ -1,7 +1,5 @@
 package use_case.see_list;
 
-// TODO: add income functions.
-
 import entity.monthly_income.MonthlyIncome;
 import entity.monthly_spending.MonthlySpending;
 
