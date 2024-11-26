@@ -3,10 +3,12 @@ package use_case.enter_expense;
 import entity.monthly_spending.CommonMonthlySpendingFactory;
 import entity.monthly_spending.MonthlySpending;
 import entity.monthly_spending.MonthlySpendingFactory;
+import org.springframework.stereotype.Service;
 
 /**
  * The Enter Expense interactor.
  */
+@Service
 public class EnterExpenseInteractor implements EnterExpenseInputBoundary {
     private final EnterExpenseUserDataAccessInterface userDataAccessObject;
     private final EnterExpenseOutputBoundary enterExpensePresenter;
@@ -19,7 +21,7 @@ public class EnterExpenseInteractor implements EnterExpenseInputBoundary {
     }
 
     @Override
-    public void execute(EnterExpenseInputData enterExpenseInputData) {
+    public EnterExpenseOutputData execute(EnterExpenseInputData enterExpenseInputData) {
         String date = enterExpenseInputData.getDate();
         double value = enterExpenseInputData.getValue();
 
@@ -45,11 +47,14 @@ public class EnterExpenseInteractor implements EnterExpenseInputBoundary {
             monthlySpending.addItem(value);
             this.userDataAccessObject.writeMonthlySpending(username, monthlySpending);
 
-        }
 
             EnterExpenseOutputData enterExpenseOutputData = new EnterExpenseOutputData(false);
             enterExpensePresenter.prepareSuccessView(enterExpenseOutputData);
+
+            return enterExpenseOutputData;
         }
+        return new EnterExpenseOutputData(true);
+    }
 
     /**
      * Validates the format of the expense date. Has to be in format "MMYY".

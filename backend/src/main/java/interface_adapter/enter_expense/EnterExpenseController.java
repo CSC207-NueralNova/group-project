@@ -1,6 +1,27 @@
 package interface_adapter.enter_expense;
 
-// TODO: make.
+import org.springframework.web.bind.annotation.*;
+import use_case.enter_expense.EnterExpenseInputBoundary;
+import use_case.enter_expense.EnterExpenseInputData;
+import use_case.enter_expense.EnterExpenseOutputData;
+import org.springframework.beans.factory.annotation.Autowired;
 
+@RestController
+@RequestMapping("/api/enter_expense")
+@CrossOrigin(origins = "http://localhost:5173")  // Allow CORS requests from the frontend
 public class EnterExpenseController {
+
+    private final EnterExpenseInputBoundary enterExpenseInteractor;
+
+    @Autowired
+    public EnterExpenseController(EnterExpenseInputBoundary enterExpenseInteractor) {
+        this.enterExpenseInteractor = enterExpenseInteractor;
+    }
+
+    // Endpoint to handle enter expense requests
+    @PostMapping("/enter")
+    public EnterExpenseOutputData handleEnterExpenseRequest(@RequestBody EnterExpenseInputData inputData) {
+        // Return the chatbot response as JSON
+        return enterExpenseInteractor.execute(inputData);
+    }
 }
