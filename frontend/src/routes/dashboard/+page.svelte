@@ -1,8 +1,11 @@
 <script>
 	import { auth } from "$lib/firebase.js";
 	import { onMount } from 'svelte';
-
+	import { writable } from 'svelte/store';
+	import { saveIncomeToBackend, saveExpenseToBackend } from '$lib/api.js';
 	import Modal from '$lib/components/Modal.svelte';
+
+	export let uid = writable(null); // Store the UID for use in API calls
 
 	let isIncomeModalOpen = false;
 	let isExpenseModalOpen = false;
@@ -23,14 +26,24 @@
 		isExpenseModalOpen = false;
 	};
 
-	const saveIncome = (income) => {
-		console.log('Income saved:', income);
-		closeIncomeModal();
+	const saveIncome = async (income) => {
+		try {
+			const response = await saveIncomeToBackend(income);
+			console.log('Income saved:', response);
+			closeIncomeModal();
+		} catch (error) {
+			alert('Failed to save income. Please try again.');
+		}
 	};
 
-	const saveExpense = (expense) => {
-		console.log('Expense saved:', expense);
-		closeExpenseModal();
+	const saveExpense = async (expense) => {
+		try {
+			const response = await saveExpenseToBackend(expense);
+			console.log('Expense saved:', response);
+			closeExpenseModal();
+		} catch (error) {
+			alert('Failed to save expense. Please try again.');
+		}
 	};
 
 	// Function to log the user out
@@ -148,6 +161,8 @@
 		const unsubscribe = auth.onAuthStateChanged((user) => {
 			if (user) {
 				email = user.email; // Set email when user is logged in
+				uid.set(user.uid); // Save user UID for backend calls
+				console.log(uid)
 			} else {
 				email = null; // Clear email when no user is logged in
 			}

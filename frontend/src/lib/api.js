@@ -25,7 +25,7 @@ export async function chatbotRequest(username, message) {
 
 export async function saveIncomeToBackend(income) {
 	try {
-		const response = await fetch(`${apiUrl}/enter_income/enter`, {
+		const response = await fetch(`${apiUrl}/api/enter_income/enter`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ export async function saveIncomeToBackend(income) {
 
 export async function saveExpenseToBackend(expense) {
 	try {
-		const response = await fetch(`${apiUrl}/enter_expense/enter`, {
+		const response = await fetch(`${apiUrl}/api/enter_expense/enter`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
