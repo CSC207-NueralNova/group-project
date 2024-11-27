@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import javax.swing.JFrame;
 
-@SpringBootApplication(scanBasePackages = {"app", "web", "use_case", "interface_adapter", "data_access"})
+@SpringBootApplication(scanBasePackages = {"app", "config", "use_case", "interface_adapter", "data_access", "entity"})
 public class Main {
     public static void main(String[] args) {
         // Check if we are in a Heroku environment or local

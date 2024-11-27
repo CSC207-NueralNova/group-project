@@ -2,6 +2,37 @@
 	import { auth } from "$lib/firebase.js";
 	import { onMount } from 'svelte';
 
+	import Modal from '$lib/components/Modal.svelte';
+
+	let isIncomeModalOpen = false;
+	let isExpenseModalOpen = false;
+
+	const openIncomeModal = () => {
+		isIncomeModalOpen = true;
+	};
+
+	const openExpenseModal = () => {
+		isExpenseModalOpen = true;
+	};
+
+	const closeIncomeModal = () => {
+		isIncomeModalOpen = false;
+	};
+
+	const closeExpenseModal = () => {
+		isExpenseModalOpen = false;
+	};
+
+	const saveIncome = (income) => {
+		console.log('Income saved:', income);
+		closeIncomeModal();
+	};
+
+	const saveExpense = (expense) => {
+		console.log('Expense saved:', expense);
+		closeExpenseModal();
+	};
+
 	// Function to log the user out
 	async function logout() {
 		try {
@@ -200,7 +231,7 @@
 						</svg>
 						Dashboard
 					</a>
-					<a href="#" class="group flex items-center rounded-md px-2 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">
+					<a href="/advisor" class="group flex items-center rounded-md px-2 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">
 						<svg class="mr-3 size-6 shrink-0 text-gray-400 group-hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
 							<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
 						</svg>
@@ -337,16 +368,47 @@
 				</dl>
 			</div>
 
-			<!-- Projects list (only on smallest breakpoint) -->
+
 			<div class="mt-2">
-				<div class="px-4 sm:px-6">
+				<div class="flex justify-between items-center px-4 sm:px-6">
 					<h2 class="text-xl font-medium text-gray-900">Spending History</h2>
+					<div class="space-x-2">
+						<button
+							class="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+							on:click={openIncomeModal}
+						>
+							Add Income
+						</button>
+						<button
+							class="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+							on:click={openExpenseModal}
+						>
+							Add Expense
+						</button>
+					</div>
 				</div>
 				<ul role="list" class="mt-3 divide-y divide-gray-100 border-t border-gray-200">
-
-					<!-- More projects... -->
+					<!-- Add spending history here -->
 				</ul>
 			</div>
+
+			<Modal
+				title="Add Income"
+				isOpen={isIncomeModalOpen}
+				onClose={closeIncomeModal}
+				onSave={saveIncome}
+				defaultData={{ date: new Date().toISOString().split('T')[0], category: '', amount: '' }}
+				{categories}
+			/>
+
+			<Modal
+				title="Add Expense"
+				isOpen={isExpenseModalOpen}
+				onClose={closeExpenseModal}
+				onSave={saveExpense}
+				defaultData={{ date: new Date().toISOString().split('T')[0], category: '', amount: '' }}
+				{categories}
+			/>
 
 			<div class="container mx-auto px-6 py-4">
 				<!-- Tabs -->
