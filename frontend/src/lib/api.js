@@ -47,6 +47,7 @@ export async function saveIncomeToBackend(income) {
 
 export async function saveExpenseToBackend(expense) {
 	try {
+		console.log('Payload being sent to backend:', expense); // Log payload
 		const response = await fetch(`${apiUrl}/api/enter_expense/enter`, {
 			method: 'POST',
 			headers: {
@@ -60,6 +61,7 @@ export async function saveExpenseToBackend(expense) {
 		}
 
 		const data = await response.json();
+		console.log('Response from backend:', data); // Log backend response
 		return data;
 	} catch (error) {
 		console.error('Error saving expense:', error);

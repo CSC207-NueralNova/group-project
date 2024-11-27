@@ -1,19 +1,46 @@
 <script>
+	import { onMount } from 'svelte';
+
 	export let title = '';
 	export let isOpen = false;
 	export let onClose = () => {};
 	export let onSave = (data) => {};
-	export let defaultData = { date: '', category: '', amount: '' };
+	export let defaultData = { date: '', category: '', value: '' };
 	export let categories = []; // Array of category options
 
 	let formData = { ...defaultData };
+
+	// Set default date to today if not provided
+	onMount(() => {
+		console.log('Initial formData.date:', formData.date);
+		if (!formData.date) {
+			const today = new Date();
+			formData.date = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+		}
+		console.log('Defaulted formData.date:', formData.date);
+	});
+
+	// Format the date to MMYY
+	const formatDateToMMYY = (date) => {
+		const [year, month] = date.split('-');
+		return `${month}${year.slice(2)}`;
+	};
 
 	const closeModal = () => {
 		onClose();
 	};
 
 	const handleSave = () => {
-		onSave(formData);
+		// Create a copy of formData for submission
+		const submissionData = { ...formData };
+
+		// Convert the date to MMYY format
+		if (submissionData.date) {
+			submissionData.date = formatDateToMMYY(submissionData.date);
+		}
+
+		// Pass the processed data to onSave
+		onSave(submissionData);
 		closeModal();
 	};
 </script>
@@ -55,7 +82,8 @@
 					<label class="block text-sm font-medium text-gray-700">Amount</label>
 					<input
 						type="number"
-						bind:value={formData.amount}
+						bind:value={formData.value}
+						on:input={() => (formData.value = parseFloat(formData.value || 0))}
 						class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
 						placeholder="Enter amount"
 					/>
@@ -80,4 +108,3 @@
 		</div>
 	</div>
 {/if}
-

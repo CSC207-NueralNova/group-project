@@ -41,12 +41,18 @@
 				userId: user.uid, // Add userId to the payload
 			};
 
+			// Log the payload being sent
+			console.log('Sending income payload:', payload);
+
 			// Call the backend API
 			const response = await saveIncomeToBackend(payload);
-			console.log('Income saved:', response);
+
+			// Log the response from the backend
+			console.log('Income saved successfully. Backend response:', response);
 
 			closeIncomeModal();
 		} catch (error) {
+			// Log any errors encountered
 			console.error('Failed to save income:', error);
 			alert('Failed to save income. Please try again.');
 		}
@@ -67,16 +73,23 @@
 				userId: user.uid, // Add userId to the payload
 			};
 
+			// Log the payload being sent
+			console.log('Sending expense payload:', payload);
+
 			// Call the backend API
 			const response = await saveExpenseToBackend(payload);
-			console.log('Expense saved:', response);
+
+			// Log the response from the backend
+			console.log('Expense saved successfully. Backend response:', response);
 
 			closeExpenseModal();
 		} catch (error) {
+			// Log any errors encountered
 			console.error('Failed to save expense:', error);
 			alert('Failed to save expense. Please try again.');
 		}
 	};
+
 
 	// Function to log the user out
 	async function logout() {
@@ -444,7 +457,6 @@
 				isOpen={isIncomeModalOpen}
 				onClose={closeIncomeModal}
 				onSave={saveIncome}
-				defaultData={{ date: new Date().toISOString().split('T')[0], category: '', amount: '' }}
 				{categories}
 			/>
 
@@ -453,7 +465,6 @@
 				isOpen={isExpenseModalOpen}
 				onClose={closeExpenseModal}
 				onSave={saveExpense}
-				defaultData={{ date: new Date().toISOString().split('T')[0], category: '', amount: '' }}
 				{categories}
 			/>
 
