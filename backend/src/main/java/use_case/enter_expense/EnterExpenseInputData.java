@@ -4,26 +4,27 @@ package use_case.enter_expense;
  * The input data for the Enter Expense Use Case.
  */
 public class EnterExpenseInputData {
+    private String userId; // Add userId
+    private String date;
+    private double value;
 
-    private final String name;
-    private final String date;
-    private final double value;
-
-    public EnterExpenseInputData(String name, String date, double value) {
-        this.name = name;
+    // Constructor
+    public EnterExpenseInputData(String userId, String date, double value) {
+        this.userId = userId;
         this.date = date;
         this.value = value;
     }
 
-    String getName() {
-        return name;
+    // Getters
+    public String getUserId() {
+        return userId;
     }
 
-    String getDate() {
+    public String getDate() {
         return date;
     }
 
-    double getValue() {
+    public double getValue() {
         return value;
     }
 }

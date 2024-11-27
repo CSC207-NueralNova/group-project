@@ -28,20 +28,52 @@
 
 	const saveIncome = async (income) => {
 		try {
-			const response = await saveIncomeToBackend(income);
+			// Retrieve the current user's UID from Firebase Auth
+			const user = auth.currentUser;
+
+			if (!user) {
+				throw new Error("User is not authenticated");
+			}
+
+			// Include UID in the payload
+			const payload = {
+				...income,
+				userId: user.uid, // Add userId to the payload
+			};
+
+			// Call the backend API
+			const response = await saveIncomeToBackend(payload);
 			console.log('Income saved:', response);
+
 			closeIncomeModal();
 		} catch (error) {
+			console.error('Failed to save income:', error);
 			alert('Failed to save income. Please try again.');
 		}
 	};
 
 	const saveExpense = async (expense) => {
 		try {
-			const response = await saveExpenseToBackend(expense);
+			// Retrieve the current user's UID from Firebase Auth
+			const user = auth.currentUser;
+
+			if (!user) {
+				throw new Error("User is not authenticated");
+			}
+
+			// Include UID in the payload
+			const payload = {
+				...expense,
+				userId: user.uid, // Add userId to the payload
+			};
+
+			// Call the backend API
+			const response = await saveExpenseToBackend(payload);
 			console.log('Expense saved:', response);
+
 			closeExpenseModal();
 		} catch (error) {
+			console.error('Failed to save expense:', error);
 			alert('Failed to save expense. Please try again.');
 		}
 	};
