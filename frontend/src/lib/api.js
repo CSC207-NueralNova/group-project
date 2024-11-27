@@ -3,7 +3,7 @@ import { env } from '$env/dynamic/public'; // Dynamic public environment variabl
 export async function chatbotRequest(username, message) {
 	console.log("Sending request to backend:", { username, message }); // Debugging log
 
-	const apiUrl = env.PUBLIC_APP_API_URL; // Use environment variable with PUBLIC_ prefix
+	const apiUrl = env.PUBLIC_VITE_API_URL; // Use environment variable with PUBLIC_ prefix
 
 	try {
 		const response = await fetch(`${apiUrl}/api/chatbot/chat`, {
