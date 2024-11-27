@@ -22,6 +22,11 @@ public class EnterIncomeController {
     @PostMapping("/enter")
     public EnterIncomeOutputData handleEnterIncomeRequest(@RequestBody EnterIncomeInputData inputData) {
         // Return the chatbot response as JSON
+        String userId = inputData.getUserId(); // Extract the userId
+        String date = inputData.getDate();
+        double value = inputData.getValue();
+
+        System.out.println("Saving Expense Payload UserId: " + userId + ", Date: " + date + ", Value: " + value);
+
         return enterIncomeInteractor.execute(inputData);
-    }
-}
+    }}
