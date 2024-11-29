@@ -5,7 +5,7 @@ import entity.recurrent_income.RecurrentIncome;
 /**
  * DAO for the Enter Recurrent Income Use Case.
  */
-public interface EnterRecurringIncomeUserDataAccessInterface {
+public interface EnterRecurrentIncomeUserDataAccessInterface {
     /**
      * Returns the username of the current user of the application.
      * @return the username of the current user; null indicates that no one is logged into the application.

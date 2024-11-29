@@ -6,7 +6,7 @@ package use_case.enter_recurrent_income;
 public interface EnterRecurrentIncomeInputBoundary {
     /**
      * Executes the enter recurring income use case.
-     * @param enterRecurringIncomeInputData the input data
+     * @param enterRecurrentIncomeInputData the input data
      */
-    EnterRecurringIncomeOutputData execute(EnterRecurringIncomeInputData enterRecurringIncomeInputData);
+    EnterRecurrentIncomeOutputData execute(EnterRecurrentIncomeInputData enterRecurrentIncomeInputData);
 }

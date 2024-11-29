@@ -10,20 +10,20 @@ import org.springframework.stereotype.Service;
  * The Enter Recurring Income interactor
  */
 @Service
-public class EnterRecurringIncomeInteractor implements EnterRecurrentIncomeInputBoundary {
-    private final EnterRecurringIncomeUserDataAccessInterface userDataAccessObject;
-    private final EnterRecurringIncomeOutputBoundary enterRecurringIncomePresenter;
+public class EnterRecurrentIncomeInteractor implements EnterRecurrentIncomeInputBoundary {
+    private final EnterRecurrentIncomeUserDataAccessInterface userDataAccessObject;
+    private final EnterRecurrentIncomeOutputBoundary enterRecurringIncomePresenter;
     private final RecurrentIncomeFactory recurrentIncomeFactory = new CommonRecurrentIncomeFactory();
 
-    public EnterRecurringIncomeInteractor(EnterRecurringIncomeUserDataAccessInterface userDataAccessObject,
-                                          EnterRecurringIncomeOutputBoundary enterRecurringIncomePresenter) {
+    public EnterRecurrentIncomeInteractor(EnterRecurrentIncomeUserDataAccessInterface userDataAccessObject,
+                                          EnterRecurrentIncomeOutputBoundary enterRecurringIncomePresenter) {
         this.userDataAccessObject = userDataAccessObject;
         this.enterRecurringIncomePresenter = enterRecurringIncomePresenter;
     }
 
     @Override
-    public EnterRecurringIncomeOutputData execute(EnterRecurringIncomeInputData enterRecurringIncomeInputData) {
-        double value = enterRecurringIncomeInputData.getValue();
+    public EnterRecurrentIncomeOutputData execute(EnterRecurrentIncomeInputData enterRecurrentIncomeInputData) {
+        double value = enterRecurrentIncomeInputData.getValue();
         if (!validIncomeValue(value)) {
             enterRecurringIncomePresenter.prepareFailView(
                     value + " is not a valid value for an income, please enter a positive value with up to two decimal points."
@@ -41,11 +41,11 @@ public class EnterRecurringIncomeInteractor implements EnterRecurrentIncomeInput
             recurrentIncome.addRecurrentIncomeItem(value);
             this.userDataAccessObject.writeRecurrentIncome(username, recurrentIncome);
 
-            EnterRecurringIncomeOutputData enterRecurringIncomeOutputData = new EnterRecurringIncomeOutputData(false);
-            enterRecurringIncomePresenter.prepareSuccessView(enterRecurringIncomeOutputData);
-            return enterRecurringIncomeOutputData;
+            EnterRecurrentIncomeOutputData enterRecurrentIncomeOutputData = new EnterRecurrentIncomeOutputData(false);
+            enterRecurringIncomePresenter.prepareSuccessView(enterRecurrentIncomeOutputData);
+            return enterRecurrentIncomeOutputData;
         }
-        return new EnterRecurringIncomeOutputData(true);
+        return new EnterRecurrentIncomeOutputData(true);
     }
 
     /**
