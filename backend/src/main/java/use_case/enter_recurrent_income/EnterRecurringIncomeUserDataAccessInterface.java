@@ -1,6 +1,6 @@
 package use_case.enter_recurrent_income;
 
-import entity.recurrent_monthly_income_factory.RecurrentMonthlyIncomeFactory;
+import entity.recurrent_income.RecurrentMonthlyIncomeFactory;
 
 /**
  * DAO for the Enter Recurrent Income Use Case.

@@ -1,9 +1,9 @@
 package use_case.enter_recurrent_income;
 
 
-import entity.recurrent_monthly_income_factory.CommonRecurrentMonthlyIncomeFactoryFactory;
-import entity.recurrent_monthly_income_factory.RecurrentMonthlyIncomeFactory;
-import entity.recurrent_monthly_income_factory.RecurrentMonthlyIncomeFactoryFactory;
+import entity.recurrent_income.CommonRecurrentMonthlyIncomeFactoryFactory;
+import entity.recurrent_income.RecurrentMonthlyIncomeFactory;
+import entity.recurrent_income.RecurrentMonthlyIncomeFactoryFactory;
 import org.springframework.stereotype.Service;
 
 /**

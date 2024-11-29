@@ -1,4 +1,4 @@
-package entity.recurrent_monthly_income_factory;
+package entity.recurrent_income;
 
 import entity.item_income.CommonItemIncomeFactory;
 import entity.item_income.ItemIncome;
