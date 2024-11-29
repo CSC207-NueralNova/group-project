@@ -1,8 +1,8 @@
-public class AuthInputData {
+public class SignInInputData {
     private final String email;
     private final String password;
 
-    public AuthInputData(String email, String password) {
+    public SignInInputData(String email, String password) {
         this.email = email;
         this.password = password;
     }
