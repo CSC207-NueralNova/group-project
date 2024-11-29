@@ -3,8 +3,6 @@ package entity.recurrent_income;
 import entity.item_income.CommonItemIncomeFactory;
 import entity.item_income.ItemIncome;
 import entity.item_income.ItemIncomeFactory;
-import entity.monthly_income.CommonMonthlyIncome;
-import entity.monthly_income.MonthlyIncome;
 
 import java.util.ArrayList;
 import java.util.List;
