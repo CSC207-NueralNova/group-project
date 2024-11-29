@@ -1,4 +1,6 @@
-package entity.monthly_income;
+package entity.recurrent_monthly_income_factory;
+
+import entity.monthly_income.MonthlyIncome;
 
 /**
  * Factory for creating MonthlyIncomes while storing the recurrent income items
