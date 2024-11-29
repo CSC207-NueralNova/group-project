@@ -58,13 +58,22 @@ Click on the AI Advisor button in the sidebar. Select the kind of advice you'd l
 from the dropdown of AI advisors. Click on one of the preset questions.
 
 ## License
-[comment]: <> (Creative commons? Link to LICENSE)
 Refer to the Creative Commons license [here.](LICENSE)
 
 ## Feedback
-### For Contributors
-Send a message in the development discord server's general channel about the issue.
-For 
+Send a message in the development discord server's general channel.
+
+Invite with temporary membership [here.](https://discord.gg/WWBrzkVC) (Expires 
+December 6, 2024)
+
+### What to Report
+- Website breaking bugs
+- Bugs with the usages listed above
+- Issues with navigating the website
+
+### What to Expect
+Since this project is for school, we will likely not respond to any requests 
+for new features at all or to any bug reports past the due date (December 2, 2024).
 
 ## Contributions
 
