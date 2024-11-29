@@ -32,6 +32,6 @@ public interface EnterRecurringIncomeUserDataAccessInterface {
      * Will overwrite.
      * @param recurrentMonthlyIncomeFactory The RecurrentMonthlyIncomeFactory to rewrite the records with.
      */
-    void writeMonthlyIncomeFactory(String username, RecurrentMonthlyIncomeFactory recurrentMonthlyIncomeFactory);
+    void writeRecurringMonthlyIncomeFactory(String username, RecurrentMonthlyIncomeFactory recurrentMonthlyIncomeFactory);
 }
 
