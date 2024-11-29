@@ -29,24 +29,42 @@ You can view what you've logged as well as ask an AI assistant preset questions 
 
 
 ## Usage
-First, run the program.
+First, go to the [website](https://group-project-kappa.vercel.app) and click Get Started.
+
 ### Sign up
-If you've never used the program before, make a new account by choosing a username and password.
-### Log in
-If you already have an account, log in with your username and password.
+Make a new account by entering your email and password.
+
+### Sign in
+Click Sign in near the bottom of the screen, and sign in with your username and 
+password.
+
 ### Log an Expense
+Click the Add Expense button under the monthly overview on the right. Select a
+date and category that the expense falls under. Enter the name and amount of the
+expense and click Save.
+
+### Log an Income
+Click the Add Income button next to the Add Expense button. Select a
+date and type that the income falls under. Enter the name and amount of the
+income and click Save.
 
 ### See List of Monthly Income & Expenses
+Scroll down to see your Spending History. Click the tabs underneath the heading 
+to switch between expenses and income. Scroll down the sidebar to see the filters 
+for each category.
 
 ### Ask Questions to AI Assistant
-
+Click on the AI Advisor button in the sidebar. Select the kind of advice you'd like
+from the dropdown of AI advisors. Click on one of the preset questions.
 
 ## License
 [comment]: <> (Creative commons? Link to LICENSE)
 Refer to the Creative Commons license [here.](LICENSE)
 
 ## Feedback
-
+### For Contributors
+Send a message in the development discord server's general channel about the issue.
+For 
 
 ## Contributions
 
