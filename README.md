@@ -111,7 +111,7 @@ Use Cases:
    2. Input the date (format: "MMYY") the expense occurred or started.
    3. Input the amount.
    4. Choose a category for the expense from a dropdown.
-4. Viewing Expenses
+4. See List
    1. Click "View Data" button
    2. Select the current month
    3. Look at the records
@@ -127,7 +127,7 @@ Use Cases:
 2. Log in
    1. Enter username and password into respective fields 
    2. Click login button
-3. ing expenses
+3. Viewing expenses
    1. Click " Data" button
 4. Visualize expenses
    1. Select the desired month
@@ -180,6 +180,3 @@ Use cases:
    1. Click the "View Data" button
    2. Select the desired month
    3. View the records of income with amount and type listed
-
-
-## Entities
