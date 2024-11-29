@@ -5,7 +5,7 @@ import entity.item_income.ItemIncome;
 import java.util.List;
 
 /**
- * Factory for creating RecurringIncomes while storing the recurrent income items
+ * This entity stores recurrent income data for one user.
  */
 public interface RecurrentIncome {
 
