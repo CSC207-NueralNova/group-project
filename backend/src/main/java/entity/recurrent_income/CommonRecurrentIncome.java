@@ -14,16 +14,9 @@ public class CommonRecurrentIncome implements RecurrentIncome {
     private final List<ItemIncome> recurrentItems = new ArrayList<>();
     private final ItemIncomeFactory itemIncomeFactory = new CommonItemIncomeFactory();
 
-
-    public CommonRecurrentIncome() {}
-
     @Override
-    public MonthlyIncome create(String date) {
-        MonthlyIncome newMonthlyIncome = new CommonMonthlyIncome(date);
-        for (ItemIncome itemIncome : recurrentItems) {
-            newMonthlyIncome.addItem(itemIncome.getValue());
-        }
-        return newMonthlyIncome;
+    public List<ItemIncome> getIncome() {
+        return new ArrayList<>(recurrentItems);
     }
 
     @Override

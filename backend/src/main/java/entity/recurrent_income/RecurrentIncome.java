@@ -1,17 +1,19 @@
 package entity.recurrent_income;
 
-import entity.monthly_income.MonthlyIncome;
+import entity.item_income.ItemIncome;
+
+import java.util.List;
 
 /**
  * Factory for creating RecurringIncomes while storing the recurrent income items
  */
 public interface RecurrentIncome {
+
     /**
-     * Creates a new RecurringIncome containing the recurrent items.
-     * @param date the date of the income.
-     * @return the new monthly income
+     * Returns the list of the recurrent incomes.
+     * @return the list of the recurrent incomes.
      */
-    MonthlyIncome create(String date);
+    List<ItemIncome> getIncome();
 
     /**
      * Adds a recurrent income item to the recurrent item list.
