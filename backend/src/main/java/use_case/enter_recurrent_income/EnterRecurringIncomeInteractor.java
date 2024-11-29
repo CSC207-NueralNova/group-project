@@ -1,9 +1,9 @@
 package use_case.enter_recurrent_income;
 
 
-import entity.recurrent_income.CommonRecurrentMonthlyIncomeFactoryFactory;
-import entity.recurrent_income.RecurrentMonthlyIncomeFactory;
-import entity.recurrent_income.RecurrentMonthlyIncomeFactoryFactory;
+import entity.recurrent_income.CommonRecurrentIncomeFactory;
+import entity.recurrent_income.RecurrentIncome;
+import entity.recurrent_income.RecurrentIncomeFactory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class EnterRecurringIncomeInteractor implements EnterRecurrentIncomeInputBoundary {
     private final EnterRecurringIncomeUserDataAccessInterface userDataAccessObject;
     private final EnterRecurringIncomeOutputBoundary enterRecurringIncomePresenter;
-    private final RecurrentMonthlyIncomeFactoryFactory recurrentMonthlyIncomeFactoryFactory = new CommonRecurrentMonthlyIncomeFactoryFactory();
+    private final RecurrentIncomeFactory recurrentIncomeFactory = new CommonRecurrentIncomeFactory();
 
     public EnterRecurringIncomeInteractor(EnterRecurringIncomeUserDataAccessInterface userDataAccessObject,
                                           EnterRecurringIncomeOutputBoundary enterRecurringIncomePresenter) {
@@ -30,16 +30,16 @@ public class EnterRecurringIncomeInteractor implements EnterRecurrentIncomeInput
             );
         } else {
             String username = this.userDataAccessObject.getCurrentUsername();
-            RecurrentMonthlyIncomeFactory recurrentMonthlyIncomeFactory;
+            RecurrentIncome recurrentIncome;
 
-            if (this.userDataAccessObject.existsRecurrentMonthlyIncomeFactoryByUsername(username)) {
-                recurrentMonthlyIncomeFactory = this.userDataAccessObject.getRecurrentMonthlyIncomeFactoryByUsername(username);
+            if (this.userDataAccessObject.existsRecurrentIncomeByUsername(username)) {
+                recurrentIncome = this.userDataAccessObject.getRecurrentIncomeByUsername(username);
             } else {
-                recurrentMonthlyIncomeFactory = this.recurrentMonthlyIncomeFactoryFactory.create();
+                recurrentIncome = this.recurrentIncomeFactory.create();
             }
 
-            recurrentMonthlyIncomeFactory.addRecurrentIncomeItem(value);
-            this.userDataAccessObject.writeRecurringMonthlyIncomeFactory(username, recurrentMonthlyIncomeFactory);
+            recurrentIncome.addRecurrentIncomeItem(value);
+            this.userDataAccessObject.writeRecurrentIncome(username, recurrentIncome);
 
             EnterRecurringIncomeOutputData enterRecurringIncomeOutputData = new EnterRecurringIncomeOutputData(false);
             enterRecurringIncomePresenter.prepareSuccessView(enterRecurringIncomeOutputData);

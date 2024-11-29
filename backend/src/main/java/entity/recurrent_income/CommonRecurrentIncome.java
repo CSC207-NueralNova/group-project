@@ -9,13 +9,13 @@ import entity.monthly_income.MonthlyIncome;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommonRecurrentMonthlyIncomeFactory implements RecurrentMonthlyIncomeFactory {
+public class CommonRecurrentIncome implements RecurrentIncome {
 
     private final List<ItemIncome> recurrentItems = new ArrayList<>();
     private final ItemIncomeFactory itemIncomeFactory = new CommonItemIncomeFactory();
 
 
-    public CommonRecurrentMonthlyIncomeFactory() {}
+    public CommonRecurrentIncome() {}
 
     @Override
     public MonthlyIncome create(String date) {
