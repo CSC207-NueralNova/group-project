@@ -7,17 +7,24 @@ import entity.item_income.CommonItemIncomeFactory;
 import entity.item_income.ItemIncome;
 import entity.item_income.ItemIncomeFactory;
 
-
 /**
  * A bare-bones implementation of the MonthlyIncome interface.
  */
 public class CommonMonthlyIncome implements MonthlyIncome {
 
-    private final String date;
-    private final List<ItemIncome> items = new ArrayList<>();
-    private final ItemIncomeFactory itemFactory = new CommonItemIncomeFactory();
+    private String date; // Make non-final for Firestore compatibility
+    private List<ItemIncome> items; // Non-final for deserialization
+    private transient ItemIncomeFactory itemFactory; // Transient to avoid serialization
 
+    // No-argument constructor for Firestore
+    public CommonMonthlyIncome() {
+        this.items = new ArrayList<>();
+        this.itemFactory = new CommonItemIncomeFactory();
+    }
+
+    // Constructor for manual instantiation
     public CommonMonthlyIncome(String date) {
+        this();
         this.date = date;
     }
 
@@ -26,12 +33,15 @@ public class CommonMonthlyIncome implements MonthlyIncome {
         return this.date;
     }
 
-    public List<ItemIncome> getIncome() {
+    @Override
+    public List<ItemIncome> getItems() {
         return new ArrayList<>(this.items);
     }
 
-    @Override
-    public void addItem(double value) {
-        this.items.add(this.itemFactory.create(value));
+    public void addItem(double value, String date) {
+        if (this.itemFactory == null) {
+            this.itemFactory = new CommonItemIncomeFactory();
+        }
+        this.items.add(this.itemFactory.create(value, date));
     }
 }

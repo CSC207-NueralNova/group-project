@@ -19,12 +19,12 @@ public interface MonthlyIncome {
      * Returns the list of incomes.
      * @return the list of incomes.
      */
-    List<ItemIncome> getIncome();
+    List<ItemIncome> getItems();
 
     /**
      * Adds an item to the list of incomes
      * @param value the value of the item
      */
-    void addItem(double value);
+    void addItem(double value, String date);
 
 }

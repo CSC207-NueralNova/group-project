@@ -46,6 +46,6 @@ public class SeeListInteractor implements SeeListInputBoundary {
 
         // if monthly data doesn't exist for that month, present empty lists
 
-        return new SeeListOutputData(monthlySpending.getSpending(), monthlyIncome.getIncome());
+        return new SeeListOutputData(monthlySpending.getSpending(), monthlyIncome.getItems());
     }
 }

@@ -19,6 +19,6 @@ public class CommonRecurrentIncome implements RecurrentIncome {
 
     @Override
     public void addRecurrentIncomeItem(double amount) {
-        recurrentItems.add(itemIncomeFactory.create(amount));
+        recurrentItems.add(itemIncomeFactory.create(amount, "test"));
     }
 }

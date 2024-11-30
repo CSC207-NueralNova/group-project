@@ -25,36 +25,39 @@ public class EnterIncomeInteractor implements EnterIncomeInputBoundary {
     public EnterIncomeOutputData execute(EnterIncomeInputData enterIncomeInputData) {
         String date = enterIncomeInputData.getDate();
         double value = enterIncomeInputData.getValue();
+        String userId = enterIncomeInputData.getUserId(); // Fetch the user ID
 
+        // Validate the date format
         if (!validIncomeDate(date)) {
-            enterIncomePresenter.prepareFailView(
-                    date + " does not follow the format, please enter the month and year in the format MMYY.");
+            return new EnterIncomeOutputData(true, date + " does not follow the format. Please use MMYY.");
         }
-        else if (!validIncomeValue(value)) {
-            enterIncomePresenter.prepareFailView(
-                    value + " is not a valid value for an income, please enter a positive value with up to two decimal points."
-            );
+
+        // Validate the income value
+        if (!validIncomeValue(value)) {
+            return new EnterIncomeOutputData(true, value + " is not a valid value. Please provide a positive value with up to two decimal points.");
         }
-        else {
-            String username = this.userDataAccessObject.getCurrentUsername();
-            MonthlyIncome monthlyIncome;
 
-            if (this.userDataAccessObject.existsMonthlyIncomeByUsernameAndDate(username, date)) {
-                monthlyIncome = this.userDataAccessObject.getMonthlyIncomeByUsernameAndDate(username, date);
-            } else {
-                monthlyIncome = this.monthlyIncomeFactory.create(date);
-            }
-
-            monthlyIncome.addItem(value);
-            this.userDataAccessObject.writeMonthlyIncome(username, monthlyIncome);
-
-
-            EnterIncomeOutputData enterIncomeOutputData = new EnterIncomeOutputData(false);
-            enterIncomePresenter.prepareSuccessView(enterIncomeOutputData);
-            return enterIncomeOutputData;
+        // Fetch or create MonthlyIncome
+        MonthlyIncome monthlyIncome;
+        if (this.userDataAccessObject.existsMonthlyIncomeByUsernameAndDate(userId, date)) {
+            monthlyIncome = this.userDataAccessObject.getMonthlyIncomeByUsernameAndDate(userId, date);
+        } else {
+            monthlyIncome = this.monthlyIncomeFactory.create(date);
         }
-        return new EnterIncomeOutputData(true);
+
+        System.out.println(date);
+        System.out.println(userId);
+        System.out.println(value);
+        // Add the income item
+        monthlyIncome.addItem(value, date);
+
+        // Write the updated income data to the DAO
+        this.userDataAccessObject.writeMonthlyIncome(userId, monthlyIncome);
+
+        // Return success response
+        return new EnterIncomeOutputData(false, "Income added successfully.");
     }
+
 
     /**
      * Validates the format of the income date. Has to be in format "MMYY".
