@@ -4,10 +4,15 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.WriteResult;
+import entity.item_spending.ItemSpending;
+import entity.monthly_spending.CommonMonthlySpending;
 import entity.monthly_spending.MonthlySpending;
 import entity.monthly_spending.MonthlySpendingFactory;
 import org.springframework.stereotype.Component;
 import use_case.enter_expense.EnterExpenseUserDataAccessInterface;
+import com.google.cloud.firestore.FieldValue;
+import java.util.HashMap;
+import java.util.Map;
 
 import java.util.concurrent.ExecutionException;
 
@@ -53,9 +58,11 @@ public class EnterExpenseUserDataAccess implements EnterExpenseUserDataAccessInt
                     .get()
                     .get();
 
+            System.out.println("Firestore Document Data: " + document.getData());
+
             if (document.exists()) {
                 // Assuming you have a DTO to map Firebase document fields to MonthlySpending
-                return document.toObject(MonthlySpending.class);
+                return document.toObject(CommonMonthlySpending.class);
             } else {
                 // If no document exists, create a new instance using the factory
                 return monthlySpendingFactory.create(date);
@@ -69,16 +76,24 @@ public class EnterExpenseUserDataAccess implements EnterExpenseUserDataAccessInt
     @Override
     public void writeMonthlySpending(String username, MonthlySpending monthlySpending) {
         try {
-            ApiFuture<WriteResult> writeResult = firestore.collection("users")
-                    .document(username)
-                    .collection("monthlySpending")
-                    .document(monthlySpending.getDate())
-                    .set(monthlySpending);
+            for (ItemSpending newItem : monthlySpending.getSpending()) {
+                // Convert the new item to a Map
+                Map<String, Object> itemData = new HashMap<>();
+                itemData.put("value", newItem.getValue());
+                itemData.put("category", newItem.getCategory());
 
-            System.out.println("Write timestamp: " + writeResult.get().getUpdateTime());
-        } catch (InterruptedException | ExecutionException e) {
+                // Append the new item to the spending array
+                firestore.collection("users")
+                        .document(username)
+                        .collection("monthlySpending")
+                        .document(monthlySpending.getDate())
+                        .update("spending", FieldValue.arrayUnion(itemData));
+            }
+            System.out.println("Successfully appended new items to Firestore.");
+        } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Failed to write MonthlySpending to Firestore.");
+            System.out.println("Failed to append items to Firestore.");
         }
     }
+
 }

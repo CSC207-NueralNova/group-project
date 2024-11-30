@@ -26,4 +26,5 @@ public interface MonthlyIncome {
      * @param value the value of the item
      */
     void addItem(double value);
+
 }
