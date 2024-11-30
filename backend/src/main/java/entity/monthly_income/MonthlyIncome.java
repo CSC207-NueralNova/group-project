@@ -1,5 +1,6 @@
 package entity.monthly_income;
 
+import entity.item_income.CommonItemIncome;
 import entity.item_income.ItemIncome;
 
 import java.util.List;
@@ -19,11 +20,12 @@ public interface MonthlyIncome {
      * Returns the list of incomes.
      * @return the list of incomes.
      */
-    List<ItemIncome> getIncome();
+    List<CommonItemIncome> getItems();
 
     /**
      * Adds an item to the list of incomes
      * @param value the value of the item
      */
-    void addItem(double value);
+    void addItem(double value, String date);
+
 }

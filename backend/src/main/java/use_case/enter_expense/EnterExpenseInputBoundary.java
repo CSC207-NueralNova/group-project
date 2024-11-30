@@ -9,5 +9,5 @@ public interface EnterExpenseInputBoundary {
      * Execute the Enter Expense Use Case.
      * @param enterExpenseInputData the input data for this use case
      */
-    void execute(EnterExpenseInputData enterExpenseInputData);
+    EnterExpenseOutputData execute(EnterExpenseInputData enterExpenseInputData);
 }

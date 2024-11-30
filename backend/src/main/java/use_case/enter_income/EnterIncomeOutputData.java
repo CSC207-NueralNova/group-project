@@ -6,7 +6,7 @@ package use_case.enter_income;
 public class EnterIncomeOutputData {
     private final boolean useCaseFailed;
 
-    public EnterIncomeOutputData(boolean useCaseFailed) {
+    public EnterIncomeOutputData(boolean useCaseFailed, String s) {
         this.useCaseFailed = useCaseFailed;
     }
 

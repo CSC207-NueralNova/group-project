@@ -3,10 +3,12 @@ package use_case.enter_expense;
 import entity.monthly_spending.CommonMonthlySpendingFactory;
 import entity.monthly_spending.MonthlySpending;
 import entity.monthly_spending.MonthlySpendingFactory;
+import org.springframework.stereotype.Service;
 
 /**
  * The Enter Expense interactor.
  */
+@Service
 public class EnterExpenseInteractor implements EnterExpenseInputBoundary {
     private final EnterExpenseUserDataAccessInterface userDataAccessObject;
     private final EnterExpenseOutputBoundary enterExpensePresenter;
@@ -19,37 +21,40 @@ public class EnterExpenseInteractor implements EnterExpenseInputBoundary {
     }
 
     @Override
-    public void execute(EnterExpenseInputData enterExpenseInputData) {
+    public EnterExpenseOutputData execute(EnterExpenseInputData enterExpenseInputData) {
         String date = enterExpenseInputData.getDate();
         double value = enterExpenseInputData.getValue();
+        String category = enterExpenseInputData.getCategory();
 
+        // Validate the expense date
         if (!validExpenseDate(date)) {
-            enterExpensePresenter.prepareFailView(
+            return new EnterExpenseOutputData(true,
                     date + " does not follow the format, please enter the month and year in the format MMYY.");
         }
-        else if (!validExpenseValue(value)) {
-            enterExpensePresenter.prepareFailView(
-                    value + " is not a valid value for an expense, please enter a positive value with up to two decimal points."
-            );
-        }
-        else {
-            String username = this.userDataAccessObject.getCurrentUsername();
-            MonthlySpending monthlySpending;
 
-            if (this.userDataAccessObject.existsMonthlySpendingByUsernameAndDate(username, date)) {
-                monthlySpending = this.userDataAccessObject.getMonthlySpendingByUsernameAndDate(username, date);
-            } else {
-                monthlySpending = this.monthlySpendingFactory.create(date);
-            }
-
-            monthlySpending.addItem(value);
-            this.userDataAccessObject.writeMonthlySpending(username, monthlySpending);
-
+        // Validate the expense value
+        if (!validExpenseValue(value)) {
+            return new EnterExpenseOutputData(true,
+                    value + " is not a valid value for an expense, please enter a positive value with up to two decimal points.");
         }
 
-            EnterExpenseOutputData enterExpenseOutputData = new EnterExpenseOutputData(false);
-            enterExpensePresenter.prepareSuccessView(enterExpenseOutputData);
+        // Proceed with processing the expense
+        String uid = enterExpenseInputData.getUserId();
+        MonthlySpending monthlySpending;
+
+        if (this.userDataAccessObject.existsMonthlySpendingByUsernameAndDate(uid, date)) {
+            monthlySpending = this.userDataAccessObject.getMonthlySpendingByUsernameAndDate(uid, date);
+        } else {
+            monthlySpending = this.monthlySpendingFactory.create(date);
         }
+
+        monthlySpending.addItem(value, category);
+        this.userDataAccessObject.writeMonthlySpending(uid, monthlySpending);
+
+        // Return success message
+        return new EnterExpenseOutputData(false, "Expense added successfully!");
+    }
+
 
     /**
      * Validates the format of the expense date. Has to be in format "MMYY".

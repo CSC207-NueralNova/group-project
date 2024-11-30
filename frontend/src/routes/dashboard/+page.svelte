@@ -1,6 +1,106 @@
 <script>
 	import { auth } from "$lib/firebase.js";
 	import { onMount } from 'svelte';
+	import { writable } from 'svelte/store';
+	import { saveIncomeToBackend, saveExpenseToBackend } from '$lib/api.js';
+	import { fetchUserData } from "$lib/firestore.js"; // Import from firestore.js
+	import Modal from '$lib/components/Modal.svelte';
+	import { transformDataToTransactions} from "$lib/transactionHelper.js";
+
+	export let uid = writable(null); // Store the UID for use in API calls
+
+	let isIncomeModalOpen = false;
+	let isExpenseModalOpen = false;
+	let transactions = [];
+
+	const openIncomeModal = () => {
+		isIncomeModalOpen = true;
+	};
+
+	const openExpenseModal = () => {
+		isExpenseModalOpen = true;
+	};
+
+	const closeIncomeModal = () => {
+		isIncomeModalOpen = false;
+	};
+
+	const closeExpenseModal = () => {
+		isExpenseModalOpen = false;
+	};
+
+	const saveIncome = async (income) => {
+		try {
+			const user = auth.currentUser;
+
+			if (!user) {
+				throw new Error("User is not authenticated");
+			}
+
+			const payload = {
+				...income,
+				userId: user.uid,
+			};
+
+			console.log("Sending income payload:", payload);
+
+			const response = await saveIncomeToBackend(payload);
+			console.log("Income saved successfully. Backend response:", response);
+
+			closeIncomeModal();
+
+			// Fetch updated user data
+			const dates = getLastThreeMonths();
+			const updatedData = await fetchUserData(user.uid, dates);
+			transactions = transformDataToTransactions(updatedData.income, updatedData.spending);
+
+			let new_income;
+			new_income = updatedData.income;
+
+			console.log("Updated income:", new_income);
+		} catch (error) {
+			console.error("Failed to save income:", error);
+			alert("Failed to save income. Please try again.");
+		}
+	};
+
+	const saveExpense = async (expense) => {
+		try {
+			const user = auth.currentUser;
+
+			if (!user) {
+				throw new Error("User is not authenticated");
+			}
+
+			const payload = {
+				...expense,
+				userId: user.uid,
+			};
+
+			console.log("Sending expense payload:", payload);
+
+			const response = await saveExpenseToBackend(payload);
+			console.log("Expense saved successfully. Backend response:", response);
+
+			closeExpenseModal();
+
+			// Fetch updated user data
+			const dates = getLastThreeMonths();
+			const updatedData = await fetchUserData(user.uid, dates);
+			transactions = transformDataToTransactions(updatedData.income, updatedData.spending);
+
+
+			let spending;
+			spending = updatedData.spending; // Update spending and income
+
+			console.log("Updated spending:", spending);
+		} catch (error) {
+			console.error("Failed to save expense:", error);
+			alert("Failed to save expense. Please try again.");
+		}
+	};
+
+
 
 	// Function to log the user out
 	async function logout() {
@@ -22,18 +122,24 @@
 		isDropdownOpen = !isDropdownOpen;
 	}
 
-	let transactions = [
-		{ id: 1, name: "Grocery Shopping", category: "Food", date: "2024-11-01", amount: -50 },
-		{ id: 2, name: "Monthly Rent", category: "Rent", date: "2024-11-01", amount: -1200 },
-		{ id: 3, name: "Salary", category: "Income", date: "2024-11-03", amount: 3000 },
-		{ id: 4, name: "Freelance Work", category: "Income", date: "2024-11-05", amount: 500 },
-		{ id: 5, name: "Gym Membership", category: "Health", date: "2024-11-06", amount: -40 },
-		{ id: 6, name: "Utility Bill", category: "Utilities", date: "2024-11-08", amount: -100 },
-		{ id: 7, name: "Car Insurance", category: "Insurance", date: "2024-11-10", amount: -200 },
-		{ id: 8, name: "Coffee Shop", category: "Food", date: "2024-11-12", amount: -10 },
-		{ id: 9, name: "Bonus", category: "Income", date: "2024-11-14", amount: 1000 },
-		{ id: 10, name: "Electricity Bill", category: "Utilities", date: "2024-11-15", amount: -150 },
-	];
+	// let transactions = [
+	// 	{ id: 1, name: "Grocery Shopping", category: "Food", date: "2024-11-01", amount: -50 },
+	// 	{ id: 2, name: "Monthly Rent", category: "Rent", date: "2024-11-01", amount: -1200 },
+	// 	{ id: 3, name: "Salary", category: "Income", date: "2024-11-03", amount: 3000 },
+	// 	{ id: 4, name: "Freelance Work", category: "Income", date: "2024-11-05", amount: 500 },
+	// 	{ id: 5, name: "Gym Membership", category: "Health", date: "2024-11-06", amount: -40 },
+	// 	{ id: 6, name: "Utility Bill", category: "Utilities", date: "2024-11-08", amount: -100 },
+	// 	{ id: 7, name: "Car Insurance", category: "Insurance", date: "2024-11-10", amount: -200 },
+	// 	{ id: 8, name: "Coffee Shop", category: "Food", date: "2024-11-12", amount: -10 },
+	// 	{ id: 9, name: "Bonus", category: "Income", date: "2024-11-14", amount: 1000 },
+	// 	{ id: 10, name: "Electricity Bill", category: "Utilities", date: "2024-11-15", amount: -150 },
+	// ];
+
+	function parseDate(mmYY) {
+		const month = parseInt(mmYY.slice(0, 2), 10) - 1; // Convert MM to zero-based month
+		const year = parseInt(`20${mmYY.slice(2, 4)}`, 10); // Convert YY to full year
+		return new Date(year, month, 1); // Assume the 1st of the month
+	}
 
 	let currentMonth = new Date().getMonth(); // Get current month (0-based)
 	let currentYear = new Date().getFullYear(); // Get current year
@@ -43,58 +149,73 @@
 	});
 	let searchQuery = ""; // Add a reactive variable for the search query
 
-
 	// Filter transactions for the current month
 	$: monthlyTransactions = transactions.filter((t) => {
-		let transactionDate = new Date(t.date);
+		const transactionDate = parseDate(t.date);
 		return (
-			transactionDate.getMonth() === currentMonth &&
-			transactionDate.getFullYear() === currentYear
+				transactionDate.getMonth() === currentMonth &&
+				transactionDate.getFullYear() === currentYear
 		);
 	});
 
 	// Calculate metrics
 	$: totalIncome = monthlyTransactions
-		.filter((t) => t.amount > 0)
-		.reduce((sum, t) => sum + t.amount, 0);
+			.filter((t) => t.amount > 0)
+			.reduce((sum, t) => sum + t.amount, 0);
 
 	$: totalExpenses = monthlyTransactions
-		.filter((t) => t.amount < 0)
-		.reduce((sum, t) => sum + t.amount, 0);
+			.filter((t) => t.amount < 0)
+			.reduce((sum, t) => sum + Math.abs(t.amount), 0);
 
-	$: netProfit = totalIncome + totalExpenses;
+	$: netProfit = totalIncome - totalExpenses;
 
 	// Find top spending category
 	$: categorySpendMap = monthlyTransactions
-		.filter((t) => t.amount < 0)
-		.reduce((map, t) => {
-			map[t.category] = (map[t.category] || 0) + Math.abs(t.amount);
-			return map;
-		}, {});
+			.filter((t) => t.amount < 0)
+			.reduce((map, t) => {
+				const category = t.category || "Uncategorized"; // Handle missing categories
+				map[category] = (map[category] || 0) + Math.abs(t.amount);
+				return map;
+			}, {});
 
 	$: [mostExpensiveCategory, categorySpend] = Object.entries(categorySpendMap).reduce(
-		([topCategory, maxSpend], [category, spend]) =>
-			spend > maxSpend ? [category, spend] : [topCategory, maxSpend],
-		["N/A", 0]
+			([topCategory, maxSpend], [category, spend]) =>
+					spend > maxSpend ? [category, spend] : [topCategory, maxSpend],
+			["N/A", 0] // Default value when no spending exists
 	);
+
 
 	let activeTab = "expense"; // Default tab
 	let sortOption = "date"; // Default sort
 	let selectedCategories = new Set(); // Stores selected categories
 
+	let predefinedCategories = [
+		"Food",
+		"Rent",
+		"Health",
+		"Utilities",
+		"Insurance",
+		"Miscellaneous"
+	];
+
 	// Extract unique categories
-	let categories = Array.from(new Set(transactions.map((t) => t.category)));
+	let categories = [...predefinedCategories];
 
 	// Reactive filtered transactions
 	$: filteredTransactions = [...transactions]
-		.filter((t) => t.name.toLowerCase().includes(searchQuery.toLowerCase())) // Filter by search query
-		.sort((a, b) => (sortOption === "amount" ? b.amount - a.amount : new Date(b.date) - new Date(a.date)))
-		.filter(
-			(t) =>
-				(activeTab === "expense" ? t.amount < 0 : t.amount > 0) &&
-				(selectedCategories.size === 0 || selectedCategories.has(t.category))
-		);
-
+			.filter((t) => t.name.toLowerCase().includes(searchQuery.toLowerCase())) // Filter by search query
+			.sort((a, b) => {
+				if (sortOption === "amount") {
+					return Math.abs(b.amount) - Math.abs(a.amount); // Sort by absolute amount (largest to smallest)
+				} else if (sortOption === "date") {
+					return new Date(b.date) - new Date(a.date); // Sort by date
+				}
+			})
+			.filter(
+					(t) =>
+							(activeTab === "expense" ? t.amount < 0 : t.amount > 0) &&
+							(selectedCategories.size === 0 || selectedCategories.has(t.category))
+			);
 
 	// Toggle category filter reactively
 	function toggleCategory(category) {
@@ -105,28 +226,46 @@
 		}
 	}
 
+
 	onMount(() => {
-		// Listen for authentication state changes
-		auth.onAuthStateChanged((user) => {
-			if (!user) {
-				// Redirect to the login page if no user is logged in
-				window.location.href = "/login"; // Adjust the URL as needed
-			}
-		});
-
-		const unsubscribe = auth.onAuthStateChanged((user) => {
+		const unsubscribe = auth.onAuthStateChanged(async (user) => {
 			if (user) {
-				email = user.email; // Set email when user is logged in
+				email = user.email;
+				uid.set(user.uid);
+
+				try {
+
+					const lastThreeMonths = getLastThreeMonths();
+					const result = await fetchUserData(user.uid, lastThreeMonths);
+					transactions = transformDataToTransactions(result.income, result.spending);
+					console.log(transactions)
+
+				} catch (err) {
+					console.error("Error fetching user data:", err);
+				} finally {
+					console.log('fetched!')
+				}
 			} else {
-				email = null; // Clear email when no user is logged in
+				window.location.href = "/login";
 			}
 		});
 
-		// Cleanup the listener when the component is destroyed
-		return () => {
-			unsubscribe();
-		};
+		return () => unsubscribe();
 	});
+
+	function getLastThreeMonths() {
+		const months = [];
+		const now = new Date();
+
+		for (let i = 0; i < 3; i++) {
+			const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+			const mm = String(date.getMonth() + 1).padStart(2, "0");
+			const yy = String(date.getFullYear()).slice(-2);
+			months.push(mm + yy);
+		}
+
+		return months;
+	}
 
 	// Helper function to define category colors
 	function getCategoryColor(category) {
@@ -200,7 +339,7 @@
 						</svg>
 						Dashboard
 					</a>
-					<a href="#" class="group flex items-center rounded-md px-2 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">
+					<a href="/advisor" class="group flex items-center rounded-md px-2 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">
 						<svg class="mr-3 size-6 shrink-0 text-gray-400 group-hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
 							<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
 						</svg>
@@ -337,16 +476,45 @@
 				</dl>
 			</div>
 
-			<!-- Projects list (only on smallest breakpoint) -->
+
 			<div class="mt-2">
-				<div class="px-4 sm:px-6">
+				<div class="flex justify-between items-center px-4 sm:px-6">
 					<h2 class="text-xl font-medium text-gray-900">Spending History</h2>
+					<div class="space-x-2">
+						<button
+							class="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+							on:click={openIncomeModal}
+						>
+							Add Income
+						</button>
+						<button
+							class="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+							on:click={openExpenseModal}
+						>
+							Add Expense
+						</button>
+					</div>
 				</div>
 				<ul role="list" class="mt-3 divide-y divide-gray-100 border-t border-gray-200">
-
-					<!-- More projects... -->
+					<!-- Add spending history here -->
 				</ul>
 			</div>
+
+			<Modal
+				title="Add Income"
+				isOpen={isIncomeModalOpen}
+				onClose={closeIncomeModal}
+				onSave={saveIncome}
+				{categories}
+			/>
+
+			<Modal
+				title="Add Expense"
+				isOpen={isExpenseModalOpen}
+				onClose={closeExpenseModal}
+				onSave={saveExpense}
+				{categories}
+			/>
 
 			<div class="container mx-auto px-6 py-4">
 				<!-- Tabs -->

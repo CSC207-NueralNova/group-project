@@ -1,17 +1,25 @@
 package use_case.see_list;
 
-// TODO: make.
+import java.util.List;
 
 public class SeeListInputData {
+    private String userId;
+    private List<String> dates; // List of months in MMYY format
 
-    private final String date;
-
-    public SeeListInputData(String date) {
-        this.date = date;
+    // Getters and setters
+    public String getUserId() {
+        return userId;
     }
 
-    public String getDate() {
-        return date;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
+    public List<String> getDates() {
+        return dates;
+    }
+
+    public void setDates(List<String> dates) {
+        this.dates = dates;
+    }
 }

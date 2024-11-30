@@ -10,7 +10,84 @@
 4. Ysajelle Yi Ru Chua Lim (Ysajelle-Lim)
 5. Jia Yi Wu (Observer3510)
 
-## User Stories/Cases
+## Description
+This project was made as the final project for CSC207 at the University of Toronto. 
+
+SpendSmart allows you to sign up with a username and password, and log your spendings. 
+You can view what you've logged as well as ask an AI assistant preset questions for help with budgeting.
+
+## Table of Contents
+
+### [Installation Instructions](#installation-instructions)
+### [Usage](#usage)
+### [License](#license)
+### [Feedback](#feedback)
+### [Contributions](#contributions)
+### [User Stories and Use Cases](#user-stories-and-use-cases)
+
+## Installation Instructions
+No need to install anything, simply go to the website linked [here.](https://group-project-kappa.vercel.app/)
+
+## Usage
+First, go to the [website](https://group-project-kappa.vercel.app) and click Get Started.
+
+### Sign up
+Make a new account by entering your email and password.
+
+### Sign in
+Click Sign in near the bottom of the screen, and sign in with your username and 
+password.
+
+### Log an Expense
+Click the Add Expense button under the monthly overview on the right. Select a
+date and category that the expense falls under. Enter the name and amount of the
+expense and click Save.
+
+### Log an Income
+Click the Add Income button next to the Add Expense button. Select a
+date and type that the income falls under. Enter the name and amount of the
+income and click Save.
+
+### See List of Monthly Income & Expenses
+Scroll down to see your Spending History. Click the tabs underneath the heading 
+to switch between expenses and income. Scroll down the sidebar to see the filters 
+for each category.
+
+### Ask Questions to AI Assistant
+Click on the AI Advisor button in the sidebar. Select the kind of advice you'd like
+from the dropdown of AI advisors. Click on one of the preset questions.
+
+## License
+Refer to the Creative Commons license [here.](LICENSE)
+
+## Feedback
+Send a message in the development discord server's general channel.
+
+Invite with temporary membership [here.](https://discord.gg/WWBrzkVC) (Expires 
+December 6, 2024)
+
+### What to Report
+- Website breaking bugs
+- Bugs with the usages listed above
+- Issues with navigating the website
+
+### What to Expect
+Since this project is for school, we will likely not respond to any requests 
+for new features at all or to any bug reports past the due date (December 2, 2024).
+
+## Contributions
+
+### How to contribute
+Contributors should make a new branch to push their changes and additions from.
+Push requests from the main branch will automatically be rejected. 
+
+### Reviewing contributions
+- Make sure each class and function has a javadoc explaining what it is, does, and what its parameters are.
+- Make sure naming conventions are consistent across classes.
+- Check that the code's logic makes sense
+- Check for redundant imports
+
+## User Stories and Use Cases
 
 [comment]: <> (The first sentence should be what the user wants to do and the rest of the story should detail how they achieve that.)
 [comment]: <> (Format for the first sentence: "As a [type of user], I want [a feature] so that [a benefit]")
@@ -61,7 +138,7 @@ Use Cases:
    2. Input the date (format: "MMYY") the expense occurred or started.
    3. Input the amount.
    4. Choose a category for the expense from a dropdown.
-4. Viewing Expenses
+4. See List
    1. Click "View Data" button
    2. Select the current month
    3. Look at the records
@@ -77,7 +154,7 @@ Use Cases:
 2. Log in
    1. Enter username and password into respective fields 
    2. Click login button
-3. ing expenses
+3. Viewing expenses
    1. Click " Data" button
 4. Visualize expenses
    1. Select the desired month
@@ -130,6 +207,3 @@ Use cases:
    1. Click the "View Data" button
    2. Select the desired month
    3. View the records of income with amount and type listed
-
-
-## Entities
