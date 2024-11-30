@@ -20,7 +20,7 @@ public interface MonthlyIncome {
      * Returns the list of incomes.
      * @return the list of incomes.
      */
-    List<CommonItemIncome> getItems();
+    List<CommonItemIncome> getIncome();
 
     /**
      * Adds an item to the list of incomes

@@ -35,7 +35,7 @@ public class CommonMonthlyIncome implements MonthlyIncome {
     }
 
     @Override
-    public List<CommonItemIncome> getItems() {
+    public List<CommonItemIncome> getIncome() {
         return new ArrayList<>(this.items);
     }
 
