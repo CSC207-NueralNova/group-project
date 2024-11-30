@@ -5,24 +5,23 @@ import entity.item_spending.ItemSpending;
 
 import java.util.List;
 
+/**
+ * Output data for the See List use case.
+ */
 public class SeeListOutputData {
+    private final List<ItemSpending> spending; // Aggregated spending data
+    private final List<ItemIncome> income;   // Aggregated income data
 
-    private final List<ItemSpending> spendings;
-    private final List<ItemIncome> income;
-
-    public SeeListOutputData(List<ItemSpending> spendings, List<ItemIncome> income) {
-        // TODO: possibly change parameters to current username and date,
-        //  then search for spendings and income of the user on that date.
-        this.spendings = spendings;
+    public SeeListOutputData(List<ItemSpending> spending, List<ItemIncome> income) {
+        this.spending = spending;
         this.income = income;
     }
 
-    public List<ItemSpending> getSpendings() {
-        return spendings;
+    public List<ItemSpending> getSpending() {
+        return spending;
     }
 
     public List<ItemIncome> getIncome() {
         return income;
     }
-
 }
