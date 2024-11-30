@@ -1,51 +1,36 @@
 package use_case.enter_recurrent_income;
 
-
 import entity.recurrent_income.CommonRecurrentIncomeFactory;
 import entity.recurrent_income.RecurrentIncome;
 import entity.recurrent_income.RecurrentIncomeFactory;
 import org.springframework.stereotype.Service;
 
-/**
- * The Enter Recurring Income interactor
- */
-//@Service
+
 public class EnterRecurrentIncomeInteractor implements EnterRecurrentIncomeInputBoundary {
+
     private final EnterRecurrentIncomeUserDataAccessInterface userDataAccessObject;
-    private final EnterRecurrentIncomeOutputBoundary enterRecurringIncomePresenter;
     private final RecurrentIncomeFactory recurrentIncomeFactory = new CommonRecurrentIncomeFactory();
 
-    public EnterRecurrentIncomeInteractor(EnterRecurrentIncomeUserDataAccessInterface userDataAccessObject,
-                                          EnterRecurrentIncomeOutputBoundary enterRecurringIncomePresenter) {
+    public EnterRecurrentIncomeInteractor(EnterRecurrentIncomeUserDataAccessInterface userDataAccessObject) {
         this.userDataAccessObject = userDataAccessObject;
-        this.enterRecurringIncomePresenter = enterRecurringIncomePresenter;
     }
 
     @Override
     public EnterRecurrentIncomeOutputData execute(EnterRecurrentIncomeInputData enterRecurrentIncomeInputData) {
         double value = enterRecurrentIncomeInputData.getValue();
-        if (!validIncomeValue(value)) {
-            enterRecurringIncomePresenter.prepareFailView(
-                    value + " is not a valid value for an income, please enter a positive value with up to two decimal points."
-            );
+        String username = this.userDataAccessObject.getCurrentUsername();
+        RecurrentIncome recurrentIncome;
+
+        if (this.userDataAccessObject.existsRecurrentIncomeByUsername(username)) {
+            recurrentIncome = this.userDataAccessObject.getRecurrentIncomeByUsername(username);
         } else {
-            String username = this.userDataAccessObject.getCurrentUsername();
-            RecurrentIncome recurrentIncome;
-
-            if (this.userDataAccessObject.existsRecurrentIncomeByUsername(username)) {
-                recurrentIncome = this.userDataAccessObject.getRecurrentIncomeByUsername(username);
-            } else {
-                recurrentIncome = this.recurrentIncomeFactory.create();
-            }
-
-            recurrentIncome.addRecurrentIncomeItem(value);
-            this.userDataAccessObject.writeRecurrentIncome(username, recurrentIncome);
-
-            EnterRecurrentIncomeOutputData enterRecurrentIncomeOutputData = new EnterRecurrentIncomeOutputData(false);
-            enterRecurringIncomePresenter.prepareSuccessView(enterRecurrentIncomeOutputData);
-            return enterRecurrentIncomeOutputData;
+            recurrentIncome = this.recurrentIncomeFactory.create();
         }
-        return new EnterRecurrentIncomeOutputData(true);
+
+        recurrentIncome.addRecurrentIncomeItem(value);
+        this.userDataAccessObject.writeRecurrentIncome(username, recurrentIncome);
+
+        return new EnterRecurrentIncomeOutputData(false);
     }
 
     /**

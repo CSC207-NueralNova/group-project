@@ -6,6 +6,7 @@ import java.util.Map;
 import entity.monthly_income.MonthlyIncome;
 import entity.monthly_spending.MonthlySpending;
 import entity.user.User;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.enter_expense.EnterExpenseUserDataAccessInterface;
@@ -19,13 +20,13 @@ import use_case.signup.SignupUserDataAccessInterface;
  * In-memory implementation of the DAO for storing user data. This implementation does
  * NOT persist data between runs of the program.
  */
-@Repository
+
+
+@Component
 public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface,
         LoginUserDataAccessInterface,
         ChangePasswordUserDataAccessInterface,
         LogoutUserDataAccessInterface,
-        EnterExpenseUserDataAccessInterface,
-        EnterIncomeUserDataAccessInterface,
         SeeListUserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
@@ -82,7 +83,6 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         return null;
     }
 
-    @Override
     public void writeMonthlySpending(String username, MonthlySpending monthlySpending) {
         // Add an empty hashmap if there is no username
         this.monthlySpendings.computeIfAbsent(username, k -> new HashMap<>());
@@ -107,7 +107,6 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         return null;
     }
 
-    @Override
     public void writeMonthlyIncome(String username, MonthlyIncome monthlyIncome) {
         // Add an empty hashmap if there is no username
         this.monthlyIncomes.computeIfAbsent(username, k -> new HashMap<>());

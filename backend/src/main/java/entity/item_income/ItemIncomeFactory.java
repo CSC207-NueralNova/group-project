@@ -9,5 +9,5 @@ public interface ItemIncomeFactory {
      * @param value The value of the transaction
      * @return A new instance of Item with the specified parameters.
      */
-    ItemIncome create(double value);
+    ItemIncome create(double value, String date);
 }

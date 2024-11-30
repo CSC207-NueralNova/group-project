@@ -24,9 +24,10 @@ public class EnterExpenseController {
         String userId = inputData.getUserId(); // Extract the userId
         String date = inputData.getDate();
         double value = inputData.getValue();
+        String category = inputData.getCategory();
 
         // Log for debugging
-        System.out.println("Trying to save UserId: " + userId + ", Date: " + date + ", Value: " + value);
+        System.out.println("Trying to save UserId: " + userId + ", Date: " + date + ", Value: " + value + ", Category: " + category);
 
         return enterExpenseInteractor.execute(inputData);
     }

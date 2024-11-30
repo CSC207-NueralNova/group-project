@@ -24,6 +24,6 @@ public interface MonthlySpending {
     /**
      * Adds an item to the list of spending.
      */
-    void addItem(double value);
+    void addItem(double value, String category);
 
 }
