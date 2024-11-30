@@ -3,6 +3,7 @@ package entity.monthly_income;
 import java.util.ArrayList;
 import java.util.List;
 
+import entity.item_income.CommonItemIncome;
 import entity.item_income.CommonItemIncomeFactory;
 import entity.item_income.ItemIncome;
 import entity.item_income.ItemIncomeFactory;
@@ -13,7 +14,7 @@ import entity.item_income.ItemIncomeFactory;
 public class CommonMonthlyIncome implements MonthlyIncome {
 
     private String date; // Make non-final for Firestore compatibility
-    private List<ItemIncome> items; // Non-final for deserialization
+    private List<CommonItemIncome> items; // Non-final for deserialization
     private transient ItemIncomeFactory itemFactory; // Transient to avoid serialization
 
     // No-argument constructor for Firestore
@@ -34,7 +35,7 @@ public class CommonMonthlyIncome implements MonthlyIncome {
     }
 
     @Override
-    public List<ItemIncome> getItems() {
+    public List<CommonItemIncome> getItems() {
         return new ArrayList<>(this.items);
     }
 
@@ -42,6 +43,6 @@ public class CommonMonthlyIncome implements MonthlyIncome {
         if (this.itemFactory == null) {
             this.itemFactory = new CommonItemIncomeFactory();
         }
-        this.items.add(this.itemFactory.create(value, date));
+        this.items.add(new CommonItemIncome(value, date));
     }
 }

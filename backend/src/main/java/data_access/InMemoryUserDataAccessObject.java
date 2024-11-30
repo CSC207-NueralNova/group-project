@@ -22,12 +22,11 @@ import use_case.signup.SignupUserDataAccessInterface;
  */
 
 
-@Component
+
 public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface,
         LoginUserDataAccessInterface,
         ChangePasswordUserDataAccessInterface,
-        LogoutUserDataAccessInterface,
-        SeeListUserDataAccessInterface {
+        LogoutUserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
     private final Map<String, Map<String, MonthlySpending>> monthlySpendings = new HashMap<>();
@@ -66,7 +65,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         return this.currentUsername;
     }
 
-    @Override
+
     public boolean existsMonthlySpendingByUsernameAndDate(String username, String date) {
         if (monthlySpendings.containsKey(username)) {
             return monthlySpendings.get(username).containsKey(date);
@@ -75,7 +74,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         }
     }
 
-    @Override
+
     public MonthlySpending getMonthlySpendingByUsernameAndDate(String username, String date) {
         if (monthlySpendings.containsKey(username)) {
             return monthlySpendings.get(username).get(date);
@@ -90,7 +89,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         this.monthlySpendings.get(username).put(monthlySpending.getDate(), monthlySpending);
     }
 
-    @Override
+
     public boolean existsMonthlyIncomeByUsernameAndDate(String username, String date) {
         if (monthlyIncomes.containsKey(username)) {
             return monthlyIncomes.get(username).containsKey(date);
@@ -99,7 +98,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         }
     }
 
-    @Override
+
     public MonthlyIncome getMonthlyIncomeByUsernameAndDate(String username, String date) {
         if (monthlyIncomes.containsKey(username)) {
             return monthlyIncomes.get(username).get(date);

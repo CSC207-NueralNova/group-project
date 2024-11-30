@@ -4,25 +4,34 @@ import entity.item_income.ItemIncome;
 import entity.item_spending.ItemSpending;
 
 import java.util.List;
+import java.util.Map;
 
+/**
+ * Output data for the See List use case.
+ */
 public class SeeListOutputData {
+    private List<Map<String, Object>> spending;
+    private List<Map<String, Object>> income;
 
-    private final List<ItemSpending> spendings;
-    private final List<ItemIncome> income;
-
-    public SeeListOutputData(List<ItemSpending> spendings, List<ItemIncome> income) {
-        // TODO: possibly change parameters to current username and date,
-        //  then search for spendings and income of the user on that date.
-        this.spendings = spendings;
+    public SeeListOutputData(List<Map<String, Object>> spending, List<Map<String, Object>> income) {
+        this.spending = spending;
         this.income = income;
     }
 
-    public List<ItemSpending> getSpendings() {
-        return spendings;
+    public List<Map<String, Object>> getSpending() {
+        return spending;
     }
 
-    public List<ItemIncome> getIncome() {
+    public List<Map<String, Object>> getIncome() {
         return income;
     }
 
+    @Override
+    public String toString() {
+        return "SeeListOutputData{" +
+                "spending=" + spending +
+                ", income=" + income +
+                '}';
+    }
 }
+

@@ -5,7 +5,7 @@ package entity.item_income;
  */
 public class CommonItemIncomeFactory implements ItemIncomeFactory {
     @Override
-    public ItemIncome create(double value, String date) {
+    public CommonItemIncome create(double value, String date) {
         return new CommonItemIncome(value, date);
     }
 }
