@@ -16,7 +16,7 @@ class EnterExpenseInteractorTest {
 
     @Test
     void successTest() {
-        EnterExpenseInputData inputData = new EnterExpenseInputData("name", "1124", 10.01);
+        EnterExpenseInputData inputData = new EnterExpenseInputData("name", "1124", 10.01, "food");
         InMemoryUserDataAccessObject userRepository = new InMemoryUserDataAccessObject();
 
         // For the success test, we need to add Paul to the data access repository before we log in.
