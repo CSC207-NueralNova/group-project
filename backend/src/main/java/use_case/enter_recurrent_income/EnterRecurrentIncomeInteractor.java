@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * The Enter Recurring Income interactor
  */
-@Service
+//@Service
 public class EnterRecurrentIncomeInteractor implements EnterRecurrentIncomeInputBoundary {
     private final EnterRecurrentIncomeUserDataAccessInterface userDataAccessObject;
     private final EnterRecurrentIncomeOutputBoundary enterRecurringIncomePresenter;
