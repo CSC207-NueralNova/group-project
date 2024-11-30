@@ -1,6 +1,6 @@
 package use_case.enter_recurrent_income;
 
-import entity.recurrent_income.RecurrentIncome;
+import entity.monthly_income.MonthlyIncome;
 
 /**
  * DAO for the Enter Recurrent Income Use Case.
@@ -13,25 +13,27 @@ public interface EnterRecurrentIncomeUserDataAccessInterface {
     String getCurrentUsername();
 
     /**
-     * Checks if the RecurrentIncome associated with the given user exists.
+     * Checks if the MonthlyIncome associated with the given user and date exists.
      * @param username The username to return the income from.
+     * @param date The date of the monthly income in the "MMYY" format.
      * @return true if the income exists, false otherwise.
      */
-    boolean existsRecurrentIncomeByUsername(String username);
+    boolean existsMonthlyIncomeByUsernameAndDate(String username, String date);
 
     /**
      *
-     * Returns the RecurrentIncome for a given user.
+     * Returns the MonthlyIncome for a given user and a given date in format "MMYY"
      * @param username The username to returns the income from.
+     * @param date The date of the monthly income in the "MMYY" format.
      * @return The monthlyIncome associated with the given data.
      */
-    RecurrentIncome getRecurrentIncomeByUsername(String username);
+    MonthlyIncome getMonthlyIncomeByUsernameAndDate(String username, String date);
 
     /**
-     * Writes the recurrent monthly income to the user record.
+     * Writes the monthly income to the user record.
      * Will overwrite.
-     * @param recurrentIncome The RecurrentIncome to rewrite the records with.
+     * @param monthlyIncome The MonthlyIncome to rewrite the records with.
      */
-    void writeRecurrentIncome(String username, RecurrentIncome recurrentIncome);
+    void writeMonthlyIncome(String username, MonthlyIncome monthlyIncome);
 }
 
