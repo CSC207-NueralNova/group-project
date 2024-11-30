@@ -26,27 +26,54 @@ You can view what you've logged as well as ask an AI assistant preset questions 
 ### [User Stories and Use Cases](#user-stories-and-use-cases)
 
 ## Installation Instructions
-
+No need to install anything, simply go to the website linked [here.](https://group-project-kappa.vercel.app/)
 
 ## Usage
-First, run the program.
+First, go to the [website](https://group-project-kappa.vercel.app) and click Get Started.
+
 ### Sign up
-If you've never used the program before, make a new account by choosing a username and password.
-### Log in
-If you already have an account, log in with your username and password.
+Make a new account by entering your email and password.
+
+### Sign in
+Click Sign in near the bottom of the screen, and sign in with your username and 
+password.
+
 ### Log an Expense
+Click the Add Expense button under the monthly overview on the right. Select a
+date and category that the expense falls under. Enter the name and amount of the
+expense and click Save.
+
+### Log an Income
+Click the Add Income button next to the Add Expense button. Select a
+date and type that the income falls under. Enter the name and amount of the
+income and click Save.
 
 ### See List of Monthly Income & Expenses
+Scroll down to see your Spending History. Click the tabs underneath the heading 
+to switch between expenses and income. Scroll down the sidebar to see the filters 
+for each category.
 
 ### Ask Questions to AI Assistant
-
+Click on the AI Advisor button in the sidebar. Select the kind of advice you'd like
+from the dropdown of AI advisors. Click on one of the preset questions.
 
 ## License
-[comment]: <> (Creative commons? Link to LICENSE)
 Refer to the Creative Commons license [here.](LICENSE)
 
 ## Feedback
+Send a message in the development discord server's general channel.
 
+Invite with temporary membership [here.](https://discord.gg/WWBrzkVC) (Expires 
+December 6, 2024)
+
+### What to Report
+- Website breaking bugs
+- Bugs with the usages listed above
+- Issues with navigating the website
+
+### What to Expect
+Since this project is for school, we will likely not respond to any requests 
+for new features at all or to any bug reports past the due date (December 2, 2024).
 
 ## Contributions
 
@@ -111,7 +138,7 @@ Use Cases:
    2. Input the date (format: "MMYY") the expense occurred or started.
    3. Input the amount.
    4. Choose a category for the expense from a dropdown.
-4. Viewing Expenses
+4. See List
    1. Click "View Data" button
    2. Select the current month
    3. Look at the records
@@ -127,7 +154,7 @@ Use Cases:
 2. Log in
    1. Enter username and password into respective fields 
    2. Click login button
-3. ing expenses
+3. Viewing expenses
    1. Click " Data" button
 4. Visualize expenses
    1. Select the desired month
@@ -180,6 +207,3 @@ Use cases:
    1. Click the "View Data" button
    2. Select the desired month
    3. View the records of income with amount and type listed
-
-
-## Entities
