@@ -3,7 +3,12 @@
 	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
 	import { saveIncomeToBackend, saveExpenseToBackend } from '$lib/api.js';
+	import { fetchUserData } from "$lib/firestore.js"; // Import from firestore.js
 	import Modal from '$lib/components/Modal.svelte';
+
+	let loading = true;
+	let userData = [];
+	let error = null;
 
 	export let uid = writable(null); // Store the UID for use in API calls
 
@@ -194,30 +199,44 @@
 		}
 	}
 
+
 	onMount(() => {
-		// Listen for authentication state changes
-		auth.onAuthStateChanged((user) => {
-			if (!user) {
-				// Redirect to the login page if no user is logged in
-				window.location.href = "/login"; // Adjust the URL as needed
-			}
-		});
-
-		const unsubscribe = auth.onAuthStateChanged((user) => {
+		const unsubscribe = auth.onAuthStateChanged(async (user) => {
 			if (user) {
-				email = user.email; // Set email when user is logged in
-				uid.set(user.uid); // Save user UID for backend calls
-				console.log(uid)
+				email = user.email;
+				uid.set(user.uid);
+
+				try {
+					const lastThreeMonths = getLastThreeMonths();
+					const result = await fetchUserData(user.uid, lastThreeMonths);
+					userData = result.items || []; // Assuming the backend returns a combined list of items
+				} catch (err) {
+					console.error("Error fetching user data:", err);
+					error = err.message;
+				} finally {
+					loading = false;
+				}
 			} else {
-				email = null; // Clear email when no user is logged in
+				window.location.href = "/login";
 			}
 		});
 
-		// Cleanup the listener when the component is destroyed
-		return () => {
-			unsubscribe();
-		};
+		return () => unsubscribe();
 	});
+
+	function getLastThreeMonths() {
+		const months = [];
+		const now = new Date();
+
+		for (let i = 0; i < 3; i++) {
+			const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+			const mm = String(date.getMonth() + 1).padStart(2, "0");
+			const yy = String(date.getFullYear()).slice(-2);
+			months.push(mm + yy);
+		}
+
+		return months;
+	}
 
 	// Helper function to define category colors
 	function getCategoryColor(category) {
