@@ -3,11 +3,13 @@ package use_case.enter_recurrent_income;
 import entity.monthly_income.CommonMonthlyIncomeFactory;
 import entity.monthly_income.MonthlyIncome;
 import entity.monthly_income.MonthlyIncomeFactory;
-import use_case.enter_income.EnterIncomeOutputData;
+import org.springframework.stereotype.Service;
 
-
+/**
+ * The Enter Recurrent Income interactor
+ */
+@Service
 public class EnterRecurrentIncomeInteractor implements EnterRecurrentIncomeInputBoundary {
-
     private final EnterRecurrentIncomeUserDataAccessInterface userDataAccessObject;
     private final MonthlyIncomeFactory monthlyIncomeFactory = new CommonMonthlyIncomeFactory();
     private static final String DATE_TO_STORE_RECURRENT_INCOME = "0000";
