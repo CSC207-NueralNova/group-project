@@ -1,11 +1,10 @@
 package entity.monthly_spending;
 
+import entity.item_spending.CommonItemSpending;
+import entity.item_spending.ItemSpending;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import entity.item_spending.CommonItemSpendingFactory;
-import entity.item_spending.ItemSpending;
-import entity.item_spending.ItemSpendingFactory;
 
 /**
  * A bare-bones implementation of the MonthlySpending interface.
@@ -13,26 +12,22 @@ import entity.item_spending.ItemSpendingFactory;
 public class CommonMonthlySpending implements MonthlySpending {
 
     private String date;
-    private List<ItemSpending> items; // Remove direct initialization
+    private List<CommonItemSpending> spending; // Use concrete class here
 
-    // Transient field for the factory to avoid serialization
-    private transient ItemSpendingFactory itemFactory;
-
-    // No-argument constructor required by Firebase
+    // Required no-argument constructor for Firestore
     public CommonMonthlySpending() {
-        this.items = new ArrayList<>();
-        this.itemFactory = new CommonItemSpendingFactory(); // Initialize transient fields here
+        this.spending = new ArrayList<>();
     }
 
-    // Constructor for manual instantiation
+    // Custom constructor for manual instantiation
     public CommonMonthlySpending(String date) {
-        this();
         this.date = date;
+        this.spending = new ArrayList<>();
     }
 
     @Override
     public String getDate() {
-        return this.date;
+        return date;
     }
 
     public void setDate(String date) {
@@ -40,19 +35,17 @@ public class CommonMonthlySpending implements MonthlySpending {
     }
 
     @Override
-    public List<ItemSpending> getSpending() {
-        return new ArrayList<>(this.items);
+    public List<CommonItemSpending> getSpending() {
+        return new ArrayList<>(spending);
     }
 
-    public void setItems(List<ItemSpending> items) {
-        this.items = items;
+    public void setSpending(List<CommonItemSpending> spending) {
+        this.spending = spending;
     }
 
+    @Override
     public void addItem(double value, String category) {
-        if (this.itemFactory == null) {
-            this.itemFactory = new CommonItemSpendingFactory();
-        }
-        this.items.add(this.itemFactory.create(value, category));
+        this.spending.add(new CommonItemSpending(value, category));
     }
-
 }
+

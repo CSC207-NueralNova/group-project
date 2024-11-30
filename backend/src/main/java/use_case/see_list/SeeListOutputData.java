@@ -4,24 +4,34 @@ import entity.item_income.ItemIncome;
 import entity.item_spending.ItemSpending;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Output data for the See List use case.
  */
 public class SeeListOutputData {
-    private final List<ItemSpending> spending; // Aggregated spending data
-    private final List<ItemIncome> income;   // Aggregated income data
+    private List<Map<String, Object>> spending;
+    private List<Map<String, Object>> income;
 
-    public SeeListOutputData(List<ItemSpending> spending, List<ItemIncome> income) {
+    public SeeListOutputData(List<Map<String, Object>> spending, List<Map<String, Object>> income) {
         this.spending = spending;
         this.income = income;
     }
 
-    public List<ItemSpending> getSpending() {
+    public List<Map<String, Object>> getSpending() {
         return spending;
     }
 
-    public List<ItemIncome> getIncome() {
+    public List<Map<String, Object>> getIncome() {
         return income;
     }
+
+    @Override
+    public String toString() {
+        return "SeeListOutputData{" +
+                "spending=" + spending +
+                ", income=" + income +
+                '}';
+    }
 }
+

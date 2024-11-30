@@ -12,7 +12,9 @@ import entity.monthly_income.MonthlyIncomeFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The See List Interactor.
@@ -29,33 +31,45 @@ public class SeeListInteractor implements SeeListInputBoundary {
 
     @Override
     public SeeListOutputData execute(SeeListInputData seeListInputData) {
-        List<String> dates = seeListInputData.getDates(); // List of months to query
         String username = this.userDataAccessObject.getCurrentUsername();
+        List<String> dates = seeListInputData.getDates();
+        System.out.println("Interactor Input: Username=" + username + ", Dates=" + dates);
 
-        List<ItemSpending> allSpending = new ArrayList<>();
-        List<ItemIncome> allIncome = new ArrayList<>();
+        List<Map<String, Object>> allSpending = new ArrayList<>();
+        List<Map<String, Object>> allIncome = new ArrayList<>();
 
         for (String date : dates) {
-            // Handle spending
-            MonthlySpending monthlySpending;
-            if (this.userDataAccessObject.existsMonthlySpendingByUsernameAndDate(username, date)) {
-                monthlySpending = this.userDataAccessObject.getMonthlySpendingByUsernameAndDate(username, date);
-            } else {
-                monthlySpending = this.monthlySpendingFactory.create(date);
-            }
-            allSpending.addAll(monthlySpending.getSpending());
+            System.out.println("Processing date: " + date);
 
-            // Handle income
-            MonthlyIncome monthlyIncome;
-            if (this.userDataAccessObject.existsMonthlyIncomeByUsernameAndDate(username, date)) {
-                monthlyIncome = this.userDataAccessObject.getMonthlyIncomeByUsernameAndDate(username, date);
-            } else {
-                monthlyIncome = this.monthlyIncomeFactory.create(date);
+            // Fetch spending for the date
+            if (this.userDataAccessObject.existsMonthlySpendingByUsernameAndDate(username, date)) {
+                MonthlySpending monthlySpending = this.userDataAccessObject.getMonthlySpendingByUsernameAndDate(username, date);
+                for (ItemSpending item : monthlySpending.getSpending()) {
+                    Map<String, Object> spendingItem = new HashMap<>();
+                    spendingItem.put("value", item.getValue());
+                    spendingItem.put("category", item.getCategory());
+                    spendingItem.put("date", date); // Optional: Include the date
+                    allSpending.add(spendingItem);
+                }
             }
-            allIncome.addAll(monthlyIncome.getItems());
+
+            // Fetch income for the date
+            if (this.userDataAccessObject.existsMonthlyIncomeByUsernameAndDate(username, date)) {
+                MonthlyIncome monthlyIncome = this.userDataAccessObject.getMonthlyIncomeByUsernameAndDate(username, date);
+                for (ItemIncome item : monthlyIncome.getItems()) {
+                    Map<String, Object> incomeItem = new HashMap<>();
+                    incomeItem.put("value", item.getValue());
+                    incomeItem.put("date", date); // Optional: Include the date
+                    allIncome.add(incomeItem);
+                }
+            }
         }
 
-        // Return aggregated spending and income data
-        return new SeeListOutputData(allSpending, allIncome);
+        System.out.println("Total spending: " + allSpending);
+        System.out.println("Total income: " + allIncome);
+
+        return new SeeListOutputData(allSpending, allIncome); // Custom DTO to hold data
     }
+
+
 }
