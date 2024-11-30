@@ -70,6 +70,4 @@ public class SeeListInteractor implements SeeListInputBoundary {
 
         return new SeeListOutputData(allSpending, allIncome); // Custom DTO to hold data
     }
-
-
 }
