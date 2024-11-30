@@ -9,12 +9,14 @@ import entity.item_income.ItemIncome;
 import entity.monthly_income.MonthlyIncomeFactory;
 import org.springframework.stereotype.Component;
 import use_case.enter_income.EnterIncomeUserDataAccessInterface;
+import use_case.enter_recurrent_income.EnterRecurrentIncomeUserDataAccessInterface;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class EnterIncomeUserDataAccess implements EnterIncomeUserDataAccessInterface {
+public class EnterIncomeUserDataAccess implements EnterIncomeUserDataAccessInterface,
+        EnterRecurrentIncomeUserDataAccessInterface {
 
     private final Firestore firestore;
     private final MonthlyIncomeFactory monthlyIncomeFactory;
