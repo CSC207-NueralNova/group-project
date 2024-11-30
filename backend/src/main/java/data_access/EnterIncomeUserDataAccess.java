@@ -76,7 +76,7 @@ public class EnterIncomeUserDataAccess implements EnterIncomeUserDataAccessInter
         }
 
         try {
-            for (ItemIncome newItem : monthlyIncome.getItems()) {
+            for (ItemIncome newItem : monthlyIncome.getIncome()) {
                 Map<String, Object> itemData = new HashMap<>();
                 itemData.put("value", newItem.getValue());
 
