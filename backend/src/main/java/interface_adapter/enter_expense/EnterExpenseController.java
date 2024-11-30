@@ -26,7 +26,7 @@ public class EnterExpenseController {
         double value = inputData.getValue();
 
         // Log for debugging
-        System.out.println("Saving Expense Payload UserId: " + userId + ", Date: " + date + ", Value: " + value);
+        System.out.println("Trying to save UserId: " + userId + ", Date: " + date + ", Value: " + value);
 
         return enterExpenseInteractor.execute(inputData);
     }
