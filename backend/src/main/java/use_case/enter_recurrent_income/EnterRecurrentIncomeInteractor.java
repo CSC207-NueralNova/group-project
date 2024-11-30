@@ -5,7 +5,7 @@ import entity.recurrent_income.RecurrentIncome;
 import entity.recurrent_income.RecurrentIncomeFactory;
 import org.springframework.stereotype.Service;
 
-@Service
+
 public class EnterRecurrentIncomeInteractor implements EnterRecurrentIncomeInputBoundary {
 
     private final EnterRecurrentIncomeUserDataAccessInterface userDataAccessObject;
