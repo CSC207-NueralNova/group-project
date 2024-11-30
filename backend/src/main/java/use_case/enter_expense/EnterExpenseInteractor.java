@@ -28,13 +28,11 @@ public class EnterExpenseInteractor implements EnterExpenseInputBoundary {
         if (!validExpenseDate(date)) {
             enterExpensePresenter.prepareFailView(
                     date + " does not follow the format, please enter the month and year in the format MMYY.");
-        }
-        else if (!validExpenseValue(value)) {
+        } else if (!validExpenseValue(value)) {
             enterExpensePresenter.prepareFailView(
                     value + " is not a valid value for an expense, please enter a positive value with up to two decimal points."
             );
-        }
-        else {
+        } else {
             String username = this.userDataAccessObject.getCurrentUsername();
             MonthlySpending monthlySpending;
 
@@ -47,13 +45,14 @@ public class EnterExpenseInteractor implements EnterExpenseInputBoundary {
             monthlySpending.addItem(value);
             this.userDataAccessObject.writeMonthlySpending(username, monthlySpending);
 
-
-            EnterExpenseOutputData enterExpenseOutputData = new EnterExpenseOutputData(false);
+            // Return a success message
+            EnterExpenseOutputData enterExpenseOutputData = new EnterExpenseOutputData(false, "Expense added successfully!");
             enterExpensePresenter.prepareSuccessView(enterExpenseOutputData);
 
             return enterExpenseOutputData;
         }
-        return new EnterExpenseOutputData(true);
+
+        return new EnterExpenseOutputData(true, "Failed to add expense.");
     }
 
     /**

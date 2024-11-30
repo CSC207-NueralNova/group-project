@@ -21,7 +21,13 @@ public class EnterExpenseController {
     // Endpoint to handle enter expense requests
     @PostMapping("/enter")
     public EnterExpenseOutputData handleEnterExpenseRequest(@RequestBody EnterExpenseInputData inputData) {
-        // Return the chatbot response as JSON
+        String userId = inputData.getUserId(); // Extract the userId
+        String date = inputData.getDate();
+        double value = inputData.getValue();
+
+        // Log for debugging
+        System.out.println("Saving Expense Payload UserId: " + userId + ", Date: " + date + ", Value: " + value);
+
         return enterExpenseInteractor.execute(inputData);
     }
 }
