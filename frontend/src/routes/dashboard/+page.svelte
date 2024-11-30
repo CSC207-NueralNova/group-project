@@ -209,7 +209,7 @@
 				try {
 					const lastThreeMonths = getLastThreeMonths();
 					const result = await fetchUserData(user.uid, lastThreeMonths);
-					userData = result.items || []; // Assuming the backend returns a combined list of items
+					userData = result.income; // Assuming the backend returns a combined list of items
 					console.log(userData)
 				} catch (err) {
 					console.error("Error fetching user data:", err);

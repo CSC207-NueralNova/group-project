@@ -31,7 +31,7 @@ public class SeeListInteractor implements SeeListInputBoundary {
 
     @Override
     public SeeListOutputData execute(SeeListInputData seeListInputData) {
-        String username = this.userDataAccessObject.getCurrentUsername();
+        String username = seeListInputData.getUserId();
         List<String> dates = seeListInputData.getDates();
         System.out.println("Interactor Input: Username=" + username + ", Dates=" + dates);
 

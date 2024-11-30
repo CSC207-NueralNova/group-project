@@ -15,6 +15,7 @@ export async function fetchUserData(userId, dates) {
     }
 
     try {
+        console.log("Calling API with:", { userId, dates }); // Log input parameters
         const response = await fetch("http://localhost:8080/api/see_list/see", {
             method: "POST",
             headers: {
@@ -23,12 +24,14 @@ export async function fetchUserData(userId, dates) {
             body: JSON.stringify({ userId, dates }),
         });
 
+        console.log("Response status:", response.status); // Log response status
         if (!response.ok) {
             throw new Error(`Failed to fetch user data: ${response.statusText}`);
         }
 
-        // Parse and return the response JSON
-        return await response.json();
+        const data = await response.json();
+        console.log("Response JSON:", data); // Log the parsed JSON
+        return data; // Return the JSON data
     } catch (error) {
         console.error("Error fetching user data:", error);
         throw new Error("Failed to fetch user data from the backend");
