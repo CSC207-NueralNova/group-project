@@ -3,6 +3,7 @@ package use_case.enter_recurrent_income;
 import entity.monthly_income.CommonMonthlyIncomeFactory;
 import entity.monthly_income.MonthlyIncome;
 import entity.monthly_income.MonthlyIncomeFactory;
+import use_case.enter_income.EnterIncomeOutputData;
 
 
 public class EnterRecurrentIncomeInteractor implements EnterRecurrentIncomeInputBoundary {
@@ -20,6 +21,11 @@ public class EnterRecurrentIncomeInteractor implements EnterRecurrentIncomeInput
         double value = enterRecurrentIncomeInputData.getValue();
         String username = this.userDataAccessObject.getCurrentUsername();
         MonthlyIncome recurrentIncome;
+
+        // Validate the income value
+        if (!validIncomeValue(value)) {
+            return new EnterRecurrentIncomeOutputData(true);
+        }
 
         if (this.userDataAccessObject.existsMonthlyIncomeByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_INCOME)) {
             recurrentIncome = this.userDataAccessObject.getMonthlyIncomeByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_INCOME);
