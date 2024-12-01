@@ -18,7 +18,6 @@ import java.util.List;
 public class AskAIUserDataAccess implements AskAIUserDataAccessInterface {
 
     private static final String OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
-//    private static final String API_KEY = "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";
 
     @Override
     public String getResponseFromAI(String inputMessage) {
