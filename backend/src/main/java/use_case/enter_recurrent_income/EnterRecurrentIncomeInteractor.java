@@ -33,8 +33,10 @@ public class EnterRecurrentIncomeInteractor implements EnterRecurrentIncomeInput
         }
         else {
 
-            if (this.userDataAccessObject.existsMonthlyIncomeByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_INCOME)) {
-                recurrentIncome = this.userDataAccessObject.getMonthlyIncomeByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_INCOME);
+            if (this.userDataAccessObject.existsMonthlyIncomeByUsernameAndDate(username,
+                    DATE_TO_STORE_RECURRENT_INCOME)) {
+                recurrentIncome = this.userDataAccessObject.getMonthlyIncomeByUsernameAndDate(username,
+                        DATE_TO_STORE_RECURRENT_INCOME);
             }
             else {
                 recurrentIncome = this.monthlyIncomeFactory.create(DATE_TO_STORE_RECURRENT_INCOME);
