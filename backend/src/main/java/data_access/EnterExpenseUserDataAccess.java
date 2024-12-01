@@ -62,7 +62,9 @@ public class EnterExpenseUserDataAccess implements EnterExpenseUserDataAccessInt
 
             if (document.exists()) {
                 // Assuming you have a DTO to map Firebase document fields to MonthlySpending
-                return document.toObject(CommonMonthlySpending.class);
+                CommonMonthlySpending monthlySpending = document.toObject(CommonMonthlySpending.class);
+                monthlySpending.setDate(date);
+                return monthlySpending;
             } else {
                 // If no document exists, create a new instance using the factory
                 return monthlySpendingFactory.create(date);
@@ -76,6 +78,8 @@ public class EnterExpenseUserDataAccess implements EnterExpenseUserDataAccessInt
     @Override
     public void writeMonthlySpending(String username, MonthlySpending monthlySpending) {
         try {
+            System.out.println("Trying to add monthly spending dated " + monthlySpending.getDate() + " with items "
+                    + monthlySpending.getSpending() + " to user " + username);
             for (ItemSpending newItem : monthlySpending.getSpending()) {
                 // Convert the new item to a Map
                 Map<String, Object> itemData = new HashMap<>();
