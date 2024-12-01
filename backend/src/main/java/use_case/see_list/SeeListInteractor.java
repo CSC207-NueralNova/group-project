@@ -54,7 +54,7 @@ public class SeeListInteractor implements SeeListInputBoundary {
                 }
             }
 
-            // Fetch recurrent expense from DATE_TO_STORE_RECURRENT_INCOME
+            // Fetch recurrent expense from DATE_TO_STORE_RECURRENT_EXPENSE
             if (this.userDataAccessObject.existsMonthlySpendingByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_EXPENSE)) {
                 MonthlySpending monthlySpending = this.userDataAccessObject
                         .getMonthlySpendingByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_EXPENSE);
