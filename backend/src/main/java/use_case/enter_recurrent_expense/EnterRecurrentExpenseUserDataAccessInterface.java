@@ -1,12 +1,11 @@
-package use_case.enter_expense;
+package use_case.enter_recurrent_expense;
 
 import entity.monthly_spending.MonthlySpending;
 
 /**
- * DAO for the Enter Expense Use Case.
+ * DAO for the Enter Recurrent Expense Use Case.
  */
-public interface EnterExpenseUserDataAccessInterface {
-
+public interface EnterRecurrentExpenseUserDataAccessInterface {
     /**
      * Returns the username of the current user of the application.
      * @return the username of the current user; null indicates that no one is logged into the application.

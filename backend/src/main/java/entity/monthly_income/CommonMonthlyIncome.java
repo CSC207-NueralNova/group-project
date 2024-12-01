@@ -34,6 +34,10 @@ public class CommonMonthlyIncome implements MonthlyIncome {
         return this.date;
     }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     @Override
     public List<CommonItemIncome> getItems() {
         return new ArrayList<>(this.items);

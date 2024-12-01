@@ -25,6 +25,7 @@ public class SeeListInteractor implements SeeListInputBoundary {
     private final SeeListUserDataAccessInterface userDataAccessObject;
     private final MonthlySpendingFactory monthlySpendingFactory = new CommonMonthlySpendingFactory();
     private final MonthlyIncomeFactory monthlyIncomeFactory = new CommonMonthlyIncomeFactory();
+    private static final String DATE_TO_STORE_RECURRENT_EXPENSE = "0000";
     private static final String DATE_TO_STORE_RECURRENT_INCOME = "0000";
 
     public SeeListInteractor(SeeListUserDataAccessInterface userDataAccessInterface) {
@@ -46,6 +47,19 @@ public class SeeListInteractor implements SeeListInputBoundary {
             // Fetch spending for the date
             if (this.userDataAccessObject.existsMonthlySpendingByUsernameAndDate(username, date)) {
                 MonthlySpending monthlySpending = this.userDataAccessObject.getMonthlySpendingByUsernameAndDate(username, date);
+                for (ItemSpending item : monthlySpending.getSpending()) {
+                    Map<String, Object> spendingItem = new HashMap<>();
+                    spendingItem.put("value", item.getValue());
+                    spendingItem.put("category", item.getCategory());
+                    spendingItem.put("date", date); // Optional: Include the date
+                    allSpending.add(spendingItem);
+                }
+            }
+
+            // Fetch recurrent expense from DATE_TO_STORE_RECURRENT_EXPENSE
+            if (this.userDataAccessObject.existsMonthlySpendingByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_EXPENSE)) {
+                MonthlySpending monthlySpending = this.userDataAccessObject
+                        .getMonthlySpendingByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_EXPENSE);
                 for (ItemSpending item : monthlySpending.getSpending()) {
                     Map<String, Object> spendingItem = new HashMap<>();
                     spendingItem.put("value", item.getValue());

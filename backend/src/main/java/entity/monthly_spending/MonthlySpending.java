@@ -23,8 +23,18 @@ public interface MonthlySpending {
     List<CommonItemSpending> getSpending();
 
     /**
-     * Adds an item to the list of spending.
+     * Adds an item to the list of spendings.
+     * @param value the value of the item
+     * @param category the category of the item
      */
     void addItem(double value, String category);
+
+    /**
+     * Adds an item to the list of spendings.
+     * @param value the value of the item
+     * @param category the category of the item
+     * @param date the date of the item
+     */
+    void addItem(double value, String category, String date);
 
 }

@@ -8,6 +8,9 @@ import entity.monthly_spending.MonthlySpending;
 import entity.monthly_spending.MonthlySpendingFactory;
 import org.springframework.stereotype.Component;
 import use_case.enter_expense.EnterExpenseUserDataAccessInterface;
+import com.google.cloud.firestore.FieldValue;
+import use_case.enter_recurrent_expense.EnterRecurrentExpenseUserDataAccessInterface;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +18,8 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @Component
-public class EnterExpenseUserDataAccess implements EnterExpenseUserDataAccessInterface {
+public class EnterExpenseUserDataAccess implements EnterExpenseUserDataAccessInterface,
+                                                    EnterRecurrentExpenseUserDataAccessInterface {
 
     private final Firestore firestore;
     private final MonthlySpendingFactory monthlySpendingFactory;

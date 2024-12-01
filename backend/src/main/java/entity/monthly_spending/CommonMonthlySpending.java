@@ -47,5 +47,11 @@ public class CommonMonthlySpending implements MonthlySpending {
     public void addItem(double value, String category) {
         this.spending.add(new CommonItemSpending(value, category));
     }
+
+    @Override
+    public void addItem(double value, String category, String date) {
+        this.spending.add(new CommonItemSpending(value, category, date));
+
+    }
 }
 
