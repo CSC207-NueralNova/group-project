@@ -6,12 +6,19 @@
 	import { fetchUserData } from "$lib/firestore.js"; // Import from firestore.js
 	import Modal from '$lib/components/Modal.svelte';
 	import { transformDataToTransactions} from "$lib/transactionHelper.js";
+	import Messages from "$lib/components/Messages.svelte";
 
 	export let uid = writable(null); // Store the UID for use in API calls
 
+	let currentView = "dashboard"; // Default view
+
+	function setView(view) {
+		currentView = view;
+		console.log(currentView)
+	}
+
 	let isIncomeModalOpen = false;
 	let isExpenseModalOpen = false;
-	let transactions = [];
 
 	const openIncomeModal = () => {
 		isIncomeModalOpen = true;
@@ -122,34 +129,39 @@
 		isDropdownOpen = !isDropdownOpen;
 	}
 
-	// let transactions = [
-	// 	{ id: 1, name: "Grocery Shopping", category: "Food", date: "2024-11-01", amount: -50 },
-	// 	{ id: 2, name: "Monthly Rent", category: "Rent", date: "2024-11-01", amount: -1200 },
-	// 	{ id: 3, name: "Salary", category: "Income", date: "2024-11-03", amount: 3000 },
-	// 	{ id: 4, name: "Freelance Work", category: "Income", date: "2024-11-05", amount: 500 },
-	// 	{ id: 5, name: "Gym Membership", category: "Health", date: "2024-11-06", amount: -40 },
-	// 	{ id: 6, name: "Utility Bill", category: "Utilities", date: "2024-11-08", amount: -100 },
-	// 	{ id: 7, name: "Car Insurance", category: "Insurance", date: "2024-11-10", amount: -200 },
-	// 	{ id: 8, name: "Coffee Shop", category: "Food", date: "2024-11-12", amount: -10 },
-	// 	{ id: 9, name: "Bonus", category: "Income", date: "2024-11-14", amount: 1000 },
-	// 	{ id: 10, name: "Electricity Bill", category: "Utilities", date: "2024-11-15", amount: -150 },
-	// ];
+	let transactions = [
+		{ id: 1, name: "Grocery Shopping", category: "Food", date: "2024-11-01", amount: -50 },
+		{ id: 2, name: "Monthly Rent", category: "Rent", date: "2024-11-01", amount: -1200 },
+		{ id: 3, name: "Salary", category: "Income", date: "2024-11-03", amount: 3000 },
+		{ id: 4, name: "Freelance Work", category: "Income", date: "2024-11-05", amount: 500 },
+		{ id: 5, name: "Gym Membership", category: "Health", date: "2024-11-06", amount: -40 },
+		{ id: 6, name: "Utility Bill", category: "Utilities", date: "2024-11-08", amount: -100 },
+		{ id: 7, name: "Car Insurance", category: "Insurance", date: "2024-11-10", amount: -200 },
+		{ id: 8, name: "Coffee Shop", category: "Food", date: "2024-11-12", amount: -10 },
+		{ id: 9, name: "Bonus", category: "Income", date: "2024-11-14", amount: 1000 },
+		{ id: 10, name: "Electricity Bill", category: "Utilities", date: "2024-11-15", amount: -150 },
+	];
 
+	// Helper function to parse MMYY formatted dates
 	function parseDate(mmYY) {
 		const month = parseInt(mmYY.slice(0, 2), 10) - 1; // Convert MM to zero-based month
 		const year = parseInt(`20${mmYY.slice(2, 4)}`, 10); // Convert YY to full year
 		return new Date(year, month, 1); // Assume the 1st of the month
 	}
 
-	let currentMonth = new Date().getMonth(); // Get current month (0-based)
-	let currentYear = new Date().getFullYear(); // Get current year
+	let searchQuery = ""; // Reactive search query variable
+
+	// Current date information
+	let currentMonth = new Date().getMonth(); // Current zero-based month
+	let currentYear = new Date().getFullYear(); // Current year
+
+	// Generate a readable "Month Year" string
 	const currentMonthAndYear = new Date().toLocaleString('default', {
 		month: 'long',
 		year: 'numeric',
 	});
-	let searchQuery = ""; // Add a reactive variable for the search query
 
-	// Filter transactions for the current month
+	// Reactive: Filter transactions for the current month
 	$: monthlyTransactions = transactions.filter((t) => {
 		const transactionDate = parseDate(t.date);
 		return (
@@ -158,18 +170,20 @@
 		);
 	});
 
-	// Calculate metrics
+	// Reactive: Calculate total income
 	$: totalIncome = monthlyTransactions
 			.filter((t) => t.amount > 0)
 			.reduce((sum, t) => sum + t.amount, 0);
 
+	// Reactive: Calculate total expenses
 	$: totalExpenses = monthlyTransactions
 			.filter((t) => t.amount < 0)
 			.reduce((sum, t) => sum + Math.abs(t.amount), 0);
 
+	// Reactive: Calculate net profit
 	$: netProfit = totalIncome - totalExpenses;
 
-	// Find top spending category
+	// Reactive: Find top spending category
 	$: categorySpendMap = monthlyTransactions
 			.filter((t) => t.amount < 0)
 			.reduce((map, t) => {
@@ -178,12 +192,12 @@
 				return map;
 			}, {});
 
+	// Reactive: Determine the most expensive category
 	$: [mostExpensiveCategory, categorySpend] = Object.entries(categorySpendMap).reduce(
 			([topCategory, maxSpend], [category, spend]) =>
 					spend > maxSpend ? [category, spend] : [topCategory, maxSpend],
 			["N/A", 0] // Default value when no spending exists
 	);
-
 
 	let activeTab = "expense"; // Default tab
 	let sortOption = "date"; // Default sort
@@ -331,23 +345,80 @@
 			<!-- Navigation -->
 			<nav class="mt-6 px-3">
 				<div class="space-y-1">
-					<!-- Current: "bg-gray-200 text-gray-900", Default: "text-gray-700 hover:bg-gray-50 hover:text-gray-900" -->
-					<a href="#" class="group flex items-center rounded-md bg-gray-200 px-2 py-2 text-sm font-medium text-gray-900" aria-current="page">
-						<!-- Current: "text-gray-500", Default: "text-gray-400 group-hover:text-gray-500" -->
-						<svg class="mr-3 size-6 shrink-0 text-gray-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-							<path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+					<!-- Dashboard -->
+					<a
+							href="#"
+							on:click={() => setView("dashboard")}
+							class="group flex items-center rounded-md px-2 py-2 text-sm font-medium
+            {currentView === 'dashboard' ? 'bg-gray-200 text-gray-900' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'}"
+					>
+						<svg
+								class="mr-3 size-6 shrink-0
+                {currentView === 'dashboard' ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500'}"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								aria-hidden="true"
+								data-slot="icon"
+						>
+							<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+							/>
 						</svg>
 						Dashboard
 					</a>
-					<a href="/advisor" class="group flex items-center rounded-md px-2 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">
-						<svg class="mr-3 size-6 shrink-0 text-gray-400 group-hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-							<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
+
+					<!-- AI Advisor -->
+					<a
+							href="#"
+							on:click={() => setView("advisor")}
+							class="group flex items-center rounded-md px-2 py-2 text-sm font-medium
+            {currentView === 'advisor' ? 'bg-gray-200 text-gray-900' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'}"
+					>
+						<svg
+								class="mr-3 size-6 shrink-0
+                {currentView === 'advisor' ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500'}"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								aria-hidden="true"
+								data-slot="icon"
+						>
+							<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
+							/>
 						</svg>
 						AI Advisor
 					</a>
-					<a href="#" class="group flex items-center rounded-md px-2 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">
-						<svg class="mr-3 size-6 shrink-0 text-gray-400 group-hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-							<path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+
+					<!-- Recent Stats -->
+					<a
+							href="#"
+							on:click={() => setView("stats")}
+							class="group flex items-center rounded-md px-2 py-2 text-sm font-medium
+            {currentView === 'stats' ? 'bg-gray-200 text-gray-900' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'}"
+					>
+						<svg
+								class="mr-3 size-6 shrink-0
+                {currentView === 'stats' ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500'}"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								aria-hidden="true"
+								data-slot="icon"
+						>
+							<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+							/>
 						</svg>
 						Recent Stats
 					</a>
@@ -476,7 +547,7 @@
 				</dl>
 			</div>
 
-
+			{#if currentView == "dashboard"}
 			<div class="mt-2">
 				<div class="flex justify-between items-center px-4 sm:px-6">
 					<h2 class="text-xl font-medium text-gray-900">Spending History</h2>
@@ -616,6 +687,9 @@
 					</table>
 				</div>
 			</div>
+				{:else if currentView = "advisor"}
+					<Messages></Messages>
+				{/if}
 		</main>
 	</div>
 </div>
