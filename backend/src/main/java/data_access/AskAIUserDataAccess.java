@@ -27,6 +27,7 @@ public class AskAIUserDataAccess implements AskAIUserDataAccessInterface {
 //        headers.set("Authorization", "Bearer " + API_KEY);
         headers.set("Content-Type", "application/json");
 
+
         // Build the JSON request body using Jackson
         ObjectMapper objectMapper = new ObjectMapper();
         ObjectNode systemMessage = objectMapper.createObjectNode();
