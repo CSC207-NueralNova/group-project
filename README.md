@@ -76,7 +76,7 @@ December 6, 2024)
 
 ### What to Expect
 Since this project is for school, we will likely not respond to any requests 
-for new features at all or to any bug reports past the due date (December 2, 2024).
+for new features at all or to any bug reports past the due date (December 3, 2024).
 
 ## Contributions
 
