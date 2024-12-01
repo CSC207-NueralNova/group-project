@@ -1,18 +1,19 @@
 package use_case.enter_recurrent_income;
 
+import org.springframework.stereotype.Service;
+
 import entity.monthly_income.CommonMonthlyIncomeFactory;
 import entity.monthly_income.MonthlyIncome;
 import entity.monthly_income.MonthlyIncomeFactory;
-import org.springframework.stereotype.Service;
 
 /**
- * The Enter Recurrent Income interactor
+ * The Enter Recurrent Income interactor.
  */
 @Service
 public class EnterRecurrentIncomeInteractor implements EnterRecurrentIncomeInputBoundary {
+    private static final String DATE_TO_STORE_RECURRENT_INCOME = "0000";
     private final EnterRecurrentIncomeUserDataAccessInterface userDataAccessObject;
     private final MonthlyIncomeFactory monthlyIncomeFactory = new CommonMonthlyIncomeFactory();
-    private static final String DATE_TO_STORE_RECURRENT_INCOME = "0000";
 
     public EnterRecurrentIncomeInteractor(EnterRecurrentIncomeUserDataAccessInterface userDataAccessObject) {
         this.userDataAccessObject = userDataAccessObject;
@@ -20,25 +21,31 @@ public class EnterRecurrentIncomeInteractor implements EnterRecurrentIncomeInput
 
     @Override
     public EnterRecurrentIncomeOutputData execute(EnterRecurrentIncomeInputData enterRecurrentIncomeInputData) {
-        double value = enterRecurrentIncomeInputData.getValue();
-        String username = this.userDataAccessObject.getCurrentUsername();
-        MonthlyIncome recurrentIncome;
+        final double value = enterRecurrentIncomeInputData.getValue();
+        final String username = this.userDataAccessObject.getCurrentUsername();
+        final MonthlyIncome recurrentIncome;
+
+        final EnterRecurrentIncomeOutputData outputData;
 
         // Validate the income value
         if (!validIncomeValue(value)) {
-            return new EnterRecurrentIncomeOutputData(true);
+            outputData = new EnterRecurrentIncomeOutputData(true);
         }
+        else {
 
-        if (this.userDataAccessObject.existsMonthlyIncomeByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_INCOME)) {
-            recurrentIncome = this.userDataAccessObject.getMonthlyIncomeByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_INCOME);
-        } else {
-            recurrentIncome = this.monthlyIncomeFactory.create(DATE_TO_STORE_RECURRENT_INCOME);
+            if (this.userDataAccessObject.existsMonthlyIncomeByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_INCOME)) {
+                recurrentIncome = this.userDataAccessObject.getMonthlyIncomeByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_INCOME);
+            }
+            else {
+                recurrentIncome = this.monthlyIncomeFactory.create(DATE_TO_STORE_RECURRENT_INCOME);
+            }
+
+            recurrentIncome.addItem(value, DATE_TO_STORE_RECURRENT_INCOME);
+            this.userDataAccessObject.writeMonthlyIncome(username, recurrentIncome);
+
+            outputData = new EnterRecurrentIncomeOutputData(false);
         }
-
-        recurrentIncome.addItem(value, DATE_TO_STORE_RECURRENT_INCOME);
-        this.userDataAccessObject.writeMonthlyIncome(username, recurrentIncome);
-
-        return new EnterRecurrentIncomeOutputData(false);
+        return outputData;
     }
 
     /**
@@ -48,11 +55,15 @@ public class EnterRecurrentIncomeInteractor implements EnterRecurrentIncomeInput
      * @return Whether the value is valid.
      */
     static boolean validIncomeValue(double value) {
+        final boolean out;
         if (value <= 0) {
-            return false;
+            out = false;
         }
-        // Ensures there are no more than 2 decimal places.
-        String[] splitter = Double.toString(value).split("\\.");
-        return splitter[1].length() <= 2;
+        else {
+            // Ensures there are no more than 2 decimal places.
+            final String[] splitter = Double.toString(value).split("\\.");
+            out = splitter[1].length() <= 2;
+        }
+        return out;
     }
 }
