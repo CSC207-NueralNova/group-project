@@ -1,31 +1,33 @@
 package use_case.see_list;
 
-import entity.item_income.ItemIncome;
-import entity.item_spending.ItemSpending;
-import entity.monthly_spending.CommonMonthlySpendingFactory;
-import entity.monthly_spending.MonthlySpending;
-import entity.monthly_spending.MonthlySpendingFactory;
-
-import entity.monthly_income.CommonMonthlyIncomeFactory;
-import entity.monthly_income.MonthlyIncome;
-import entity.monthly_income.MonthlyIncomeFactory;
-import org.springframework.stereotype.Service;
-
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.stereotype.Service;
+
+import entity.item_income.ItemIncome;
+import entity.item_spending.ItemSpending;
+import entity.monthly_income.CommonMonthlyIncomeFactory;
+import entity.monthly_income.MonthlyIncome;
+import entity.monthly_income.MonthlyIncomeFactory;
+import entity.monthly_spending.CommonMonthlySpendingFactory;
+import entity.monthly_spending.MonthlySpending;
+import entity.monthly_spending.MonthlySpendingFactory;
 
 /**
  * The See List Interactor.
  */
 @Service
 public class SeeListInteractor implements SeeListInputBoundary {
+
+    private static final String VALUE = "value";
+    private static final String DATE = "date";
+    private static final String DATE_TO_STORE_RECURRENT_INCOME = "0000";
     private final SeeListUserDataAccessInterface userDataAccessObject;
     private final MonthlySpendingFactory monthlySpendingFactory = new CommonMonthlySpendingFactory();
     private final MonthlyIncomeFactory monthlyIncomeFactory = new CommonMonthlyIncomeFactory();
-    private static final String DATE_TO_STORE_RECURRENT_INCOME = "0000";
 
     public SeeListInteractor(SeeListUserDataAccessInterface userDataAccessInterface) {
         this.userDataAccessObject = userDataAccessInterface;
@@ -33,49 +35,53 @@ public class SeeListInteractor implements SeeListInputBoundary {
 
     @Override
     public SeeListOutputData execute(SeeListInputData seeListInputData) {
-        String username = seeListInputData.getUserId();
-        List<String> dates = seeListInputData.getDates();
+        final String username = seeListInputData.getUserId();
+        final List<String> dates = seeListInputData.getDates();
         System.out.println("Interactor Input: Username=" + username + ", Dates=" + dates);
 
-        List<Map<String, Object>> allSpending = new ArrayList<>();
-        List<Map<String, Object>> allIncome = new ArrayList<>();
+        final List<Map<String, Object>> allSpending = new ArrayList<>();
+        final List<Map<String, Object>> allIncome = new ArrayList<>();
 
         for (String date : dates) {
             System.out.println("Processing date: " + date);
 
             // Fetch spending for the date
             if (this.userDataAccessObject.existsMonthlySpendingByUsernameAndDate(username, date)) {
-                MonthlySpending monthlySpending = this.userDataAccessObject.getMonthlySpendingByUsernameAndDate(
-                        username, date);
+                final MonthlySpending monthlySpending = this.userDataAccessObject
+                        .getMonthlySpendingByUsernameAndDate(username, date);
                 for (ItemSpending item : monthlySpending.getSpending()) {
-                    Map<String, Object> spendingItem = new HashMap<>();
-                    spendingItem.put("value", item.getValue());
+                    final Map<String, Object> spendingItem = new HashMap<>();
+                    spendingItem.put(VALUE, item.getValue());
                     spendingItem.put("category", item.getCategory());
-                    spendingItem.put("date", date); // Optional: Include the date
+                    spendingItem.put(DATE, date);
                     allSpending.add(spendingItem);
                 }
             }
 
             // Fetch income for the date
             if (this.userDataAccessObject.existsMonthlyIncomeByUsernameAndDate(username, date)) {
-                MonthlyIncome monthlyIncome = this.userDataAccessObject.getMonthlyIncomeByUsernameAndDate(username, date);
+                final MonthlyIncome monthlyIncome = this.userDataAccessObject
+                        .getMonthlyIncomeByUsernameAndDate(username, date);
                 for (ItemIncome item : monthlyIncome.getItems()) {
-                    Map<String, Object> incomeItem = new HashMap<>();
-                    incomeItem.put("value", item.getValue());
-                    incomeItem.put("date", date); // Optional: Include the date
+                    final Map<String, Object> incomeItem = new HashMap<>();
+                    incomeItem.put(VALUE, item.getValue());
+                    // Optional: Include the date
+                    incomeItem.put(DATE, date);
                     allIncome.add(incomeItem);
                 }
             }
 
-
             // Fetch recurrent income from DATE_TO_STORE_RECURRENT_INCOME
-            if (this.userDataAccessObject.existsMonthlyIncomeByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_INCOME)) {
-                MonthlyIncome monthlyIncome = this.userDataAccessObject.getMonthlyIncomeByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_INCOME);
+            if (this.userDataAccessObject.existsMonthlyIncomeByUsernameAndDate(
+                    username, DATE_TO_STORE_RECURRENT_INCOME)) {
+                final MonthlyIncome monthlyIncome = this.userDataAccessObject
+                        .getMonthlyIncomeByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_INCOME);
                 for (ItemIncome item : monthlyIncome.getItems()) {
-                    Map<String, Object> incomeItem = new HashMap<>();
-                    incomeItem.put("value", item.getValue());
+                    final Map<String, Object> incomeItem = new HashMap<>();
+                    incomeItem.put(VALUE, item.getValue());
                     // This date is not the DATE_TO_STORE_RECURRENT_INCOME to visualize correctly on the front end.
-                    incomeItem.put("date", date); // Optional: Include the date
+                    // Optional: Include the date
+                    incomeItem.put(DATE, date);
                     allIncome.add(incomeItem);
                 }
             }
@@ -84,8 +90,8 @@ public class SeeListInteractor implements SeeListInputBoundary {
         System.out.println("Total spending: " + allSpending);
         System.out.println("Total income: " + allIncome);
 
-        return new SeeListOutputData(allSpending, allIncome); // Custom DTO to hold data
+        // Custom DTO to hold data
+        return new SeeListOutputData(allSpending, allIncome);
     }
-
 
 }
