@@ -11,6 +11,7 @@ import entity.monthly_income.MonthlyIncome;
 import entity.monthly_income.MonthlyIncomeFactory;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,7 @@ public class SeeListInteractor implements SeeListInputBoundary {
     private final SeeListUserDataAccessInterface userDataAccessObject;
     private final MonthlySpendingFactory monthlySpendingFactory = new CommonMonthlySpendingFactory();
     private final MonthlyIncomeFactory monthlyIncomeFactory = new CommonMonthlyIncomeFactory();
+    private static final String DATE_TO_STORE_RECURRENT_INCOME = "0000";
 
     public SeeListInteractor(SeeListUserDataAccessInterface userDataAccessInterface) {
         this.userDataAccessObject = userDataAccessInterface;
@@ -59,6 +61,19 @@ public class SeeListInteractor implements SeeListInputBoundary {
                 for (ItemIncome item : monthlyIncome.getItems()) {
                     Map<String, Object> incomeItem = new HashMap<>();
                     incomeItem.put("value", item.getValue());
+                    incomeItem.put("date", date); // Optional: Include the date
+                    allIncome.add(incomeItem);
+                }
+            }
+
+
+            // Fetch recurrent income from DATE_TO_STORE_RECURRENT_INCOME
+            if (this.userDataAccessObject.existsMonthlyIncomeByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_INCOME)) {
+                MonthlyIncome monthlyIncome = this.userDataAccessObject.getMonthlyIncomeByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_INCOME);
+                for (ItemIncome item : monthlyIncome.getItems()) {
+                    Map<String, Object> incomeItem = new HashMap<>();
+                    incomeItem.put("value", item.getValue());
+                    // This date is not the DATE_TO_STORE_RECURRENT_INCOME to visualize correctly on the front end.
                     incomeItem.put("date", date); // Optional: Include the date
                     allIncome.add(incomeItem);
                 }
