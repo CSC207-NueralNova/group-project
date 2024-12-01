@@ -8,7 +8,7 @@ import entity.monthly_spending.MonthlySpending;
 public interface EnterExpenseUserDataAccessInterface {
 
     /**
-     * Returns the username of the curren user of the application.
+     * Returns the username of the current user of the application.
      * @return the username of the current user; null indicates that no one is logged into the application.
      */
     String getCurrentUsername();
