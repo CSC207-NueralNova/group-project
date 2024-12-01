@@ -294,6 +294,10 @@
 		};
 		return categoryColors[category] || "#CCCCCC"; // Default color if category not found
 	}
+
+	$: spendingSummary = `
+		Here is your current financial summary: Total Income: $${totalIncome.toLocaleString()}Total Expenses: $${totalExpenses.toLocaleString()}Net Profit: $${netProfit.toLocaleString()} Top Spending Category: ${mostExpensiveCategory} ($${categorySpend.toLocaleString()})
+	`;
 </script>
 
 <div class="min-h-full">
@@ -688,7 +692,7 @@
 				</div>
 			</div>
 				{:else if currentView = "advisor"}
-					<Messages></Messages>
+					<Messages {spendingSummary}></Messages>
 				{/if}
 		</main>
 	</div>

@@ -2,6 +2,17 @@
 	// Import necessary stores and functions
 	import { writable } from 'svelte/store';
 	import { chatbotRequest } from '$lib/api';
+	import DOMPurify from "dompurify";
+	import {marked} from "marked";
+
+	export let spendingSummary
+	let loading = false
+
+	// Function to safely parse and sanitize the response
+	function formatResponse(response) {
+		const rawHTML = marked.parse(response); // Convert Markdown to HTML
+		return DOMPurify.sanitize(rawHTML); // Sanitize the HTML
+	}
 
 	// Advisor-related data
 	const avatars = {
@@ -63,8 +74,19 @@
 		isWaitingForResponse = true;
 
 		try {
-			const data = await chatbotRequest(selectedAdvisor, prompt);
+			const sanitizeInput = (input) => {
+				return input
+						.replace(/\\/g, "\\\\") // Escape backslashes
+						.replace(/\n/g, "\\n") // Escape newlines
+						.replace(/"/g, '\\"'); // Escape double quotes
+			};
 
+			const sanitizedPrompt = sanitizeInput(prompt);
+			const sanitizedSummary = sanitizeInput(spendingSummary);
+			loading = true
+			const data = await chatbotRequest(
+								selectedAdvisor,
+								`You are a ${selectedAdvisor}. Your role is to assist the user with personalized financial advice. The user's financial summary is as follows: ${sanitizedSummary} The user has the following question:"${sanitizedPrompt}"`);
 			// Simulate response delay
 			setTimeout(() => {
 				messages.update((msgs) => [
@@ -79,9 +101,11 @@
 				]);
 				isWaitingForResponse = false;
 			}, 1000);
+			loading = false
 		} catch (error) {
 			console.error("Error fetching chatbot response:", error);
 			isWaitingForResponse = false;
+			loading = false
 		}
 	}
 
@@ -221,9 +245,68 @@
 		background-color: #e5e7eb;
 	}
 
+	.advisor-name {
+		text-align: left;
+		font-weight: bold;
+	}
+
+	.message-row {
+		display: flex;
+		align-items: flex-start;
+		margin-bottom: 1rem;
+	}
+
+	.message-row img {
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		margin-right: 0.5rem;
+	}
+
+	.message-bubble {
+		display: inline-block;
+		max-width: 70%;
+		padding: 0.5rem 1rem;
+		border-radius: 10px;
+		margin-bottom: 0.5rem;
+		animation: fadeIn 0.5s ease forwards;
+	}
+
+	.ai-message {
+		background-color: #f9fafb;
+		color: #000;
+		align-self: flex-start;
+	}
+
+	.loading-spinner {
+		display: flex;
+		align-items: center;
+		background-color: #f9fafb;
+		color: #000;
+		padding: 0.5rem 1rem;
+		border-radius: 10px;
+	}
+
+	.animate-spin {
+		animation: spin 1s linear infinite;
+		margin-right: 0.5rem;
+	}
+
+	@keyframes spin {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+
 </style>
 
 <div class="dashboard-container">
+
+	<!-- Chat Messages -->
 	<!-- Chat Messages -->
 	<div class="chat-box-container">
 		{#if $messages.length === 0}
@@ -235,14 +318,47 @@
 			<!-- Messages -->
 			{#each $messages as message (message.timestamp)}
 				<div class="message-row {message.isAI ? '' : 'user'}">
+					<!-- Show advisor's name above AI messages -->
+
 					<img src={message.avatar} alt="{message.sender}" />
 					<div class="message-bubble {message.isAI ? 'ai-message' : 'user-message'}">
-						{message.text}
+						{@html message.isAI ? formatResponse(message.text) : message.text}
 					</div>
 				</div>
 			{/each}
+
+			<!-- Loading animation for inline response -->
+			{#if loading}
+				<div class="message-row">
+					<img src={avatars[selectedAdvisor]} alt="{selectedAdvisor}" />
+					<div class="loading-spinner ai-message">
+						<svg
+								class="animate-spin h-5 w-5 text-gray-500"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+						>
+							<circle
+									class="opacity-25"
+									cx="12"
+									cy="12"
+									r="10"
+									stroke="currentColor"
+									stroke-width="4"
+							></circle>
+							<path
+									class="opacity-75"
+									fill="currentColor"
+									d="M4 12a8 8 0 018-8v8H4z"
+							></path>
+						</svg>
+						<p class="text-gray-600">Thinking...</p>
+					</div>
+				</div>
+			{/if}
 		{/if}
 	</div>
+
 
 	<!-- Advisor Selector and Prompts -->
 	<div class="options-container">
