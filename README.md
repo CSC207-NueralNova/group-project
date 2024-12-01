@@ -26,7 +26,10 @@ You can view what you've logged as well as ask an AI assistant preset questions 
 ### [User Stories and Use Cases](#user-stories-and-use-cases)
 
 ## Installation Instructions
-No need to install anything, simply go to the website linked [here.](https://group-project-kappa.vercel.app/)
+Go to the website linked [here.](https://group-project-kappa.vercel.app/)
+Formatted for desktop and mobile.
+
+
 
 ## Usage
 First, go to the [website](https://group-project-kappa.vercel.app) and click Get Started.
