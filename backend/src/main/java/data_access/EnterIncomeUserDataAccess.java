@@ -4,6 +4,7 @@ import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.FieldValue;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.SetOptions;
+import entity.monthly_income.CommonMonthlyIncome;
 import entity.monthly_income.MonthlyIncome;
 import entity.item_income.ItemIncome;
 import entity.monthly_income.MonthlyIncomeFactory;
@@ -58,7 +59,9 @@ public class EnterIncomeUserDataAccess implements EnterIncomeUserDataAccessInter
                     .get();
 
             if (document.exists()) {
-                return document.toObject(MonthlyIncome.class);
+                CommonMonthlyIncome monthlyIncome = document.toObject(CommonMonthlyIncome.class);
+                monthlyIncome.setDate(date);
+                return monthlyIncome;
             } else {
                 return monthlyIncomeFactory.create(date); // Use factory to create a default instance
             }
