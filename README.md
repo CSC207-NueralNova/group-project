@@ -18,12 +18,12 @@ You can view what you've logged as well as ask an AI assistant preset questions 
 
 ## Table of Contents
 
-### [Installation Instructions](#installation-instructions)
-### [Usage](#usage)
-### [License](#license)
-### [Feedback](#feedback)
-### [Contributions](#contributions)
-### [User Stories and Use Cases](#user-stories-and-use-cases)
+* [Installation Instructions](#installation-instructions)
+* [Usage](#usage)
+* [License](#license)
+* [Feedback](#feedback)
+* [Contributions](#contributions)
+* [User Stories and Use Cases](#user-stories-and-use-cases)
 
 ## Installation Instructions
 No need to install anything, simply go to the website linked [here.](https://group-project-kappa.vercel.app/)
