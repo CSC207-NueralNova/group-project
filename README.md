@@ -1,4 +1,4 @@
-# Project SpendSmart
+# **Project SpendSmart**
 
 ## Project members:
 
