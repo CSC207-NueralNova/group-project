@@ -1,18 +1,19 @@
 package use_case.enter_recurrent_expense;
 
+import org.springframework.stereotype.Service;
+
 import entity.monthly_spending.CommonMonthlySpendingFactory;
 import entity.monthly_spending.MonthlySpending;
 import entity.monthly_spending.MonthlySpendingFactory;
-import org.springframework.stereotype.Service;
 
 /**
- * The Enter Recurrent Expense Interactor
+ * The Enter Recurrent Expense Interactor.
  */
 @Service
 public class EnterRecurrentExpenseInteractor implements EnterRecurrentExpenseInputBoundary {
+    private static final String DATE_TO_STORE_RECURRENT_EXPENSE = "0000";
     private final EnterRecurrentExpenseUserDataAccessInterface userDataAccessObject;
     private final MonthlySpendingFactory monthlySpendingFactory = new CommonMonthlySpendingFactory();
-    private static final String DATE_TO_STORE_RECURRENT_EXPENSE = "0000";
 
     public EnterRecurrentExpenseInteractor(EnterRecurrentExpenseUserDataAccessInterface userDataAccessObject) {
         this.userDataAccessObject = userDataAccessObject;
@@ -20,20 +21,23 @@ public class EnterRecurrentExpenseInteractor implements EnterRecurrentExpenseInp
 
     @Override
     public EnterRecurrentExpenseOutputData execute(EnterRecurrentExpenseInputData enterRecurrentExpenseInputData) {
-        double value = enterRecurrentExpenseInputData.getValue();
-        String category = enterRecurrentExpenseInputData.getCategory();
-        String username = this.userDataAccessObject.getCurrentUsername();
-        MonthlySpending recurrentExpense;
+        final double value = enterRecurrentExpenseInputData.getValue();
+        final String category = enterRecurrentExpenseInputData.getCategory();
+        final String username = this.userDataAccessObject.getCurrentUsername();
+        final MonthlySpending recurrentExpense;
 
         // Validate the expense value
         if (!validExpenseValue(value)) {
-            return new EnterRecurrentExpenseOutputData(true,
-                    value + " is not a valid value for an expense, please enter a positive value with up to two decimal points.");
+            return new EnterRecurrentExpenseOutputData(true, value + " is not a valid value for "
+                    + "an expense, please enter a positive value with up to two decimal points.");
         }
 
-        if (this.userDataAccessObject.existsMonthlySpendingByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_EXPENSE)) {
-            recurrentExpense = this.userDataAccessObject.getMonthlySpendingByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_EXPENSE);
-        } else {
+        if (this.userDataAccessObject.existsMonthlySpendingByUsernameAndDate(username,
+                                                                                DATE_TO_STORE_RECURRENT_EXPENSE)) {
+            recurrentExpense = this.userDataAccessObject.getMonthlySpendingByUsernameAndDate(username,
+                                                                                    DATE_TO_STORE_RECURRENT_EXPENSE);
+        }
+        else {
             recurrentExpense = this.monthlySpendingFactory.create(DATE_TO_STORE_RECURRENT_EXPENSE);
         }
 
@@ -43,7 +47,6 @@ public class EnterRecurrentExpenseInteractor implements EnterRecurrentExpenseInp
         // Return success message
         return new EnterRecurrentExpenseOutputData(false, "Expense added successfully!");
     }
-
 
     /**
      * Returns whether the expense value is valid.
@@ -56,7 +59,7 @@ public class EnterRecurrentExpenseInteractor implements EnterRecurrentExpenseInp
             return false;
         }
         // Ensures there are no more than 2 decimal places.
-        String[] splitter = Double.toString(value).split("\\.");
+        final String[] splitter = Double.toString(value).split("\\.");
         return splitter[1].length() <= 2;
     }
 }
