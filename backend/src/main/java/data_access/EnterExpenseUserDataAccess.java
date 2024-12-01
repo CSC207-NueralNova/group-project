@@ -1,16 +1,14 @@
 package data_access;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.*;
 import entity.item_spending.ItemSpending;
 import entity.monthly_spending.CommonMonthlySpending;
 import entity.monthly_spending.MonthlySpending;
 import entity.monthly_spending.MonthlySpendingFactory;
 import org.springframework.stereotype.Component;
 import use_case.enter_expense.EnterExpenseUserDataAccessInterface;
-import com.google.cloud.firestore.FieldValue;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,7 +89,7 @@ public class EnterExpenseUserDataAccess implements EnterExpenseUserDataAccessInt
                         .document(username)
                         .collection("monthlySpending")
                         .document(monthlySpending.getDate())
-                        .update("spending", FieldValue.arrayUnion(itemData));
+                        .set(Map.of("spending", FieldValue.arrayUnion(itemData)), SetOptions.merge());
             }
             System.out.println("Successfully appended new items to Firestore.");
         } catch (Exception e) {
