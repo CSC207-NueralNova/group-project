@@ -9,12 +9,8 @@ import org.springframework.stereotype.Service;
 
 import entity.item_income.ItemIncome;
 import entity.item_spending.ItemSpending;
-import entity.monthly_income.CommonMonthlyIncomeFactory;
 import entity.monthly_income.MonthlyIncome;
-import entity.monthly_income.MonthlyIncomeFactory;
-import entity.monthly_spending.CommonMonthlySpendingFactory;
 import entity.monthly_spending.MonthlySpending;
-import entity.monthly_spending.MonthlySpendingFactory;
 
 /**
  * The See List Interactor.
@@ -26,8 +22,6 @@ public class SeeListInteractor implements SeeListInputBoundary {
     private static final String DATE = "date";
     private static final String DATE_TO_STORE_RECURRENT_INCOME = "0000";
     private final SeeListUserDataAccessInterface userDataAccessObject;
-    private final MonthlySpendingFactory monthlySpendingFactory = new CommonMonthlySpendingFactory();
-    private final MonthlyIncomeFactory monthlyIncomeFactory = new CommonMonthlyIncomeFactory();
 
     public SeeListInteractor(SeeListUserDataAccessInterface userDataAccessInterface) {
         this.userDataAccessObject = userDataAccessInterface;
@@ -53,6 +47,7 @@ public class SeeListInteractor implements SeeListInputBoundary {
                     final Map<String, Object> spendingItem = new HashMap<>();
                     spendingItem.put(VALUE, item.getValue());
                     spendingItem.put("category", item.getCategory());
+                    // Optional: Include the date
                     spendingItem.put(DATE, date);
                     allSpending.add(spendingItem);
                 }
