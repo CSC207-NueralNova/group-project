@@ -1,9 +1,7 @@
 package data_access;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.*;
 import entity.item_spending.ItemSpending;
 import entity.monthly_spending.CommonMonthlySpending;
 import entity.monthly_spending.MonthlySpending;
@@ -12,6 +10,7 @@ import org.springframework.stereotype.Component;
 import use_case.enter_expense.EnterExpenseUserDataAccessInterface;
 import com.google.cloud.firestore.FieldValue;
 import use_case.enter_recurrent_expense.EnterRecurrentExpenseUserDataAccessInterface;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,7 +64,9 @@ public class EnterExpenseUserDataAccess implements EnterExpenseUserDataAccessInt
 
             if (document.exists()) {
                 // Assuming you have a DTO to map Firebase document fields to MonthlySpending
-                return document.toObject(CommonMonthlySpending.class);
+                CommonMonthlySpending monthlySpending = document.toObject(CommonMonthlySpending.class);
+                monthlySpending.setDate(date);
+                return monthlySpending;
             } else {
                 // If no document exists, create a new instance using the factory
                 return monthlySpendingFactory.create(date);
@@ -79,6 +80,8 @@ public class EnterExpenseUserDataAccess implements EnterExpenseUserDataAccessInt
     @Override
     public void writeMonthlySpending(String username, MonthlySpending monthlySpending) {
         try {
+            System.out.println("Trying to add monthly spending dated " + monthlySpending.getDate() + " with items "
+                    + monthlySpending.getSpending() + " to user " + username);
             for (ItemSpending newItem : monthlySpending.getSpending()) {
                 // Convert the new item to a Map
                 Map<String, Object> itemData = new HashMap<>();
@@ -90,7 +93,7 @@ public class EnterExpenseUserDataAccess implements EnterExpenseUserDataAccessInt
                         .document(username)
                         .collection("monthlySpending")
                         .document(monthlySpending.getDate())
-                        .update("spending", FieldValue.arrayUnion(itemData));
+                        .set(Map.of("spending", FieldValue.arrayUnion(itemData)), SetOptions.merge());
             }
             System.out.println("Successfully appended new items to Firestore.");
         } catch (Exception e) {

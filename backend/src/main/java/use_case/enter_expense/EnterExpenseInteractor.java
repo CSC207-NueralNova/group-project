@@ -49,6 +49,8 @@ public class EnterExpenseInteractor implements EnterExpenseInputBoundary {
         }
 
         monthlySpending.addItem(value, category);
+        System.out.println("Interactor: trying to add monthly expense dated " + monthlySpending.getDate() +
+                " with items " + monthlySpending.getSpending() + " to user " + uid);
         this.userDataAccessObject.writeMonthlySpending(uid, monthlySpending);
 
         // Return success message
