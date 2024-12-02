@@ -47,7 +47,7 @@ export async function saveIncomeToBackend(income) {
 
 export async function saveRecurrentIncomeToBackend(income) {
 	try {
-		const response = await fetch(`${apiUrl}/api/enter_income/enter`, {
+		const response = await fetch(`${apiUrl}/api/enter_recurrent_income/enter`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ export async function saveRecurrentIncomeToBackend(income) {
 		});
 
 		if (!response.ok) {
-			throw new Error(`Failed to save income: ${response.statusText}`);
+			throw new Error(`Failed to save recurrent income: ${response.statusText}`);
 		}
 
 		const data = await response.json();
@@ -94,7 +94,7 @@ export async function saveExpenseToBackend(expense) {
 export async function saveRecurrentExpenseToBackend(expense) {
 	try {
 		console.log('Payload being sent to backend:', expense); // Log payload
-		const response = await fetch(`${apiUrl}/api/enter_expense/enter`, {
+		const response = await fetch(`${apiUrl}/api/enter_recurrent_expense/enter`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ export async function saveRecurrentExpenseToBackend(expense) {
 		});
 
 		if (!response.ok) {
-			throw new Error(`Failed to save expense: ${response.statusText}`);
+			throw new Error(`Failed to save recurrent expense: ${response.statusText}`);
 		}
 
 		const data = await response.json();
