@@ -21,6 +21,13 @@ public class EnterRecurrentIncomeController {
     // Endpoint to handle enter recurrent income request
     @PostMapping("/enter")
     public EnterRecurrentIncomeOutputData handleEnterIncomeRequest(@RequestBody EnterRecurrentIncomeInputData inputData) {
+        String userId = inputData.getUserId(); // Extract the userId
+        String date = inputData.getDate();
+        double value = inputData.getValue();
+
+        // Log for debugging
+        System.out.println();
+        System.out.println("Trying to save recIncome for UserId: " + userId + ", Date: " + date + ", Value: " + value);
         return enterIncomeInteractor.execute(inputData);
     }
 }
