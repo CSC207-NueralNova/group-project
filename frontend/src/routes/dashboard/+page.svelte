@@ -35,7 +35,6 @@
 	const closeExpenseModal = () => {
 		isExpenseModalOpen = false;
 	};
-
 	const saveIncome = async (income) => {
 		try {
 			const user = auth.currentUser;
@@ -51,8 +50,15 @@
 
 			console.log("Sending income payload:", payload);
 
-			const response = await saveIncomeToBackend(payload);
-			console.log("Income saved successfully. Backend response:", response);
+			// Check if the income is recurrent and call the appropriate method
+			let response;
+			if (income.isRecurrent) {
+				response = await saveRecurrentIncomeToBackend(payload);
+				console.log("Recurrent income saved successfully. Backend response:", response);
+			} else {
+				response = await saveIncomeToBackend(payload);
+				console.log("Income saved successfully. Backend response:", response);
+			}
 
 			closeIncomeModal();
 
@@ -61,8 +67,7 @@
 			const updatedData = await fetchUserData(user.uid, dates);
 			transactions = transformDataToTransactions(updatedData.income, updatedData.spending);
 
-			let new_income;
-			new_income = updatedData.income;
+			let new_income = updatedData.income;
 
 			console.log("Updated income:", new_income);
 		} catch (error) {
@@ -70,6 +75,7 @@
 			alert("Failed to save income. Please try again.");
 		}
 	};
+
 
 	const saveExpense = async (expense) => {
 		try {
@@ -86,8 +92,15 @@
 
 			console.log("Sending expense payload:", payload);
 
-			const response = await saveExpenseToBackend(payload);
-			console.log("Expense saved successfully. Backend response:", response);
+			// Check if the expense is recurrent and call the appropriate method
+			let response;
+			if (expense.isRecurrent) {
+				response = await saveRecurrentExpenseToBackend(payload);
+				console.log("Recurrent expense saved successfully. Backend response:", response);
+			} else {
+				response = await saveExpenseToBackend(payload);
+				console.log("Expense saved successfully. Backend response:", response);
+			}
 
 			closeExpenseModal();
 
@@ -96,10 +109,7 @@
 			const updatedData = await fetchUserData(user.uid, dates);
 			transactions = transformDataToTransactions(updatedData.income, updatedData.spending);
 
-
-			let spending;
-			spending = updatedData.spending; // Update spending and income
-
+			let spending = updatedData.spending; // Update spending and income
 			console.log("Updated spending:", spending);
 		} catch (error) {
 			console.error("Failed to save expense:", error);
