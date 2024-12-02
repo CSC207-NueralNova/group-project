@@ -84,7 +84,7 @@ public class SeeListInteractor implements SeeListInputBoundary {
             // Fetch recurrent income from DATE_TO_STORE_RECURRENT_INCOME
             if (this.userDataAccessObject.existsMonthlyIncomeByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_INCOME)) {
                 MonthlyIncome monthlyIncome = this.userDataAccessObject.getMonthlyIncomeByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_INCOME);
-                for (ItemIncome item : monthlyIncome.getItems()) {
+                for (ItemIncome item : monthlyIncome.getIncome()) {
                     Map<String, Object> incomeItem = new HashMap<>();
                     incomeItem.put("value", item.getValue());
                     // This date is not the DATE_TO_STORE_RECURRENT_INCOME to visualize correctly on the front end.
