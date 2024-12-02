@@ -72,7 +72,7 @@ public class SeeListInteractor implements SeeListInputBoundary {
             // Fetch income for the date
             if (this.userDataAccessObject.existsMonthlyIncomeByUsernameAndDate(username, date)) {
                 MonthlyIncome monthlyIncome = this.userDataAccessObject.getMonthlyIncomeByUsernameAndDate(username, date);
-                for (ItemIncome item : monthlyIncome.getItems()) {
+                for (ItemIncome item : monthlyIncome.getIncome()) {
                     Map<String, Object> incomeItem = new HashMap<>();
                     incomeItem.put("value", item.getValue());
                     incomeItem.put("date", date); // Optional: Include the date
