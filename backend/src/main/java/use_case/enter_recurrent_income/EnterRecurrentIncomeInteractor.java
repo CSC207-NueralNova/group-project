@@ -21,7 +21,7 @@ public class EnterRecurrentIncomeInteractor implements EnterRecurrentIncomeInput
     @Override
     public EnterRecurrentIncomeOutputData execute(EnterRecurrentIncomeInputData enterRecurrentIncomeInputData) {
         double value = enterRecurrentIncomeInputData.getValue();
-        String username = this.userDataAccessObject.getCurrentUsername();
+        String username = enterRecurrentIncomeInputData.getUserId();
         MonthlyIncome recurrentIncome;
 
         // Validate the income value

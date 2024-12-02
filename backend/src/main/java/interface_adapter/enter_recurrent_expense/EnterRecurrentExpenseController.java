@@ -27,6 +27,7 @@ public class EnterRecurrentExpenseController {
         String category = inputData.getCategory();
 
         // Log for debugging
+        System.out.println();
         System.out.println("Trying to save recExp for UserId: " + userId + ", Date: " + date + ", Value: " + value + ", Category: " + category);
 
         return enterRecurrentExpenseInteractor.execute(inputData);

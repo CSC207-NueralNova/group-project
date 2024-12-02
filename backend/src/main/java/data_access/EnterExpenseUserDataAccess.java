@@ -79,6 +79,12 @@ public class EnterExpenseUserDataAccess implements EnterExpenseUserDataAccessInt
 
     @Override
     public void writeMonthlySpending(String username, MonthlySpending monthlySpending) {
+        if (monthlySpending.getDate() == null) {
+            throw new RuntimeException("monthlySpending.getDate() is null");
+        }
+        if (username == null) {
+            throw new RuntimeException("username is null");
+        }
         try {
             System.out.println("Trying to add monthly spending dated " + monthlySpending.getDate() + " with items "
                     + monthlySpending.getSpending() + " to user " + username);

@@ -23,7 +23,7 @@ public class EnterRecurrentExpenseInteractor implements EnterRecurrentExpenseInp
     public EnterRecurrentExpenseOutputData execute(EnterRecurrentExpenseInputData enterRecurrentExpenseInputData) {
         final double value = enterRecurrentExpenseInputData.getValue();
         final String category = enterRecurrentExpenseInputData.getCategory();
-        final String username = this.userDataAccessObject.getCurrentUsername();
+        final String username = enterRecurrentExpenseInputData.getUserId();
         final MonthlySpending recurrentExpense;
 
         // Validate the expense value

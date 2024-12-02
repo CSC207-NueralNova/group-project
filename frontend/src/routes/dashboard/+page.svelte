@@ -2,7 +2,7 @@
 	import { auth } from "$lib/firebase.js";
 	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
-	import { saveIncomeToBackend, saveExpenseToBackend } from '$lib/api.js';
+	import { saveIncomeToBackend, saveExpenseToBackend, saveRecurrentIncomeToBackend, saveRecurrentExpenseToBackend} from '$lib/api.js';
 	import { fetchUserData } from "$lib/firestore.js"; // Import from firestore.js
 	import Modal from '$lib/components/Modal.svelte';
 	import { transformDataToTransactions} from "$lib/transactionHelper.js";
