@@ -9,6 +9,6 @@ public class AskAIPresenter implements AskAIOutputBoundary {
     @Override
     public void presentAIResponse(AskAIOutputData outputData) {
         // Implement your response handling logic here, e.g., logging or processing the output
-        System.out.println("AI Response: " + outputData.getAdvice());
+        System.out.println("AI Response: " + outputData.getResponse());
     }
 }
