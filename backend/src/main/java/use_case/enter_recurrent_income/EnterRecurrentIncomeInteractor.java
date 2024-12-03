@@ -22,7 +22,7 @@ public class EnterRecurrentIncomeInteractor implements EnterRecurrentIncomeInput
     @Override
     public EnterRecurrentIncomeOutputData execute(EnterRecurrentIncomeInputData enterRecurrentIncomeInputData) {
         final double value = enterRecurrentIncomeInputData.getValue();
-        final String username = this.userDataAccessObject.getCurrentUsername();
+        final String username = enterRecurrentIncomeInputData.getUserId();
         final MonthlyIncome recurrentIncome;
 
         final EnterRecurrentIncomeOutputData outputData;
