@@ -25,6 +25,7 @@ public class SeeListInteractor implements SeeListInputBoundary {
     private final SeeListUserDataAccessInterface userDataAccessObject;
     private final MonthlySpendingFactory monthlySpendingFactory = new CommonMonthlySpendingFactory();
     private final MonthlyIncomeFactory monthlyIncomeFactory = new CommonMonthlyIncomeFactory();
+    private static final String DATE_TO_STORE_RECURRENT_EXPENSE = "0000";
     private static final String DATE_TO_STORE_RECURRENT_INCOME = "0000";
 
     public SeeListInteractor(SeeListUserDataAccessInterface userDataAccessInterface) {
@@ -55,10 +56,23 @@ public class SeeListInteractor implements SeeListInputBoundary {
                 }
             }
 
+            // Fetch recurrent expense from DATE_TO_STORE_RECURRENT_EXPENSE
+            if (this.userDataAccessObject.existsMonthlySpendingByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_EXPENSE)) {
+                MonthlySpending monthlySpending = this.userDataAccessObject
+                        .getMonthlySpendingByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_EXPENSE);
+                for (ItemSpending item : monthlySpending.getSpending()) {
+                    Map<String, Object> spendingItem = new HashMap<>();
+                    spendingItem.put("value", item.getValue());
+                    spendingItem.put("category", item.getCategory());
+                    spendingItem.put("date", date); // Optional: Include the date
+                    allSpending.add(spendingItem);
+                }
+            }
+
             // Fetch income for the date
             if (this.userDataAccessObject.existsMonthlyIncomeByUsernameAndDate(username, date)) {
                 MonthlyIncome monthlyIncome = this.userDataAccessObject.getMonthlyIncomeByUsernameAndDate(username, date);
-                for (ItemIncome item : monthlyIncome.getItems()) {
+                for (ItemIncome item : monthlyIncome.getIncome()) {
                     Map<String, Object> incomeItem = new HashMap<>();
                     incomeItem.put("value", item.getValue());
                     incomeItem.put("date", date); // Optional: Include the date
@@ -70,7 +84,7 @@ public class SeeListInteractor implements SeeListInputBoundary {
             // Fetch recurrent income from DATE_TO_STORE_RECURRENT_INCOME
             if (this.userDataAccessObject.existsMonthlyIncomeByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_INCOME)) {
                 MonthlyIncome monthlyIncome = this.userDataAccessObject.getMonthlyIncomeByUsernameAndDate(username, DATE_TO_STORE_RECURRENT_INCOME);
-                for (ItemIncome item : monthlyIncome.getItems()) {
+                for (ItemIncome item : monthlyIncome.getIncome()) {
                     Map<String, Object> incomeItem = new HashMap<>();
                     incomeItem.put("value", item.getValue());
                     // This date is not the DATE_TO_STORE_RECURRENT_INCOME to visualize correctly on the front end.

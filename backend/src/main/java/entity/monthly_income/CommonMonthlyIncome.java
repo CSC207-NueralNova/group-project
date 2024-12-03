@@ -5,7 +5,6 @@ import java.util.List;
 
 import entity.item_income.CommonItemIncome;
 import entity.item_income.CommonItemIncomeFactory;
-import entity.item_income.ItemIncome;
 import entity.item_income.ItemIncomeFactory;
 
 /**
@@ -19,7 +18,7 @@ public class CommonMonthlyIncome implements MonthlyIncome {
 
     // No-argument constructor for Firestore
     public CommonMonthlyIncome() {
-        this.items = new ArrayList<>();
+        this.setItems(new ArrayList<>());
         this.itemFactory = new CommonItemIncomeFactory();
     }
 
@@ -34,15 +33,27 @@ public class CommonMonthlyIncome implements MonthlyIncome {
         return this.date;
     }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     @Override
-    public List<CommonItemIncome> getItems() {
-        return new ArrayList<>(this.items);
+    public List<CommonItemIncome> getIncome() {
+        return new ArrayList<>(this.getItems());
+    }
+
+    public void setItems(List<CommonItemIncome> income) {
+        this.items = income;
     }
 
     public void addItem(double value, String date) {
         if (this.itemFactory == null) {
             this.itemFactory = new CommonItemIncomeFactory();
         }
-        this.items.add(new CommonItemIncome(value, date));
+        this.getItems().add(new CommonItemIncome(value, date));
+    }
+
+    public List<CommonItemIncome> getItems() {
+        return items;
     }
 }

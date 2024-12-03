@@ -28,8 +28,7 @@ import use_case.signup.SignupUserDataAccessInterface;
 public class DBUserDataAccessObject implements SignupUserDataAccessInterface,
         LoginUserDataAccessInterface,
         ChangePasswordUserDataAccessInterface,
-        LogoutUserDataAccessInterface,
-        AskAIUserDataAccessInterface {
+        LogoutUserDataAccessInterface {
     private static final int SUCCESS_CODE = 200;
     private static final String CONTENT_TYPE_LABEL = "Content-Type";
     private static final String CONTENT_TYPE_JSON = "application/json";
@@ -170,7 +169,6 @@ public class DBUserDataAccessObject implements SignupUserDataAccessInterface,
         return null;
     }
 
-    @Override
     public User findUserByUsername(String username) {
         return null;
     }
