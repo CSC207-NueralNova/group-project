@@ -186,7 +186,7 @@ Use Cases:
 
 ### Annie's Story
 
-As a person with both a full-time and a part-time jobs, I want to be able to track the incomes separately such that I would have a better understanding if the part-time job is worth my time.
+As a person with a salary I would like it to appear in each month so that I don’t spend time inputting it every time.
 
 Use cases:
 1. Signin
