@@ -11,7 +11,7 @@ import entity.monthly_income.MonthlyIncomeFactory;
  */
 @Service
 public class EnterRecurrentIncomeInteractor implements EnterRecurrentIncomeInputBoundary {
-    private static final String DATE_TO_STORE_RECURRENT_INCOME = "0000";
+    static final String DATE_TO_STORE_RECURRENT_INCOME = "0000";
     private final EnterRecurrentIncomeUserDataAccessInterface userDataAccessObject;
     private final MonthlyIncomeFactory monthlyIncomeFactory = new CommonMonthlyIncomeFactory();
 
