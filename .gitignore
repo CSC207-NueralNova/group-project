@@ -5,6 +5,7 @@ out/
 .idea/easycode.ignore
 /.idea/
 /*.iml
+/backend/*.iml
 
 target/
 
