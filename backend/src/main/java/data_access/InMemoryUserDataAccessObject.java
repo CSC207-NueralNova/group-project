@@ -10,6 +10,7 @@ import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.enter_expense.EnterExpenseUserDataAccessInterface;
 import use_case.enter_income.EnterIncomeUserDataAccessInterface;
 import use_case.enter_recurrent_expense.EnterRecurrentExpenseUserDataAccessInterface;
+import use_case.enter_recurrent_income.EnterRecurrentIncomeUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
@@ -24,12 +25,12 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         LogoutUserDataAccessInterface,
         EnterExpenseUserDataAccessInterface,
         EnterRecurrentExpenseUserDataAccessInterface,
-        EnterIncomeUserDataAccessInterface {
+        EnterIncomeUserDataAccessInterface,
+        EnterRecurrentIncomeUserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
     private final Map<String, Map<String, MonthlySpending>> monthlySpendings = new HashMap<>();
     private final Map<String, Map<String, MonthlyIncome>> monthlyIncome = new HashMap<>();
-
 
     private String currentUsername;
 
