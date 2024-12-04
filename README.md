@@ -31,6 +31,31 @@ No need to install anything, simply go to the website linked [here.](https://gro
 ## Usage
 First, go to the [website](https://group-project-kappa.vercel.app) and click Get Started.
 
+### Alternative route - run locally.
+
+If the website is down or not working properly, feel free to run the following commands to set up a local version of 
+the project:
+
+1. Set up the maven back end:
+
+```bash
+cd backend
+mvn clean install
+mvn spring-boot:run
+```
+
+2. In another terminal instance run the front end:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+3. Go to the website instance and use the app
+
+Go to http://localhost:5173/
+
 ### Sign up
 Make a new account by entering your email and password.
 
@@ -186,7 +211,7 @@ Use Cases:
 
 ### Annie's Story
 
-As a person with both a full-time and a part-time jobs, I want to be able to track the incomes separately such that I would have a better understanding if the part-time job is worth my time.
+As a person with a salary I would like it to appear in each month so that I don’t spend time inputting it every time.
 
 Use cases:
 1. Signin

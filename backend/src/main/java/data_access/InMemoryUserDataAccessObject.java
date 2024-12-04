@@ -9,6 +9,7 @@ import entity.user.User;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.enter_expense.EnterExpenseUserDataAccessInterface;
 import use_case.enter_income.EnterIncomeUserDataAccessInterface;
+import use_case.enter_recurrent_expense.EnterRecurrentExpenseUserDataAccessInterface;
 import use_case.enter_recurrent_income.EnterRecurrentIncomeUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
@@ -23,6 +24,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         ChangePasswordUserDataAccessInterface,
         LogoutUserDataAccessInterface,
         EnterExpenseUserDataAccessInterface,
+        EnterRecurrentExpenseUserDataAccessInterface,
         EnterIncomeUserDataAccessInterface,
         EnterRecurrentIncomeUserDataAccessInterface {
 
