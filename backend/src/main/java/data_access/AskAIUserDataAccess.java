@@ -18,14 +18,14 @@ import java.util.List;
 public class AskAIUserDataAccess implements AskAIUserDataAccessInterface {
 
     private static final String OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
-    private static final String API_KEY = "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";
+    // API key omitted for production version
 
     @Override
     public String getResponseFromAI(String inputMessage) {
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer " + API_KEY);
+//        headers.set("Authorization", "Bearer " + API_KEY);
         headers.set("Content-Type", "application/json");
 
         // Build the JSON request body using Jackson
