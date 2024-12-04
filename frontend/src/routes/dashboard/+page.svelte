@@ -35,6 +35,16 @@
 	const closeExpenseModal = () => {
 		isExpenseModalOpen = false;
 	};
+
+	let showNotification = false;
+
+	function showSuccessMessage() {
+		showNotification = true;
+		setTimeout(() => {
+			showNotification = false;
+		}, 3000); // Hide notification after 3 seconds
+	}
+
 	const saveIncome = async (income) => {
 		try {
 			const user = auth.currentUser;
@@ -281,7 +291,7 @@
 		const months = [];
 		const now = new Date();
 
-		for (let i = 0; i < 3; i++) {
+		for (let i = 0; i < 1; i++) {
 			const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
 			const mm = String(date.getMonth() + 1).padStart(2, "0");
 			const yy = String(date.getFullYear()).slice(-2);
@@ -701,9 +711,14 @@
 					</table>
 				</div>
 			</div>
-				{:else if currentView = "advisor"}
-					<Messages {spendingSummary}></Messages>
-				{/if}
+
+			{:else if currentView = "advisor"}
+				<Messages {spendingSummary}></Messages>
+			{:else if currentView = "stats"}
+
+				<p> stats</p>
+
+			{/if}
 		</main>
 	</div>
 </div>
