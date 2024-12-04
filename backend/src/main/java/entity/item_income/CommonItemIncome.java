@@ -1,15 +1,18 @@
 package entity.item_income;
 
 /**
- * A simple implementation of the ItemIncome interface
+ * A simple implementation of the ItemIncome interface.
  */
 public class CommonItemIncome implements ItemIncome {
 
-    private double value; // Remove final for Firestore compatibility
+    // Remove final for Firestore compatibility
+    private double value;
     private String date;
 
     // No-argument constructor for Firestore
-    public CommonItemIncome() {}
+    public CommonItemIncome() {
+
+    }
 
     // Constructor for manual instantiation
     public CommonItemIncome(double value, String date) {
