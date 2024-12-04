@@ -48,6 +48,39 @@ class EnterIncomeInteractorTest {
     }
 
     @Test
+    void failTest() {
+        EnterIncomeInputData inputData = new EnterIncomeInputData("name", "1324", -10.1);
+        InMemoryUserDataAccessObject userRepository = new InMemoryUserDataAccessObject();
+
+        // For the success test, we need to add Paul to the data access repository before we log in.
+        UserFactory factory = new CommonUserFactory();
+        User user = factory.create("Paul", "password");
+        userRepository.save(user);
+        // userRepository.setCurrentUsername("Paul");
+
+
+
+        // This creates a successPresenter that tests whether the test case is as we expect.
+        EnterIncomeOutputBoundary failPresenter = new EnterIncomeOutputBoundary() {
+            @Override
+            public void prepareFailView(String error) {
+                assertFalse(userRepository.existsMonthlyIncomeByUsernameAndDate("Paul", "1124"));
+                MonthlyIncome monthlyIncome = userRepository.getMonthlyIncomeByUsernameAndDate("Paul", "1124");
+                assertEquals(1, monthlyIncome.getIncome().size());
+                assertEquals(10.01, monthlyIncome.getIncome().get(0).getValue());
+            }
+
+            @Override
+            public void prepareSuccessView(EnterIncomeOutputData outputData) {
+                fail("Use case failure is unexpected.");
+            }
+        };
+
+        EnterIncomeInputBoundary interactor = new EnterIncomeInteractor(userRepository, failPresenter);
+        interactor.execute(inputData);
+    }
+
+    @Test
     void validIncomeDateTest() {
         assertTrue(EnterIncomeInteractor.validIncomeDate("1124"));
         assertTrue(EnterIncomeInteractor.validIncomeDate("0100"));
